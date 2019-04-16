@@ -14,8 +14,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { CreateComponent } from "./components/create/create.component";
-import { environment } from "src/environments/environment";
 import { RegisterComponent } from "./components/auth/register/register.component";
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { RegisterComponent } from "./components/auth/register/register.component
     FormsModule,
     AppRoutingModule,
     LottieAnimationViewModule.forRoot(),
-    ServiceWorkerModule.register("/ngsw-worker.js", {
+    ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production
     })
   ],

@@ -20,9 +20,5 @@ export class AppComponent {
     });
   }
 
-  ngOnInit() {
-    // this.data.gimmeJokes().subscribe(res => {
-    //   this.joke = res;
-    // })
-  }
+  ngOnInit() {}
 }

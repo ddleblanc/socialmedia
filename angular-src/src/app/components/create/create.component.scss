@@ -1,6 +1,9 @@
 $dark: rgba(0, 0, 0, 0.9);
 $light: #fff;
 $border: 1px solid rgba(0, 0, 0, 0.15);
+.main-container {
+  background: #f2f2f2;
+}
 .img-placeholder {
   border-bottom: $border;
 }
@@ -10,16 +13,16 @@ $border: 1px solid rgba(0, 0, 0, 0.15);
 }
 .form-style {
   color: $dark;
-  border: $border;
+  border: none;
   border-left: none;
   border-right: none;
   padding-left: 48px;
   padding-right: 48px;
-  background: transparent;
   border-radius: 0px;
-  margin: 0 !important;
 }
-
+.form-group {
+  margin-bottom: 5px !important;
+}
 .btn-submit {
   position: relative;
   font-weight: bold;
@@ -64,10 +67,10 @@ $border: 1px solid rgba(0, 0, 0, 0.15);
   }
 }
 .main-container {
-  background: transparent;
+  background: #f2f2f2;
   position: absolute;
   top: 0px;
-  height: calc(100% - 46px);
+  height: calc(100vh - 48px);
   overflow: scroll;
 }
 .active {
@@ -81,9 +84,11 @@ $border: 1px solid rgba(0, 0, 0, 0.15);
   border-right: none;
   border-top-right-radius: 0px;
 }
-.card-item {
+.cardbox-item {
   padding-bottom: 0px !important;
   margin-bottom: 0px !important;
+  height: 100vw;
+  width: 100vw;
 }
 
 .cardbox {
@@ -256,4 +261,5 @@ $border: 1px solid rgba(0, 0, 0, 0.15);
     ---------------------------------- */
 .cardbox-body {
   padding: 0px 0px;
+  background: #f2f2f2;
 }

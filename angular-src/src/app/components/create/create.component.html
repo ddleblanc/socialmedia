@@ -64,6 +64,7 @@
           <div class="form-group">
             <textarea
               class="form-control form-style"
+              placeholder="Say something.."
               id="exampleTextarea"
               rows="5"
               [(ngModel)]="body"
@@ -80,10 +81,10 @@
             <label for="b">
               <div
                 class="can-toggle__switch"
-                data-checked="On"
-                data-unchecked="Off"
+                data-checked="NSFW"
+                data-unchecked="SFW"
               ></div>
-              <div class="can-toggle__label-text">Sensitive content</div>
+              <!-- <div class="can-toggle__label-text">Sensitive content</div> -->
             </label>
           </div>
           <br />

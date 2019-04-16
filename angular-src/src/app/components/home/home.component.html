@@ -1,0 +1,43 @@
+<div [@enterAnimation] class="home-container">
+  <p *ngFor="let user of users">
+    {{ user.username }}
+  </p>
+  <button (click)="onLogout()">LOGOUT</button>
+  <div class="post-list">
+    <div *ngFor="let url of urls; let i = index" class="post-list-item">
+      <div class="post-list-item-header">
+        <div class="post-list-item-username">@myusername</div>
+        <div class="post-list-item-options-btn dropdown">
+          <span
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            ><i class="fas fa-circle elipse"></i
+            ><i class="fas fa-circle elipse"></i
+            ><i class="fas fa-circle elipse"></i
+          ></span>
+          <div
+            class="dropdown-menu"
+            x-placement="bottom-start"
+            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);"
+          >
+            <a class="dropdown-item" href="#">bookmark</a>
+            <a class="dropdown-item" href="#">favorite</a>
+            <a class="dropdown-item" href="#">follow</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Share link</a>
+          </div>
+        </div>
+      </div>
+      <img [src]="urls[i]" alt="" class="post-list-item-img" />
+      <div class="post-list-item-body">
+        <div class="post-list-item-title">My Photo</div>
+      </div>
+    </div>
+  </div>
+  <div class="viewmode-button">
+    <i class="fas fa-th"></i>
+  </div>
+</div>

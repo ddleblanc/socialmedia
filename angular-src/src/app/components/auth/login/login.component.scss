@@ -1,0 +1,78 @@
+$light: rgba(255, 255, 255, 0.15);
+.form-container {
+  background-image: linear-gradient(to right, #1a2980, #26d0ce);
+  height: 100vh;
+  width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .username-input {
+    text-transform: lowercase;
+  }
+  .no-such-user {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, #1a2980, #26d0ce);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  label {
+    color: white;
+    font-weight: bold;
+    small {
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+  .lock-outer {
+    background: blue;
+    opacity: 0.15;
+    height: 48px;
+    width: 100%;
+    text-align: center;
+    .lock {
+      background: red;
+      opacity: 0.15;
+      height: 48px;
+      width: 48px;
+    }
+  }
+  .form-group {
+    text-align: left;
+  }
+
+  .btn-submit {
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 48px;
+    border-radius: 0px;
+    border-top: 1px solid $light;
+    background: transparent;
+    color: white;
+    width: 100%;
+    &:disabled {
+      color: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+input {
+  height: 48px;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  &::placeholder {
+    color: rgba($color: #fff, $alpha: 1);
+  }
+}

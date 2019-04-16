@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "7"
+env:
+  - database: "mongodb://lxblvnc:asdqwe123@ds135726.mlab.com:35726/l33tsp34k"
+services:
+  - mongodb

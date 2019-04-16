@@ -1,0 +1,118 @@
+<div [@enterAnimation] class="register-container">
+  <div *ngIf="url" class="register-bg-img" [@enterAnimation]>
+    <img [src]="url" alt="" />
+  </div>
+  <div *ngIf="!url" class="register-bg-img" [@enterAnimation]>
+    <img [src]="placeholderImg" alt="" />
+  </div>
+  <div class="form-container">
+    <form (submit)="onRegisterSubmit()" enctype="multipart/form-data">
+      <br />
+      <br />
+      <br />
+      <div class="profile-img-container-outer">
+        <div *ngIf="!url" class="profile-img-container transparent">
+          <label for="file-input">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+              alt=""
+            />
+            <!-- Could've set input to display:none and used a local reference #img-input in the img's click event like (click)="img-input.click()"-->
+            <input
+              class="img-input"
+              id="file-input"
+              type="file"
+              name="avatar"
+              accept="image/x-png,image/gif,image/jpeg"
+              (change)="onFileSelected($event)"
+              style="display: none;"
+            />
+          </label>
+        </div>
+        <div *ngIf="url" class="profile-img-container">
+          <label for="file-input">
+            <img [src]="url" alt="" />
+            <input
+              class="img-input"
+              id="file-input"
+              type="file"
+              name="avatar"
+              accept="image/x-png,image/gif,image/jpeg"
+              (change)="onFileSelected($event)"
+              style="display: none;"
+            />
+          </label>
+        </div>
+      </div>
+
+      <br />
+      <br />
+      <br />
+
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control username-input"
+          [(ngModel)]="username"
+          name="username"
+          placeholder="Username"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          (blur)="onEmailEntered()"
+          #inputEmail
+          type="email"
+          class="form-control"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Email"
+        />
+        <!-- <small id="formHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      </div>
+      <div class="form-group">
+        <input
+          (blur)="onPasswordEntered()"
+          #inputPassword
+          type="password"
+          class="form-control"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Password"
+        />
+        <!-- <label class="form-check-label" for="passwordFormat"
+          ><small>
+            min 8 characters and at least<br />
+            1 lowercase 1 uppercase 1 number 1 special character</small
+          ></label
+        > -->
+      </div>
+      <!-- <div class="form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [(ngModel)]="agreement"
+          name="agreement"
+        />
+        <label class="form-check-label" for="willbehave">I will behave</label>
+      </div> -->
+      <br />
+      <br />
+      <!-- <flash-messages></flash-messages> -->
+      <button
+        type="submit"
+        class="btn btn-primary btn-submit"
+        [disabled]="!username || !password || !email"
+      >
+        Register
+      </button>
+      <!-- <li
+        class="btn btn-secondary my-2 my-sm-0"
+        [routerLinkActive]="['active']"
+        [routerLink]="['/login']"
+      >
+        <a>I already have an account</a>
+      </li> -->
+    </form>
+  </div>
+</div>

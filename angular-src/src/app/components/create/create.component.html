@@ -1,0 +1,105 @@
+<!-- <div id="card-container"
+[@cardAnimator]="animationState" 
+(@cardAnimator.done)="resetAnimationState($event)" > -->
+<div class="main-container">
+  <!-- <div *ngIf="url" class="create-bg-img" [@enterAnimation]>
+    <img [src]="url" alt="" />
+  </div> -->
+  <div id="card-container">
+    <div class="cardbox">
+      <form (submit)="onPostSubmit()" enctype="multipart/form-data">
+        <div class="cardbox-item">
+          <label for="file-input" class="img-input">
+            <img
+              class="img-placeholder"
+              *ngIf="!url"
+              src="../../../assets/Placeholder-01.jpg"
+              alt=""
+            />
+            <img *ngIf="url" [@enterAnimation] [src]="url" alt="" />
+            <!-- Could've set input to display:none and used a local reference #img-input in the img's click event like (click)="img-input.click()"-->
+            <input
+              id="file-input"
+              type="file"
+              name="avatar"
+              accept="image/x-png,image/gif,image/jpeg"
+              (change)="onFileSelected($event)"
+              style="display: none;"
+              #fileInput
+            />
+          </label>
+        </div>
+        <!--/ cardbox-item -->
+        <div class="cardbox-body">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control form-title post-title form-style"
+              aria-describedby="emailHelp"
+              [(ngModel)]="title"
+              name="title"
+              placeholder="Title"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control form-subtitle form-style"
+              [(ngModel)]="subtitle"
+              name="subtitle"
+              placeholder="Subtitle"
+            />
+          </div>
+          <div class="form-group">
+            <select
+              class="form-control form-style"
+              id="subject"
+              [(ngModel)]="subject"
+              name="subject"
+            >
+              <option value="" disabled selected>Choose a subject</option>
+              <option *ngFor="let subject of subjects">{{ subject }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea
+              class="form-control form-style"
+              id="exampleTextarea"
+              rows="5"
+              [(ngModel)]="body"
+              name="body"
+            ></textarea>
+          </div>
+          <div class="can-toggle can-toggle--size-small">
+            <input
+              id="b"
+              type="checkbox"
+              [(ngModel)]="ageRestriction"
+              name="ageRestriction"
+            />
+            <label for="b">
+              <div
+                class="can-toggle__switch"
+                data-checked="On"
+                data-unchecked="Off"
+              ></div>
+              <div class="can-toggle__label-text">Sensitive content</div>
+            </label>
+          </div>
+          <br />
+
+          <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+        </div>
+
+        <!--/ cardbox-base -->
+      </form>
+    </div>
+    <!--/ cardbox -->
+  </div>
+  <!--/ col-lg-6 -->
+
+  <button class="btn btn-submit" [disabled]="!title">
+    <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
+    UPLOAD
+  </button>
+</div>

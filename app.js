@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
 const db = require("./db/index");
+const compression = require("compression");
 
 process.setMaxListeners(0);
 
@@ -18,8 +19,12 @@ const PORT = 3000;
 // CORS Middleware //
 app.use(cors());
 
+// https://expressjs.com/en/advanced/best-practice-performance.html
+app.use(compression());
+
 // Body Parser Middleware
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: "true" }));
+app.use(bodyParser.json({ limit: 5 * 1024 * 2014 }));
 
 //Passport Middleware
 app.use(passport.initialize());

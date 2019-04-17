@@ -2,12 +2,20 @@ import { Post } from "./post.model";
 
 export class User {
   name: string;
-  avatar: String;
-  email: String;
-  password: String;
+  avatar: {
+    imagename: string;
+    // Base64 string representing the binary image
+    data: string;
+  };
+  email: string;
+  password: string;
   posts: Post[];
-  username: String;
-  _id: String;
+  username: string;
+  _id: string;
   blurAgeRestrictedContent: boolean;
   showAgeRestrictedContent: boolean;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
 }

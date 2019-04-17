@@ -16,6 +16,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { CreateComponent } from "./components/create/create.component";
 import { RegisterComponent } from "./components/auth/register/register.component";
 import { environment } from "../environments/environment";
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { environment } from "../environments/environment";
     HomeComponent,
     LoginComponent,
     CreateComponent,
-    RegisterComponent
+    RegisterComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

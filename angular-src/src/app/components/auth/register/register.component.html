@@ -2,7 +2,7 @@
   <div *ngIf="url" class="register-bg-img" [@enterAnimation]>
     <img [src]="url" alt="" />
   </div>
-  <div *ngIf="!url" class="register-bg-img" [@enterAnimation]>
+  <div *ngIf="!url" class="register-bg-img-placeholder" [@enterAnimation]>
     <img [src]="placeholderImg" alt="" />
   </div>
   <div class="form-container">
@@ -51,6 +51,9 @@
 
       <div class="form-group">
         <input
+          (focus)="removeInvalidClass($event)"
+          (blur)="onUsernameEntered()"
+          #inputUsername
           type="text"
           class="form-control username-input"
           [(ngModel)]="username"
@@ -60,6 +63,7 @@
       </div>
       <div class="form-group">
         <input
+          (focus)="removeInvalidClass($event)"
           (blur)="onEmailEntered()"
           #inputEmail
           type="email"
@@ -72,6 +76,7 @@
       </div>
       <div class="form-group">
         <input
+          (focus)="removeInvalidClass($event)"
           (blur)="onPasswordEntered()"
           #inputPassword
           type="password"
@@ -80,12 +85,13 @@
           name="password"
           placeholder="Password"
         />
-        <!-- <label class="form-check-label" for="passwordFormat"
-          ><small>
-            min 8 characters and at least<br />
-            1 lowercase 1 uppercase 1 number 1 special character</small
-          ></label
-        > -->
+        <li
+          class="btn btn-second my-2 my-sm-0"
+          [routerLinkActive]="['active']"
+          [routerLink]="['/login']"
+        >
+          <p class="center-link">I have an account</p>
+        </li>
       </div>
       <!-- <div class="form-check">
         <input

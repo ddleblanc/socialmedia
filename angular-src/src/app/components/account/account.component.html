@@ -1,0 +1,56 @@
+<div *ngIf="user" class="account-container" [@enterAnimation]>
+  <div *ngIf="wallpaper" class="account-bg-img" [@enterAnimation]>
+    <img [src]="user.avatar.data" alt="" />
+  </div>
+  <div class="profile-header" [@enterAnimation]>
+    <img [src]="wallpaper" alt="" class="wallpaper" />
+    <div class="avatar">
+      <label for="file-input">
+        <img [src]="user.avatar.data" alt="" />
+        <input
+          class="img-input"
+          id="file-input"
+          type="file"
+          name="avatar"
+          accept="image/x-png,image/gif,image/jpeg"
+          (change)="onFileSelected($event)"
+          style="display: none;"
+        />
+      </label>
+    </div>
+  </div>
+  <form class="account-form">
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control input-description"
+        placeholder="name"
+      />
+      <input
+        type="text"
+        class="form-control input-input"
+        [(ngModel)]="username"
+        name="username"
+        placeholder="username"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control input-description"
+        placeholder="email"
+      />
+      <input
+        type="email"
+        class="form-control input-input"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="email"
+      />
+    </div>
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+  </form>
+  <!-- <button class="btn btn-primary btn-submit" (click)="onLogout()">
+    LOG OUT
+  </button> -->
+</div>

@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema(
         "Please enter a valid email."
       ]
     },
+    avatar: {
+      name: String,
+      data: String
+    },
     hashedPassword: {
       type: String,
       required: true

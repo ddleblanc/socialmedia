@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { trigger, transition, style, animate } from "@angular/animations";
 import { AuthService } from "src/app/services/auth.service";
+import { routerNgProbeToken } from "@angular/router/src/router_module";
 
 @Component({
   selector: "app-nav",
@@ -118,7 +119,7 @@ import { AuthService } from "src/app/services/auth.service";
   ]
 })
 export class NavComponent implements OnInit {
-  @Input() showNav;
+  showNav = true;
   screenWidth: number;
   navOpen: boolean = false;
   bgImages: string[] = [
@@ -132,6 +133,14 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
+  }
+
+  ngDoCheck() {
+    if (this.router.url == "/create") {
+      this.showNav = false;
+    } else {
+      this.showNav = true;
+    }
   }
 
   logout() {

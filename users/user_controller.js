@@ -24,7 +24,7 @@ async function getAllUsers() {
 async function getUserByUsername(username) {
   const query = { username: username };
   return await User.findOne(query).select(
-    "username email _id email roles createdAt"
+    "username email _id email roles createdAt avatar"
   );
 }
 /**

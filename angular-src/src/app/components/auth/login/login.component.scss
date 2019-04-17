@@ -49,22 +49,6 @@ $light: rgba(255, 255, 255, 0.15);
   .form-group {
     text-align: left;
   }
-
-  .btn-submit {
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 48px;
-    border-radius: 0px;
-    border-top: 1px solid $light;
-    background: transparent;
-    color: white;
-    width: 100%;
-    &:disabled {
-      color: rgba(255, 255, 255, 0.15);
-    }
-  }
 }
 
 input {
@@ -72,7 +56,17 @@ input {
   color: white;
   background: rgba(255, 255, 255, 0.15);
   border: none;
-  &::placeholder {
-    color: rgba($color: #fff, $alpha: 1);
+  &:focus {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
   }
+  &::placeholder {
+    color: rgba($color: #fff, $alpha: 0.6);
+  }
+}
+
+.center-link {
+  width: 100%;
+  color: white;
+  text-align: center;
 }

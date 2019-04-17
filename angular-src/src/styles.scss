@@ -3,6 +3,29 @@
 // TOGGLE STUFF  // TOGGLE STUFF  // TOGGLE STUFF  // TOGGLE STUFF
 // TOGGLE STUFF  // TOGGLE STUFF  // TOGGLE STUFF  // TOGGLE STUFF
 
+$light: rgba(255, 255, 255, 0.15);
+$dark: rgba(0, 0, 0, 0.15);
+
+body {
+  background-image: linear-gradient(to right, #1a2980, #26d0ce);
+}
+
+.btn-submit {
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 48px;
+  border-radius: 0px;
+  border-top: 1px solid $dark;
+  background: transparent;
+  color: rgba($color: #fff, $alpha: 0.9);
+  width: 100%;
+  &:disabled {
+    color: rgba(0, 0, 0, 0.15);
+  }
+}
+
 @mixin can-toggle-branding(
   $can-toggle-off-color: #777,
   $can-toggle-on-color: #5f021f,

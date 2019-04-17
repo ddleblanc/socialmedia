@@ -37,7 +37,7 @@ async function createUser(req, res) {
       res.status(500).json(err);
     }
   });
-  res.status(200).json(createdUser);
+  res.status(200).json({ success: true, msg: "Account found", createdUser });
 }
 
 async function getAllUsers(req, res) {

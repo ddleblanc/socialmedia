@@ -32,12 +32,12 @@ export class AuthService {
     });
   }
 
-  registerUser(fd) {
+  registerUser(user) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.localUrl + "users/register", fd, {
+    return this.http.post(this.localUrl + "users", user, {
       headers: headers
     });
   }
@@ -48,13 +48,15 @@ export class AuthService {
       headers: headers
     });
   }
-  getProfile() {
+  getProfile(username) {
     this.loadToken();
     let headers = new HttpHeaders().set("Authorization", this.authToken);
     headers.append("Authorization", this.authToken);
     headers.append("Content-Type", "application/json");
     console.log(headers);
-    return this.http.get(this.localUrl + "users/profile", { headers: headers });
+    return this.http.get(`${this.localUrl}users/${username}`, {
+      headers: headers
+    });
   }
 
   updateAgeRestriction(showAgeRestrictedContent) {

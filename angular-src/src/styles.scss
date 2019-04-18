@@ -7,7 +7,8 @@ $light: rgba(255, 255, 255, 0.15);
 $dark: rgba(0, 0, 0, 0.15);
 
 body {
-  background-image: linear-gradient(to right, #1a2980, #26d0ce);
+  // background-image: linear-gradient(to right, #1a2980, #26d0ce);
+  background: #000;
 }
 
 .btn-submit {
@@ -28,7 +29,7 @@ body {
 
 @mixin can-toggle-branding(
   $can-toggle-off-color: #777,
-  $can-toggle-on-color: #5f021f,
+  $can-toggle-on-color: #000,
   $can-toggle-inactive-text: rgba(white, 0.5),
   $can-toggle-transition: cubic-bezier(0, 1, 0.5, 1)
 ) {

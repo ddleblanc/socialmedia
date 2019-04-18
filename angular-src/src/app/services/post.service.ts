@@ -1,120 +1,129 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http'
-import { map, filter } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map, filter } from "rxjs/operators";
 // import { JwtHelperService } from '@auth0/angular-jwt'
-import { Post } from '../models/post.model';
-import { User } from '../models/user.model';
+import { Post } from "../models/post.model";
+import { User } from "../models/user.model";
 // import { User } from '../_shared/models/user.model';
 
 // const helper = new JwtHelperService();
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PostService {
   private currentPost_id: string;
-  private localUrl = 'http://localhost:3000/';
+  private localUrl = "http://localhost:3000/api/v1/";
   currentPost: Post;
   currentUser: User;
   // private localUrl = '';
   // private user: User;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  setCurrentPostId(id: string){
+  setCurrentPostId(id: string) {
     this.currentPost_id = id;
   }
 
-  addPost(fd){
+  addPost(fd) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.localUrl + 'posts', fd, {headers: headers})
+    return this.http.post(this.localUrl + "posts", fd, { headers: headers });
   }
 
-  addCommentToPost(comment,id){
+  addCommentToPost(comment, id) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.localUrl + 'posts' + "/" + id + "/comments", comment, {headers: headers})
+    return this.http.post(
+      this.localUrl + "posts" + "/" + id + "/comments",
+      comment,
+      { headers: headers }
+    );
   }
 
-  deletePost(_id){
+  deletePost(_id) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.localUrl + 'posts' + "/" + _id , {headers: headers})
-
+    return this.http.delete(this.localUrl + "posts" + "/" + _id, {
+      headers: headers
+    });
   }
-  setCurrentPost(post){
+  setCurrentPost(post) {
     this.currentPost = post;
   }
-  getCurrentPost(){
-    return this.currentPost
+  getCurrentPost() {
+    return this.currentPost;
   }
-  setCurrentUser(user){
+  setCurrentUser(user) {
     this.currentUser = user;
   }
-  getCurrentUser(){
-    return this.currentUser
+  getCurrentUser() {
+    return this.currentUser;
   }
-  resetCurrents(){
+  resetCurrents() {
     this.currentPost = null;
     this.currentUser = null;
   }
 
-  getPost(_id){
+  getPost(_id) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + 'posts' + "/" + _id , {headers: headers})
+    return this.http.get(this.localUrl + "posts" + "/" + _id, {
+      headers: headers
+    });
   }
 
-  editPost(_id, fd){
+  editPost(_id, fd) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.put(this.localUrl + 'posts' + "/" + _id ,fd , {headers: headers})
+    return this.http.put(this.localUrl + "posts" + "/" + _id, fd, {
+      headers: headers
+    });
   }
 
-  getPosts(){
-
+  getPosts() {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + 'posts', {headers: headers})
+    return this.http.get<Post[]>(this.localUrl + "posts", { headers: headers });
   }
 
-  getUsers(){
-
+  getUsers() {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + 'users', {headers: headers})
+    return this.http.get(this.localUrl + "users", { headers: headers });
   }
 
-  getModelByUsername(username){
-
+  getModelByUsername(username) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + 'users/model/' + username, {headers: headers})
+    return this.http.get(this.localUrl + "users/model/" + username, {
+      headers: headers
+    });
   }
 
-  getPostsBySubject(subject){
-
+  getPostsBySubject(subject) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + 'posts' + '/subject/' +subject, {headers: headers})
+    return this.http.get(this.localUrl + "posts" + "/subject/" + subject, {
+      headers: headers
+    });
   }
 
   // getPostsFromUser(){
@@ -127,15 +136,14 @@ export class PostService {
   //   return this.http.get(this.localUrl + 'posts' + "/photographer/" + this.user.id, {headers: headers})
   // }
 
-  getPostsByPhotographer(id){
+  getPostsByPhotographer(id) {
     // console.log(this.user.id)
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + 'posts' + "/photographer/" + id, {headers: headers})
+    return this.http.get(this.localUrl + "posts" + "/photographer/" + id, {
+      headers: headers
+    });
   }
-
-
 }
-

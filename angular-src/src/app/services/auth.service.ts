@@ -87,6 +87,7 @@ export class AuthService {
     });
   }
   storeUserData(token, user) {
+    console.log(token);
     localStorage.setItem("id_token", token);
     localStorage.setItem("user", JSON.stringify(user));
     this.authToken = token;

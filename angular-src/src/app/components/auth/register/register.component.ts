@@ -129,10 +129,13 @@ export class RegisterComponent implements OnInit {
 
   onRegisterSubmit() {
     // same format as multipart/form-data
+
     const user = {
-      username: this.username.toLocaleLowerCase(),
+      username: this.username,
+      password: this.password,
       email: this.email,
-      password: this.password
+      avatar: { name: this.imagename, data: this.imagedata },
+      wallpaper: { name: this.imagename, data: this.imagedata }
     };
 
     // Required fields
@@ -162,22 +165,15 @@ export class RegisterComponent implements OnInit {
       }
     }
 
-    const newUser = {
-      username: this.username,
-      password: this.password,
-      email: this.email,
-      avatar: { name: this.imagename, data: this.imagedata },
-      wallpaper: { name: this.imagename, data: this.imagedata }
-    };
-    let jsonSize = Object.keys(newUser).length;
+    let jsonSize = Object.keys(user).length;
     console.log(jsonSize);
 
     //Register user
-    this.authService.registerUser(newUser).subscribe(data => {
+    this.authService.registerUser(user).subscribe(data => {
       this.data = data;
       if (this.data.success) {
         // this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
-        this.authService.authenticateUser(newUser);
+        this.authService.authenticateUser(user);
         this.router.navigate(["/"]);
       } else {
         // this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});

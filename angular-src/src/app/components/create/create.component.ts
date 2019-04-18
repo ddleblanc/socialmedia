@@ -25,16 +25,13 @@ import { ValidationService } from "../../services/validation.service";
 })
 export class CreateComponent implements OnInit {
   url: String;
-  photo: File = null;
+  imagename: string;
+  imagedata: string | ArrayBuffer;
   title: String;
-  subtitle: String;
-  body: String;
-  subject: String;
-  genre: String;
+  story: String;
   user: User;
   ageRestriction: Boolean = false;
   data: any;
-  subjects = ["Art", "Boudoir", "Fashion", "Portrait"];
 
   @ViewChild("fileInput", { read: ElementRef }) fileInput: ElementRef;
 
@@ -53,15 +50,19 @@ export class CreateComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    this.photo = <File>event.target.files[0];
+    console.log("onSelectFile");
     if (event.target.files && event.target.files[0]) {
+      const imageFile: File = event.target.files[0];
       var reader = new FileReader();
-
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = (event: any) => {
+      console.dir(event.target.files[0]);
+      reader.onload = event => {
         // called once readAsDataURL is completed
-        this.url = event.target.result;
+        // set the image value to the Base64 string -> can be saved in dtb
+        this.imagename = imageFile.name;
+        this.imagedata = reader.result;
+        // set the image src -> so that it can be displayed as preview
+        this.url = reader.result as string;
       };
     }
   }
@@ -71,39 +72,33 @@ export class CreateComponent implements OnInit {
   }
 
   onPostSubmit() {
-    // console.log(this.user.name)
-    const fd = new FormData();
     const post = {
-      author: this.user.name,
-      userId: this.user._id,
+      username: this.user.name,
+      userId: this.user.id,
       title: this.title,
-      subtitle: this.subtitle,
-      body: this.body,
-      subject: this.subject,
-      genre: this.genre,
-      age_restriction: this.ageRestriction
+      story: this.story,
+      age_restriction: this.ageRestriction,
+      photo: { name: this.imagename, data: this.imagedata }
     };
-    fd.append("photo", this.photo, this.photo.name);
-    fd.append("post", JSON.stringify(post));
 
     // console.log(post)
     // Required fields
-    if (!this.validateService.validatePost(post)) {
-      // this.flashMessage.show('Please fill in all fields', { cssClass: 'alert-danger', timeout: 3000 });
-      console.log("Fill in all fields");
-      return false;
-    } else {
-      //Post post
-      this.postService.addPost(fd).subscribe(data => {
-        this.data = data;
-        if (this.data.success) {
-          this.router.navigate(["post", this.data._id]);
-          // this.flashMessage.show('Posted', {cssClass: 'alert-success', timeout: 3000});
-          // this.router.navigate(['/'])
-        } else {
-          // this.router.navigate(['/'])
-        }
-      });
-    }
+    // if (!this.validateService.validatePost(post)) {
+    //   // this.flashMessage.show('Please fill in all fields', { cssClass: 'alert-danger', timeout: 3000 });
+    //   console.log("Fill in all fields");
+    //   return false;
+    // } else {
+    //Post post
+    this.postService.addPost(post).subscribe(data => {
+      this.data = data;
+      if (this.data.success) {
+        this.router.navigate([""]);
+        // this.flashMessage.show('Posted', {cssClass: 'alert-success', timeout: 3000});
+        // this.router.navigate(['/'])
+      } else {
+        // this.router.navigate(['/'])
+      }
+    });
+    // }
   }
 }

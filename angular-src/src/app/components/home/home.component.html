@@ -1,12 +1,8 @@
 <div [@enterAnimation] class="home-container">
-  <p *ngFor="let user of users">
-    {{ user.username }}
-  </p>
-  <button (click)="onLogout()">LOGOUT</button>
-  <div class="post-list">
-    <div *ngFor="let url of urls; let i = index" class="post-list-item">
-      <div class="post-list-item-header">
-        <div class="post-list-item-username">@myusername</div>
+  <div *ngIf="posts" class="grid" [@itemEnterAnimation]="posts.length">
+    <div *ngFor="let post of posts; let i = index" class="post-list-item">
+      <!-- <div class="post-list-item-header">
+        <div class="post-list-item-username">@{{ post.username }}</div>
         <div class="post-list-item-options-btn dropdown">
           <span
             class="dropdown-toggle"
@@ -30,14 +26,11 @@
             <a class="dropdown-item" href="#">Share link</a>
           </div>
         </div>
-      </div>
-      <img [src]="urls[i]" alt="" class="post-list-item-img" />
-      <div class="post-list-item-body">
-        <div class="post-list-item-title">My Photo</div>
-      </div>
+      </div> -->
+      <img [src]="post.photo.data" alt="" class="post-list-item-img" />
+      <!-- <div class="post-list-item-body">
+        <div class="post-list-item-title">{{ post.story }}</div>
+      </div> -->
     </div>
-  </div>
-  <div class="viewmode-button">
-    <i class="fas fa-th"></i>
   </div>
 </div>

@@ -12,6 +12,7 @@ export class User {
   posts: Post[];
   username: string;
   _id: string;
+  id: string;
   blurAgeRestrictedContent: boolean;
   showAgeRestrictedContent: boolean;
 

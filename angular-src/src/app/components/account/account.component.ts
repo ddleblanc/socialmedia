@@ -33,8 +33,7 @@ export class AccountComponent implements OnInit {
   avatar;
   imagename: string;
   imagedata: string | ArrayBuffer;
-  wallpaper =
-    "https://images.pexels.com/photos/2096609/pexels-photo-2096609.jpeg?cs=srgb&dl=buildings-city-cityscape-2096609.jpg&fm=jpg";
+  wallpaper: string;
 
   constructor(private authService: AuthService, private router: Router) {}
 

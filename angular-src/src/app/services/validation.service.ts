@@ -19,10 +19,11 @@ export class ValidationService {
   }
   validatePost(post) {
     if (
+      post.age_restriction == undefined ||
+      post.userId == undefined ||
+      post.username == undefined ||
       post.title == undefined ||
-      post.subtitle == undefined ||
-      post.subject == undefined ||
-      post.body == undefined
+      post.story == undefined
     ) {
       return false;
     } else {

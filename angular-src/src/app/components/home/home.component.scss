@@ -4,22 +4,28 @@ p {
   color: rgb(14, 14, 14);
 }
 .home-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
   position: absolute;
   top: 0;
-  height: 100vh;
+  padding-top: 71px;
+  height: 100%;
   width: 100%;
   overflow: scroll;
   background: #f2f2f2;
 
+  .post-list {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    padding-bottom: 48px;
+  }
+
   .post-list-item {
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
+    background: #f2f2f2;
     img {
-      width: 100vw;
-      height: 100vw;
+      padding: 1px;
+      width: calc(100vw / 3);
+      height: calc(100vw / 3);
       object-fit: cover;
     }
     .post-list-item-header {
@@ -60,3 +66,29 @@ p {
     }
   }
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(100vw / 3), 1fr));
+  grid-auto-rows: 1fr;
+}
+
+.grid::before {
+  content: "";
+  width: 0;
+  padding-bottom: 100%;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.grid > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+/* Just to make the grid visible */
+
+// .grid > * {
+//   background: rgba(0, 0, 0, 0.1);
+//   border: 1px white solid;
+// }

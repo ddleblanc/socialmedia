@@ -14,10 +14,15 @@ import { trigger, transition, style, animate } from "@angular/animations";
         style({ opacity: 0 }),
         animate("500ms ease-in-out", style({ opacity: 1 }))
       ])
-      // transition(":leave", [
-      //   style({ transform: "translateX(0)", opacity: 1 }),
-      //   animate("500ms", style({ transform: "translateX(100%)", opacity: 0 }))
-      // ])
+    ]),
+    trigger("profilePicAnimation", [
+      transition(":enter", [
+        style({ opacity: 0, transform: "scale(0)" }),
+        animate(
+          "500ms ease-in-out",
+          style({ opacity: 1, transform: "scale(1)" })
+        )
+      ])
     ])
   ]
 })
@@ -25,6 +30,7 @@ export class AccountComponent implements OnInit {
   user: User;
   username: string;
   email: string;
+  avatar;
   imagename: string;
   imagedata: string | ArrayBuffer;
   wallpaper =
@@ -36,9 +42,13 @@ export class AccountComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.username = this.user.name;
     this.email = this.user.email;
-    // this.authService.getProfile(this.user.name).subscribe(data => {
-    //   console.log(data);
-    // });
+    if (this.user) {
+      this.authService.getUserByUsername(this.user.name).subscribe(data => {
+        this.avatar = data.user.avatar.data;
+        this.wallpaper = data.user.avatar.data;
+        console.log(`user: ${this.user.email}`);
+      });
+    }
   }
 
   onLogout() {

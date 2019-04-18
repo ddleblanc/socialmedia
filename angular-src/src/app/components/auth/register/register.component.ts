@@ -166,7 +166,8 @@ export class RegisterComponent implements OnInit {
       username: this.username,
       password: this.password,
       email: this.email,
-      avatar: { name: this.imagename, data: this.imagedata }
+      avatar: { name: this.imagename, data: this.imagedata },
+      wallpaper: { name: this.imagename, data: this.imagedata }
     };
     let jsonSize = Object.keys(newUser).length;
     console.log(jsonSize);

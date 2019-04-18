@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema(
       name: String,
       data: String
     },
+    wallpaper: {
+      name: String,
+      data: String
+    },
     hashedPassword: {
       type: String,
       required: true

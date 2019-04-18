@@ -3,6 +3,7 @@ import { map } from "rxjs/operators";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from "../models/user.model";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { Response } from "../models/response.model";
 
 const helper = new JwtHelperService();
 
@@ -12,8 +13,8 @@ const helper = new JwtHelperService();
 export class AuthService {
   authToken: any;
   user: User;
-  // private localUrl = "http://localhost:3000/api/v1/";
-  private localUrl = "api/v1/";
+  private localUrl = "http://localhost:3000/api/v1/";
+  // private localUrl = "api/v1/";
 
   constructor(private http: HttpClient) {}
 
@@ -27,7 +28,7 @@ export class AuthService {
   getUserByUsername(username) {
     let headers = new HttpHeaders();
     headers.append("Content-Type", "application/json");
-    return this.http.get<User>(`${this.localUrl}users/${username}`, {
+    return this.http.get<Response>(`${this.localUrl}users/${username}`, {
       headers: headers
     });
   }

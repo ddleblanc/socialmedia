@@ -1,12 +1,18 @@
 <div *ngIf="user" class="account-container" [@enterAnimation]>
-  <div *ngIf="wallpaper" class="account-bg-img" [@enterAnimation]>
-    <img [src]="user.avatar.data" alt="" />
+  <div class="account-bg-img">
+    <img *ngIf="wallpaper" [src]="wallpaper" alt="" [@enterAnimation] />
   </div>
   <div class="profile-header" [@enterAnimation]>
-    <img [src]="wallpaper" alt="" class="wallpaper" />
-    <div class="avatar">
+    <img
+      *ngIf="wallpaper"
+      [src]="wallpaper"
+      alt=""
+      class="wallpaper"
+      [@enterAnimation]
+    />
+    <div *ngIf="avatar" class="avatar" [@profilePicAnimation]>
       <label for="file-input">
-        <img [src]="user.avatar.data" alt="" />
+        <img [src]="avatar" alt="" />
         <input
           class="img-input"
           id="file-input"

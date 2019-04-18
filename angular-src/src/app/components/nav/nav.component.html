@@ -109,8 +109,12 @@
           <!-- <div [@navImgAnimation] class="bg-overlay"></div> -->
         </ng-container>
         <ng-container *ngIf="navOpen">
-          <div [@navLinkAnimation5] class="logout-btn">
-            <a class="nav-link" (click)="logout(); navToggle.click()"
+          <div
+            [@navLinkAnimation5]
+            class="logout-btn"
+            (click)="logout(); navToggle.click()"
+          >
+            <a class="nav-link"
               >Log out<i class="fas fa-sign-out-alt sign-out-icon"></i
             ></a>
           </div>

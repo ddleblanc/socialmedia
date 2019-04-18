@@ -32,8 +32,7 @@ async function authenticate(user) {
       user: {
         id: fetchedUser._id,
         name: fetchedUser.username,
-        email: fetchedUser.email,
-        avatar: fetchedUser.avatar
+        email: fetchedUser.email
       }
     };
   } else {

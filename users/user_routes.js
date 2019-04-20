@@ -2,7 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const asyncHandler = require("express-async-handler");
 const userCtrl = require("./user_controller");
-
+const multerUpload = require("../config/multer").upload;
 const router = express.Router();
 module.exports = router;
 
@@ -29,15 +29,41 @@ router.route("/:username").get(asyncHandler(getUserByUsername));
 // FUNCTIONS
 
 async function createUser(req, res) {
-  const user = req.body;
-  let createdUser = await userCtrl.createUser(user).catch(function(err) {
-    if (err.name == "ValidationError") {
-      res.status(422).json(err);
+  multerUpload(req, res, err => {
+    if (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        msg: "Failed to upload file"
+      });
     } else {
-      res.status(500).json(err);
+      async function uploading() {
+        let userData = JSON.parse(req.body.user);
+        let userDataWithPhoto = { ...userData, avatar: req.file.filename };
+        createdUser = await userCtrl
+          .createUser(userDataWithPhoto)
+          .catch(function(err) {
+            if (err.name == "ValidationError") {
+              res.status(422).json(err);
+            } else {
+              res.status(500).json(err);
+            }
+          });
+        res.json({ success: true, msg: "Account found", createdUser });
+      }
+      uploading();
     }
   });
-  res.status(200).json({ success: true, msg: "Account found", createdUser });
+
+  // const user = req.body;
+  // let createdUser = await userCtrl.createUser(user).catch(function(err) {
+  //   if (err.name == "ValidationError") {
+  //     res.status(422).json(err);
+  //   } else {
+  //     res.status(500).json(err);
+  //   }
+  // });
+  // res.status(200).json({ success: true, msg: "Account found", createdUser });
 }
 
 async function getAllUsers(req, res) {

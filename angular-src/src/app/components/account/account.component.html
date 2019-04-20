@@ -3,56 +3,24 @@
     <img *ngIf="wallpaper" [src]="wallpaper" alt="" [@enterAnimation] />
   </div>
   <div class="profile-header">
-    <img
-      *ngIf="wallpaper"
-      [@enterAnimation]
-      [src]="wallpaper"
-      alt=""
-      class="wallpaper"
-    />
+    <img *ngIf="wallpaper" [@enterAnimation] [src]="wallpaper" alt="" class="wallpaper" />
     <div *ngIf="avatar" class="avatar" [@profilePicAnimation]>
       <label for="file-input">
         <img [src]="avatar" alt="" />
-        <input
-          class="img-input"
-          id="file-input"
-          type="file"
-          name="avatar"
-          accept="image/x-png,image/gif,image/jpeg"
-          (change)="onFileSelected($event)"
-          style="display: none;"
-        />
+        <input class="img-input" id="file-input" type="file" name="avatar" accept="image/x-png,image/gif,image/jpeg"
+          (change)="onFileSelected($event)" style="display: none;" />
       </label>
     </div>
   </div>
-  <form class="account-form">
+  <form class="account-form" [@enterAnimation]>
     <div class="form-group">
-      <input
-        type="text"
-        class="form-control input-description"
-        placeholder="name"
-      />
-      <input
-        type="text"
-        class="form-control input-input"
-        [(ngModel)]="username"
-        name="username"
-        placeholder="username"
-      />
+      <input type="text" class="form-control input-description" placeholder="name" />
+      <input type="text" class="form-control input-input" [(ngModel)]="username" name="username"
+        placeholder="username" />
     </div>
     <div class="form-group">
-      <input
-        type="text"
-        class="form-control input-description"
-        placeholder="email"
-      />
-      <input
-        type="email"
-        class="form-control input-input"
-        [(ngModel)]="email"
-        name="email"
-        placeholder="email"
-      />
+      <input type="text" class="form-control input-description" placeholder="email" />
+      <input type="email" class="form-control input-input" [(ngModel)]="email" name="email" placeholder="email" />
     </div>
     <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
   </form>

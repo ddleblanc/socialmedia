@@ -1,214 +1,23 @@
-<div class="container">
-  <ng-container *ngIf="showNav">
-    <nav
-      [@navEnterAnimation]
-      id="navbar"
-      class="navbar navbar-expand-lg navbar-light"
-    >
-      <a class="navbar-brand" href="#"
-        ><span *ngIf="!navOpen">
-          <img
-            src="http://facesmag.ca/wp-content/uploads/2017/08/Faces-Logo-Magazine-1.png"
-            alt=""
-            class="logo"
-          /> </span
-      ></a>
+<div class="container"></div>
 
-      <button
-        #navToggle
-        (click)="openNav()"
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span id="toggler-icon" class="navbar-toggler-icon"></span>
-      </button>
-
-      <div
-        *ngIf="screenWidth > 768"
-        class="collapse navbar-collapse"
-        id="navbarSupportedContent"
-      >
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/home" routerLinkActive="active"
-              >Home</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active"></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Account
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Profile</a>
-              <a class="dropdown-item" href="#">Settings</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="logout()">Log out</a>
-            </div>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 432.544 432.544" style="enable-background:new 0 0 432.544 432.544;" xml:space="preserve">
-                <g>
-                    <g>
-                        <path d="M0,313.775v118.77h118.771l237.541-237.541L237.539,76.232L0,313.775z M103.638,395.999L103.638,395.999l-30.55,0.004    v-36.546H36.545v-30.553l25.981-25.981l67.093,67.092L103.638,395.999z M246.683,124.77c4.182,0,6.276,2.095,6.276,6.28    c0,1.906-0.664,3.521-1.999,4.856L96.214,290.651c-1.333,1.328-2.952,1.995-4.854,1.995c-4.184,0-6.279-2.098-6.279-6.279    c0-1.906,0.666-3.521,1.997-4.856l154.747-154.743C243.154,125.436,244.773,124.77,246.683,124.77z" fill="#FFFFFF"/>
-                        <path d="M421.976,77.654l-67.091-66.806C347.653,3.619,338.992,0,328.903,0c-10.283,0-18.842,3.619-25.693,10.848l-47.394,47.109    l118.773,118.77l47.394-47.392c7.042-7.043,10.561-15.608,10.561-25.697C432.54,93.743,429.022,85.08,421.976,77.654z" fill="#FFFFFF"/>
-                    </g>
-                </g>
-                </svg>
-                
-        </button> -->
-        </form>
-      </div>
-
-      <div
-        *ngIf="screenWidth <= 768"
-        class="collapse navbar-collapse"
-        id="navbarSupportedContent"
-      >
-        <ng-container *ngIf="navOpen">
-          <div [@navLinkAnimation5] (click)="logout()" class="logout-btn">
-            <a
-              class="nav-link"
-              routerLink="/dashboard"
-              routerLinkActive="active"
-              (click)="navToggle.click()"
-              >Log out<i class="fas fa-sign-out-alt sign-out-icon"></i
-            ></a>
-          </div>
-          <!-- <img
-            [@navImgAnimation]
-            src="{{ bgImages[bgIndex] }}"
-            alt=""
-            class="bg-img-blur"
-          />
-          <img
-            [@navImgAnimation]
-            src="{{ bgImages[bgIndex] }}"
-            alt=""
-            class="bg-img"
-          /> -->
-
-          <!-- <div [@navImgAnimation] class="bg-overlay"></div> -->
-        </ng-container>
-        <ng-container *ngIf="navOpen">
-          <div
-            [@navLinkAnimation5]
-            class="logout-btn"
-            (click)="logout(); navToggle.click()"
-          >
-            <a class="nav-link"
-              >Log out<i class="fas fa-sign-out-alt sign-out-icon"></i
-            ></a>
-          </div>
-
-          <div [@navImgAnimation] class="bg-overlay"></div>
-        </ng-container>
-        <ul *ngIf="navOpen" class="navbar-nav mr-auto mobile-nav">
-          <li [@navLinkAnimation1] class="nav-item active">
-            <a
-              class="nav-link"
-              routerLink="/home"
-              routerLinkActive="active"
-              (click)="navToggle.click()"
-              >Home</a
-            >
-          </li>
-          <li [@navLinkAnimation2] class="nav-item">
-            <a
-              class="nav-link"
-              routerLink="/account"
-              routerLinkActive="active"
-              (click)="navToggle.click()"
-              >Account</a
-            >
-          </li>
-          <li [@navLinkAnimation3] class="nav-item">
-            <a
-              class="nav-link"
-              routerLink="/account"
-              routerLinkActive="active"
-              (click)="navToggle.click()"
-              >About</a
-            >
-          </li>
-          <li [@navLinkAnimation4] class="nav-item">
-            <a
-              class="nav-link"
-              routerLink="/"
-              routerLinkActive="active"
-              (click)="navToggle.click()"
-              >Contact</a
-            >
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 432.544 432.544" style="enable-background:new 0 0 432.544 432.544;" xml:space="preserve">
-                <g>
-                    <g>
-                        <path d="M0,313.775v118.77h118.771l237.541-237.541L237.539,76.232L0,313.775z M103.638,395.999L103.638,395.999l-30.55,0.004    v-36.546H36.545v-30.553l25.981-25.981l67.093,67.092L103.638,395.999z M246.683,124.77c4.182,0,6.276,2.095,6.276,6.28    c0,1.906-0.664,3.521-1.999,4.856L96.214,290.651c-1.333,1.328-2.952,1.995-4.854,1.995c-4.184,0-6.279-2.098-6.279-6.279    c0-1.906,0.666-3.521,1.997-4.856l154.747-154.743C243.154,125.436,244.773,124.77,246.683,124.77z" fill="#FFFFFF"/>
-                        <path d="M421.976,77.654l-67.091-66.806C347.653,3.619,338.992,0,328.903,0c-10.283,0-18.842,3.619-25.693,10.848l-47.394,47.109    l118.773,118.77l47.394-47.392c7.042-7.043,10.561-15.608,10.561-25.697C432.54,93.743,429.022,85.08,421.976,77.654z" fill="#FFFFFF"/>
-                    </g>
-                </g>
-                </svg>
-                
-        </button> -->
-        </form>
-      </div>
-    </nav>
-  </ng-container>
-</div>
-
-<nav
-  [@bottomNavEnterAnimation]
-  *ngIf="!navOpen && screenWidth <= 768 && router.url !== '/create'"
-  id="bottom-navbar"
-  class="bottom-navbar"
->
+<nav [@bottomNavEnterAnimation]
+  *ngIf="!navOpen && screenWidth <= 768 && router.url == '/home' ||  !navOpen && screenWidth <= 768 && router.url == '/account'"
+  id="bottom-navbar" class="bottom-navbar">
   <ul class="navbar-nav mr-auto bottom-navbar-ul">
     <li class="nav-item">
-      <a class="nav-link" routerLink="/home" routerLinkActive="active"
-        ><i class="fas fa-home"></i
-      ></a>
+      <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fas fa-home"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/create" routerLinkActive="active"
-        ><i class="fas fa-heart"></i
-      ></a>
+      <a class="nav-link" routerLink="/create" routerLinkActive="active"><i class="fas fa-heart"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/create" routerLinkActive="active"
-        ><i class="fas fa-camera-retro"></i
-      ></a>
+      <a class="nav-link" routerLink="/create" routerLinkActive="active"><i class="fas fa-camera-retro"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/create" routerLinkActive="active"
-        ><i class="fas fa-envelope"></i
-      ></a>
+      <a class="nav-link" routerLink="/create" routerLinkActive="active"><i class="fas fa-envelope"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/account" routerLinkActive="active"
-        ><i class="fas fa-user"></i
-      ></a>
+      <a class="nav-link" routerLink="/account" routerLinkActive="active"><i class="fas fa-user"></i></a>
     </li>
   </ul>
 </nav>

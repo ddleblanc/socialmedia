@@ -2,86 +2,31 @@
 [@cardAnimator]="animationState" 
 (@cardAnimator.done)="resetAnimationState($event)" > -->
 <div class="main-container">
+  <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
+  <label for="file-input" class="img-input">
+    <img class="img-placeholder" *ngIf="!url" src="../../../assets/Placeholder-01.jpg" alt="" />
+    <img *ngIf="url" [@enterAnimation] [src]="url" alt="" />
+    <!-- Could've set input to display:none and used a local reference #img-input in the img's click event like (click)="img-input.click()"-->
+    <input id="file-input" type="file" name="avatar" accept="image/x-png,image/gif,image/jpeg"
+      (change)="onFileSelected($event)" style="display: none;" #fileInput />
+    <div class="can-toggle can-toggle--size-small my-toggle">
+      <input id="b" type="checkbox" [(ngModel)]="ageRestriction" name="ageRestriction" />
+      <label for="b">
+        <div class="can-toggle__switch" data-checked="NSFW" data-unchecked="SFW"></div>
+        <!-- <div class="can-toggle__label-text">Sensitive content</div> -->
+      </label>
+    </div>
+  </label>
+  <input (keydown.enter)="onPostSubmit()" [@bottomNavEnterAnimation] type="text" class="title-input"
+    placeholder="What do you call this piece.." [(ngModel)]="title" name="title" #titleInput>
   <!-- <div *ngIf="url" class="create-bg-img" [@enterAnimation]>
     <img [src]="url" alt="" />
   </div> -->
-  <div id="card-container">
-    <div class="cardbox">
-      <form (submit)="onPostSubmit()" enctype="multipart/form-data">
-        <div class="cardbox-item">
-          <label for="file-input" class="img-input">
-            <img
-              class="img-placeholder"
-              *ngIf="!url"
-              src="../../../assets/Placeholder-01.jpg"
-              alt=""
-            />
-            <img *ngIf="url" [@enterAnimation] [src]="url" alt="" />
-            <!-- Could've set input to display:none and used a local reference #img-input in the img's click event like (click)="img-input.click()"-->
-            <input
-              id="file-input"
-              type="file"
-              name="avatar"
-              accept="image/x-png,image/gif,image/jpeg"
-              (change)="onFileSelected($event)"
-              style="display: none;"
-              #fileInput
-            />
-            <div class="can-toggle can-toggle--size-small my-toggle">
-              <input
-                id="b"
-                type="checkbox"
-                [(ngModel)]="ageRestriction"
-                name="ageRestriction"
-              />
-              <label for="b">
-                <div
-                  class="can-toggle__switch"
-                  data-checked="NSFW"
-                  data-unchecked="SFW"
-                ></div>
-                <!-- <div class="can-toggle__label-text">Sensitive content</div> -->
-              </label>
-            </div>
-          </label>
-        </div>
-        <!--/ cardbox-item -->
-        <div class="cardbox-body">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control form-title post-title form-style"
-              aria-describedby="emailHelp"
-              [(ngModel)]="title"
-              name="title"
-              placeholder="Title"
-            />
-          </div>
-          <div class="form-group">
-            <textarea
-              class="form-control form-style"
-              placeholder="Say something.."
-              id="exampleTextarea"
-              rows="5"
-              [(ngModel)]="story"
-              name="story"
-            ></textarea>
-          </div>
 
-          <br />
-
-          <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-        </div>
-
-        <!--/ cardbox-base -->
-      </form>
-    </div>
-    <!--/ cardbox -->
-  </div>
   <!--/ col-lg-6 -->
 
-  <button class="btn btn-submit" [disabled]="!title" (click)="onPostSubmit()">
+  <!-- <button class="btn btn-submit" [disabled]="!title" (click)="onPostSubmit()">
     <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
     UPLOAD
-  </button>
+  </button> -->
 </div>

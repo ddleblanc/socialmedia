@@ -1,0 +1,29 @@
+<div class="comment-section-container">
+  <div class="comment-section-header">
+    <p class="comments-count"><span *ngIf="comments.length > 0 ">{{comments.length}}</span><span
+        *ngIf="comments.length == 0 ">no</span> comment<span
+        *ngIf="comments.length > 1 || comments.length < 1 ">s</span></p>
+
+  </div>
+  <div class="comment-section-body">
+    <div *ngFor="let comment of comments.slice().reverse()" class="comment">
+      <img src="../../../../assets/{{comment.user.avatar}}" alt="" class="comment-avatar">
+      <div class="comment-body">
+        <h6 class="username">@{{comment.user.username}}</h6>
+        <h6>{{comment.comment}}</h6>
+        <h6 class="date">{{comment.createdAt | timeAgo}}</h6>
+      </div>
+      <div class="like-btn-container">
+        <div class="like-btn">
+          <i class="far fa-heart"></i>
+          <!-- <i class="fas fa-heart"></i> -->
+          <h6 class="like-count">10</h6>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="gradient-overlay"></div>
+  </div>
+
+</div>

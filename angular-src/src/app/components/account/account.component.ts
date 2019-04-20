@@ -32,10 +32,10 @@ export class AccountComponent implements OnInit {
   email: string;
   avatar;
   imagename: string;
-  imagedata: string | ArrayBuffer;
+  imagedata: string;
   wallpaper: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
@@ -43,8 +43,13 @@ export class AccountComponent implements OnInit {
     this.email = this.user.email;
     if (this.user) {
       this.authService.getUserByUsername(this.user.name).subscribe(data => {
-        this.avatar = data.user.avatar.data;
-        this.wallpaper = data.user.avatar.data;
+        this.avatar = `../../../assets/${data.user.avatar}`;
+        // console.log(data)
+        if (data.user.posts.length > 0) {
+          this.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
+        } else {
+          this.wallpaper = `../../../assets/${data.user.avatar}`;
+        }
         console.log(`user: ${this.user.email}`);
       });
     }
@@ -55,20 +60,20 @@ export class AccountComponent implements OnInit {
     this.router.navigate(["/"]);
   }
   onFileSelected(event) {
-    console.log("onSelectFile");
-    if (event.target.files && event.target.files[0]) {
-      const imageFile: File = event.target.files[0];
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-      console.dir(event.target.files[0]);
-      reader.onload = event => {
-        // called once readAsDataURL is completed
-        // set the image value to the Base64 string -> can be saved in dtb
-        this.imagename = imageFile.name;
-        this.imagedata = reader.result;
-        // set the image src -> so that it can be displayed as preview
-        this.user.avatar.data = reader.result as string;
-      };
-    }
+    //   console.log("onSelectFile");
+    //   if (event.target.files && event.target.files[0]) {
+    //     const imageFile: File = event.target.files[0];
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(event.target.files[0]); // read file as data url
+    //     console.dir(event.target.files[0]);
+    //     reader.onload = event => {
+    //       // called once readAsDataURL is completed
+    //       // set the image value to the Base64 string -> can be saved in dtb
+    //       this.imagename = imageFile.name;
+    //       this.imagedata = reader.result;
+    //       // set the image src -> so that it can be displayed as preview
+    //       this.user.avatar.data = reader.result as string;
+    //     };
+    //   }
   }
 }

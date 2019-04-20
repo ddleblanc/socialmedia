@@ -29,13 +29,12 @@ import { User } from "src/app/models/user.model";
   ]
 })
 export class RegisterComponent implements OnInit {
+  avatar: File = null;
   user: User;
   placeholderImg;
   username: String;
   email: String;
   password: String;
-  imagename: string;
-  imagedata: string | ArrayBuffer;
   url: string;
   data: any;
   isEmailValid: boolean;
@@ -56,19 +55,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   onFileSelected(event) {
-    console.log("onSelectFile");
+    this.avatar = <File>event.target.files[0];
     if (event.target.files && event.target.files[0]) {
-      const imageFile: File = event.target.files[0];
       var reader = new FileReader();
+
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      console.dir(event.target.files[0]);
-      reader.onload = event => {
+
+      reader.onload = (event: any) => {
         // called once readAsDataURL is completed
-        // set the image value to the Base64 string -> can be saved in dtb
-        this.imagename = imageFile.name;
-        this.imagedata = reader.result;
-        // set the image src -> so that it can be displayed as preview
-        this.url = reader.result as string;
+        this.url = event.target.result;
       };
     }
   }
@@ -129,13 +124,12 @@ export class RegisterComponent implements OnInit {
 
   onRegisterSubmit() {
     // same format as multipart/form-data
+    const fd = new FormData();
 
     const user = {
       username: this.username,
       password: this.password,
-      email: this.email,
-      avatar: { name: this.imagename, data: this.imagedata },
-      wallpaper: { name: this.imagename, data: this.imagedata }
+      email: this.email
     };
 
     // Required fields
@@ -157,19 +151,24 @@ export class RegisterComponent implements OnInit {
       return false;
     }
     // Validation avatar
-    if (this.imagename !== null && this.imagedata !== null) {
-      if (!this.validationService.validateAvatar(this.imagename)) {
-        // this.flashMessage.show('Only images allowed', {cssClass: 'alert-danger', timeout: 3000});
-        console.log(`Invalid file ${this.imagename}`);
+    // Validate avatar
+    if (this.avatar !== null) {
+      if (!this.validationService.validateAvatar(this.avatar.name)) {
+        // this.flashMessage.show("Only images allowed", {
+        //   cssClass: "alert-danger",
+        //   timeout: 3000
+        // });
+        console.log("Invalid file");
         return false;
       }
+      // Append avatar to FormData
+      fd.append("photo", this.avatar, this.avatar.name);
     }
 
-    let jsonSize = Object.keys(user).length;
-    console.log(jsonSize);
+    fd.append("user", JSON.stringify(user));
 
     //Register user
-    this.authService.registerUser(user).subscribe(data => {
+    this.authService.registerUser(fd).subscribe(data => {
       this.data = data;
       if (this.data.success) {
         // this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});

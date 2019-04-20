@@ -1,4 +1,5 @@
 const Post = require("./post_model");
+const MyComment = require("./comment_model");
 
 /**
  * @param {object} user New user's full name, email & password
@@ -19,13 +20,33 @@ async function getAllPosts() {
 //     "username email _id email roles createdAt avatar"
 //   );
 // }
-// /**
-//  * @param {string} id Somebody's user id
-//  */
-// async function getUserById(id) {
-//   const query = { _id: id };
-//   return await User.findOne(query);
-// }
+/**
+ * @param {string} id A Post's id
+ */
+async function getPostById(id) {
+  const query = { _id: id };
+  return await Post.findOne(query).populate({
+    path: 'comments',
+    populate: {
+      path: 'user',
+      model: 'User',
+      select: 'username avatar'
+    }
+  }
+  ).populate({
+    path: 'userId',
+    select: 'username avatar'
+  })
+}
+
+async function addComment(id, comment) {
+  console.log(comment);
+  post = await getPostById(id)
+  comment = await new MyComment(comment).save()
+  post.comments.push(comment._id);
+  return await post.save();
+
+}
 
 // async function updateUserById(_id, update) {
 //   const query = { _id: _id };
@@ -53,5 +74,7 @@ async function getAllPosts() {
 
 module.exports = {
   createPost,
-  getAllPosts
+  getAllPosts,
+  getPostById,
+  addComment
 };

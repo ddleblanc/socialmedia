@@ -12,6 +12,9 @@ $light: rgba(255, 255, 255, 0.15);
   .username-input {
     text-transform: lowercase;
   }
+  .btn-submit {
+    background-image: linear-gradient(to right, #1a2980, #26d0ce);
+  }
   .no-such-user {
     position: absolute;
     left: 0;

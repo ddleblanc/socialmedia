@@ -1,0 +1,98 @@
+.detail-component-container {
+    height: 100vh;
+    width: 100%;
+    .back-btn{
+        z-index: 2;
+        font-size: 24px;
+        color: white;
+        position: absolute;
+        top: 16px;
+        left: 16px;
+    }
+    .comments-btn {
+        z-index: 2;
+        font-size: 32px;
+        color: white;
+        position: absolute;
+        bottom: 70px;
+        right: 16px;
+    }
+    .title-container {
+        pointer-events: none;
+        z-index: 3;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 50vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .img-container {
+            width: 100%;
+            text-align: center;
+            img {
+                margin-left: calc(50% -24px);
+                border-radius: 50%;
+                height: 48px;
+                width: 48px;
+                object-fit: cover;
+            }
+        }
+        
+        .title {
+            color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+}
+.post-photo {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 48px);
+    object-fit: cover;
+    transition: all 420ms ease;
+}
+.comment-input {
+    padding-left: 16px;
+    padding-right: 16px;
+    border: none;
+    background: black;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 48px;
+    width: 100%;
+    transition: all 320ms ease;
+
+}
+.dim {
+    filter: brightness(0.4)
+}
+.white-input {
+    border-top: solid 1px gainsboro;
+    background: #f2f2f2;
+    color: black;
+}
+.comment-section-container {
+    z-index: 3;
+    overflow: hidden;
+    position: absolute;
+    bottom: 48px;
+    left: 0;
+    height: calc(50vh - 48px);
+    width: 100%;
+    background: #f2f2f2;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+}

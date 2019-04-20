@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { User } from "src/app/models/user.model";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import {
   trigger,
   transition,
@@ -48,13 +48,17 @@ import { Post } from "src/app/models/post.model";
 export class HomeComponent implements OnInit {
   posts: Post[];
 
-  constructor(private postService: PostService, private router: Router) {}
+  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.postService.getPosts().subscribe(posts => {
       this.posts = posts;
-      console.log(this.posts);
+      for (var i = 0; i < this.posts.length; i++) {
+        this.posts[i].photo = `../../../assets/${posts[i].photo}`;
+      }
     });
   }
-  onLogout() {}
+  onPostSelected(post) {
+    this.router.navigate(['post', post._id]), { relativeTo: this.route }
+  }
 }

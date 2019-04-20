@@ -23,8 +23,8 @@ const UserSchema = new mongoose.Schema(
       ]
     },
     avatar: {
-      name: String,
-      data: String
+      type: String,
+      required: true
     },
     wallpaper: {
       name: String,

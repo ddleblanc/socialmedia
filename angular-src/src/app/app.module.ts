@@ -17,6 +17,9 @@ import { CreateComponent } from "./components/create/create.component";
 import { RegisterComponent } from "./components/auth/register/register.component";
 import { environment } from "../environments/environment";
 import { AccountComponent } from './components/account/account.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { CommentSectionComponent } from './components/post-detail/comment-section/comment-section.component';
+import { TimeAgo } from './pipes/timeAgo.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { AccountComponent } from './components/account/account.component';
     LoginComponent,
     CreateComponent,
     RegisterComponent,
-    AccountComponent
+    AccountComponent,
+    PostDetailComponent,
+    CommentSectionComponent,
+    TimeAgo
   ],
   imports: [
     BrowserModule,
@@ -42,4 +48,4 @@ import { AccountComponent } from './components/account/account.component';
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

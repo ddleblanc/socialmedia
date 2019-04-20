@@ -9,7 +9,7 @@ $border: 1px solid rgba(0, 0, 0, 0.15);
   left: 0;
   width: 100%;
   z-index: 99;
-  background: $light;
+  background: #000;
   .nav-link {
     padding-top: 0;
     padding-bottom: 0;
@@ -142,7 +142,7 @@ a {
 .bottom-navbar {
   z-index: 99;
   overflow: hidden;
-  background-color: $light;
+  background-color: #000;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -158,13 +158,13 @@ a {
   }
   a {
     display: block;
-    color: rgba($color: #000, $alpha: 0.5);
+    color: rgba($color: #fff, $alpha: 0.5);
     text-align: center;
     padding: 6px 6px;
     text-decoration: none;
     font-size: 24px;
   }
   a.active {
-    color: $dark !important;
+    color: #fff !important;
   }
 }

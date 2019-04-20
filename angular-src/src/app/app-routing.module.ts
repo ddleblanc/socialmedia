@@ -6,6 +6,7 @@ import { LoginComponent } from "./components/auth/login/login.component";
 import { CreateComponent } from "./components/create/create.component";
 import { RegisterComponent } from "./components/auth/register/register.component";
 import { AccountComponent } from "./components/account/account.component";
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 const routes: Routes = [
   {
@@ -31,11 +32,12 @@ const routes: Routes = [
     path: "account",
     component: AccountComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  { path: 'post/:_id', component: PostDetailComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -20,20 +20,31 @@ import { ValidationService } from "../../services/validation.service";
         style({ transform: "translateX(0)", opacity: 1 }),
         animate("500ms", style({ transform: "translateX(100%)", opacity: 0 }))
       ])
-    ])
-  ]
+    ]),
+    trigger("bottomNavEnterAnimation", [
+      transition(":enter", [
+        style({ transform: "translateY(70px)", opacity: 0 }),
+        animate(
+          "320ms ease-in-out",
+          style({ transform: "translateY(0px)", opacity: 1 })
+        )
+      ]),
+      transition(":leave", [
+        style({ transform: "translateY(0px)", opacity: 1 }),
+        animate("420ms", style({ transform: "translateY(70px)", opacity: 0 }))
+      ])
+    ])]
 })
 export class CreateComponent implements OnInit {
   url: String;
-  imagename: string;
-  imagedata: string | ArrayBuffer;
+  photo: File = null;
   title: String;
-  story: String;
   user: User;
   ageRestriction: Boolean = false;
   data: any;
 
   @ViewChild("fileInput", { read: ElementRef }) fileInput: ElementRef;
+  @ViewChild("titleInput", { read: ElementRef }) titleInput: ElementRef;
 
   constructor(
     private postService: PostService,
@@ -41,7 +52,7 @@ export class CreateComponent implements OnInit {
     private route: ActivatedRoute,
     private validateService: ValidationService,
     private _location: Location
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
@@ -50,19 +61,15 @@ export class CreateComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    console.log("onSelectFile");
+    this.photo = <File>event.target.files[0];
     if (event.target.files && event.target.files[0]) {
-      const imageFile: File = event.target.files[0];
       var reader = new FileReader();
+
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      console.dir(event.target.files[0]);
-      reader.onload = event => {
+
+      reader.onload = (event: any) => {
         // called once readAsDataURL is completed
-        // set the image value to the Base64 string -> can be saved in dtb
-        this.imagename = imageFile.name;
-        this.imagedata = reader.result;
-        // set the image src -> so that it can be displayed as preview
-        this.url = reader.result as string;
+        this.url = event.target.result;
       };
     }
   }
@@ -72,14 +79,15 @@ export class CreateComponent implements OnInit {
   }
 
   onPostSubmit() {
+    const fd = new FormData();
     const post = {
       username: this.user.name,
       userId: this.user.id,
       title: this.title,
-      story: this.story,
-      age_restriction: this.ageRestriction,
-      photo: { name: this.imagename, data: this.imagedata }
+      age_restriction: this.ageRestriction
     };
+    fd.append("photo", this.photo, this.photo.name);
+    fd.append("post", JSON.stringify(post));
 
     // console.log(post)
     // Required fields
@@ -89,14 +97,16 @@ export class CreateComponent implements OnInit {
     //   return false;
     // } else {
     //Post post
-    this.postService.addPost(post).subscribe(data => {
+    this.postService.addPost(fd).subscribe(data => {
       this.data = data;
       if (this.data.success) {
         this.router.navigate([""]);
+        this.titleInput.nativeElement.value = "";
         // this.flashMessage.show('Posted', {cssClass: 'alert-success', timeout: 3000});
         // this.router.navigate(['/'])
       } else {
         // this.router.navigate(['/'])
+        console.log("failed");
       }
     });
     // }

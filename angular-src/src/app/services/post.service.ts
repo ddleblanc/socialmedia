@@ -12,14 +12,14 @@ import { User } from "../models/user.model";
 })
 export class PostService {
   private currentPost_id: string;
-  // private localUrl = "http://localhost:3000/api/v1/";
-  private localUrl = "api/v1/";
+  private localUrl = "http://localhost:3000/api/v1/";
+  // private localUrl = "api/v1/";
   currentPost: Post;
   currentUser: User;
   // private localUrl = '';
   // private user: User;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   setCurrentPostId(id: string) {
     this.currentPost_id = id;
@@ -33,7 +33,7 @@ export class PostService {
     return this.http.post(this.localUrl + "posts", fd, { headers: headers });
   }
 
-  addCommentToPost(comment, id) {
+  addCommentToPost(id, comment) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
@@ -71,14 +71,15 @@ export class PostService {
     this.currentUser = null;
   }
 
-  getPost(_id) {
+  async getPost(_id) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + "posts" + "/" + _id, {
+    return await this.http.get<Post>(`${this.localUrl}posts/${_id}`, {
       headers: headers
-    });
+    })
+      .toPromise();
   }
 
   editPost(_id, fd) {
@@ -96,7 +97,7 @@ export class PostService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.get<Post[]>(this.localUrl + "posts", { headers: headers });
+    return this.http.get<Post[]>(`${this.localUrl}posts`, { headers: headers });
   }
 
   getUsers() {

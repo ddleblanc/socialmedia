@@ -1,0 +1,27 @@
+<div class="detail-component-container">
+  <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
+  <i class="fas fa-comment-dots comments-btn" (click)="openCommentSection()"></i>
+  <ng-container *ngIf="commentSectionOpen">
+    <div class="title-container">
+      <div class="img-container">
+        <!-- <img src="../../../../assets/{{post.userId.avatar}}" alt=""> -->
+      </div>
+
+      <h4 [@enterAnimation] class="title">{{post.title}}</h4>
+    </div>
+  </ng-container>
+
+  <img *ngIf="post" [src]="post.photo" alt="" class="post-photo" [ngClass]="{'dim':commentSectionOpen}"
+    (click)="closeCommentSection()">
+  <input (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text" class="comment-input"
+    placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment" #commentInput
+    [ngClass]="{'white-input':commentSectionOpen}">
+  <ng-container *ngIf="commentSectionOpen">
+
+    <div [@commentSectionAnimation] class="comment-section-container">
+      <i class="fas fa-times close-btn" (click)="closeCommentSection()"></i>
+      <app-comment-section [post]="post"></app-comment-section>
+    </div>
+
+  </ng-container>
+</div>

@@ -12,8 +12,8 @@ import { User } from "../models/user.model";
 })
 export class PostService {
   private currentPost_id: string;
-  private localUrl = "http://localhost:3000/api/v1/";
-  // private localUrl = "api/v1/";
+  // private localUrl = "http://localhost:3000/api/v1/";
+  private localUrl = "api/v1/";
   currentPost: Post;
   currentUser: User;
   // private localUrl = '';

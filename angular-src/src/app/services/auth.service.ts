@@ -13,10 +13,10 @@ const helper = new JwtHelperService();
 export class AuthService {
   authToken: any;
   user: User;
-  private localUrl = "http://localhost:3000/api/v1/";
-  // private localUrl = "api/v1/";
+  // private localUrl = "http://localhost:3000/api/v1/";
+  private localUrl = "api/v1/";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUsers() {
     let headers = new HttpHeaders();

@@ -1,24 +1,24 @@
-<div class="comment-section-container">
+<div *ngIf="post" class="comment-section-container">
   <div class="comment-section-header">
-    <p class="comments-count"><span *ngIf="comments.length > 0 ">{{comments.length}}</span><span
-        *ngIf="comments.length == 0 ">no</span> comment<span
-        *ngIf="comments.length > 1 || comments.length < 1 ">s</span></p>
+    <p class="comments-count"><span *ngIf="post.comments.length > 0 ">{{post.comments.length}}</span><span
+        *ngIf="post.comments.length == 0 ">no</span> comment<span
+        *ngIf="post.comments.length > 1 || post.comments.length < 1 ">s</span></p>
 
   </div>
   <div class="comment-section-body">
-    <div *ngFor="let comment of comments.slice().reverse()" class="comment">
+    <div *ngFor="let comment of post.comments.slice().reverse(); let i = index" class="comment">
       <img src="../../../../assets/{{comment.user.avatar}}" alt="" class="comment-avatar"
         (click)="onUserSelected(comment.user.username)">
       <div class="comment-body">
         <h6 class="username" (click)="onUserSelected(comment.user.username)">@{{comment.user.username}}</h6>
         <h6>{{comment.comment}}</h6>
-        <h6 class="date">{{comment.createdAt | timeAgo}}</h6>
+        <h6 class="date">{{comment.createdAt | amTimeAgo}}</h6>
       </div>
       <div class="like-btn-container">
         <div class="like-btn">
-          <i class="far fa-heart"></i>
-          <!-- <i class="fas fa-heart"></i> -->
-          <h6 class="like-count">10</h6>
+          <i *ngIf="!comment.likes.includes(userId)" class="far fa-heart" (click)="onLikeComment(comment, i)"></i>
+          <i *ngIf="comment.likes.includes(userId)" class="fas fa-heart" (click)="onLikeComment(comment, i)"></i>
+          <h6 class="like-count">{{comment.likes.length}}</h6>
         </div>
 
       </div>

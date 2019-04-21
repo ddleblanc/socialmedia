@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
 import { LottieAnimationViewModule } from "lottie-angular2";
 import { ServiceWorkerModule } from "@angular/service-worker";
+import { MomentModule } from 'ngx-moment';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -68,6 +69,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
+    MomentModule,
     LottieAnimationViewModule.forRoot(),
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production

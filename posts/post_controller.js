@@ -1,5 +1,5 @@
 const Post = require("./post_model");
-const MyComment = require("./comment_model");
+const MyComment = require("../comments/comment_model");
 
 /**
  * @param {object} user New user's full name, email & password

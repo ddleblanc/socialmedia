@@ -1,7 +1,7 @@
 <div class="detail-component-container hammered" (swipedown)="closeCommentSection()" (swipeup)="openCommentSection()"
   (swiperight)="onBackClicked()">
-  <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
-  <i class="fas fa-comment-dots comments-btn" (click)="openCommentSection()"></i>
+  <i *ngIf="post" [@enterAnimation] class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
+  <i *ngIf="post" [@enterAnimation] class="fas fa-comment-dots comments-btn" (click)="openCommentSection()"></i>
   <div class="user-icon"></div>
   <ng-container *ngIf="commentSectionOpen">
     <div class="title-container">
@@ -14,7 +14,7 @@
   </ng-container>
 
   <img *ngIf="post" [src]="post.photo" alt="" class="post-photo" [ngClass]="{'dim':commentSectionOpen}"
-    (click)="closeCommentSection()">
+    (click)="closeCommentSection()" [@enterAnimation]>
   <input (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text" class="comment-input"
     placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment" #commentInput
     [ngClass]="{'white-input':commentSectionOpen}">
@@ -22,7 +22,7 @@
 
     <div [@commentSectionAnimation] class="comment-section-container">
       <i class="fas fa-times close-btn" (click)="closeCommentSection()"></i>
-      <app-comment-section [post]="post">
+      <app-comment-section [post]="post" [userId]="user.id" (refreshPost)="getPost()">
       </app-comment-section>
     </div>
 

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { post } from 'selenium-webdriver/http';
 import { Post } from 'src/app/models/post.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-comment-section',
@@ -9,22 +10,47 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./comment-section.component.scss']
 })
 export class CommentSectionComponent implements OnInit {
-  private _post: Post;
-  @Input()
-  set post(post: Post) {
-    this._post = post;
-    this.comments = post.comments;
-  }
-  get post(): Post { return this._post; }
+  data;
+  @Input() userId;
+  @Input() post;
+  @Output() refreshPost: EventEmitter<any> = new EventEmitter();
 
   // TODO emit event that closed the comment section when swiped down && top reached 
 
-  comments;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private commentService: CommentService) { }
 
   ngOnInit() {
-    this.comments = this._post.comments;
+    // this.comments = this.post.comments;
+  }
+
+  onLikeComment(comment, i) {
+    let commentId = comment._id;
+    let userId = { userId: this.userId };
+    console.log()
+    if (!comment.likes.includes(this.userId)) {
+      this.commentService.addLikeToComment(commentId, userId).subscribe(data => {
+        this.data = data;
+        if (this.data.success) {
+          this.refreshPost.emit(null);
+        } else {
+          // this.router.navigate(['/'])
+          console.log("failed");
+        }
+      });
+    } else {
+      this.commentService.removeLikeFromComment(commentId, userId).subscribe(data => {
+        this.data = data;
+        if (this.data.success) {
+          this.refreshPost.emit(null);
+        } else {
+          // this.router.navigate(['/'])
+          console.log("failed");
+        }
+      });
+    }
+
+
   }
 
   onUserSelected(username) {

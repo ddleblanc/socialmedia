@@ -14,7 +14,7 @@
   </ng-container>
 
   <img *ngIf="post" [src]="post.photo" alt="" class="post-photo" [ngClass]="{'dim':commentSectionOpen}"
-    (click)="closeCommentSection()" [@enterAnimation]>
+    (click)="closeCommentSection()">
   <input (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text" class="comment-input"
     placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment" #commentInput
     [ngClass]="{'white-input':commentSectionOpen}">

@@ -13,7 +13,7 @@ import { User } from "../models/user.model";
 export class CommentService {
   private currentPost_id: string;
   // private localUrl = "http://localhost:3000/api/v1/comments/";
-  private localUrl = "api/v1/";
+  private localUrl = "api/v1/comments/";
   currentPost: Post;
   currentUser: User;
   // private localUrl = '';

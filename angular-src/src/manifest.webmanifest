@@ -2,7 +2,7 @@
   "name": "portraits",
   "short_name": "portraits",
   "theme_color": "#000",
-  "background_color": "#fafafa",
+  "background_color": "#000",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

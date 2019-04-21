@@ -1,4 +1,5 @@
-<div class="detail-component-container">
+<div class="detail-component-container hammered" (swipedown)="closeCommentSection()" (swipeup)="openCommentSection()"
+  (swiperight)="onBackClicked()">
   <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
   <i class="fas fa-comment-dots comments-btn" (click)="openCommentSection()"></i>
   <ng-container *ngIf="commentSectionOpen">
@@ -24,4 +25,7 @@
     </div>
 
   </ng-container>
+</div>
+<div [ngClass]="{'blacked-out':backBtnClicked}" class="black-out">
+
 </div>

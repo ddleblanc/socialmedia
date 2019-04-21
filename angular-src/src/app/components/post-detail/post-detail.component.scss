@@ -96,3 +96,17 @@
     right: 16px;
     top: 10px;
 }
+
+.black-out {
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: black;
+    transition: width 220ms ease;
+}
+.blacked-out {
+    width: 100%;
+}

@@ -58,6 +58,7 @@ export class PostDetailComponent implements OnInit {
   comment: string;
   postId: string;
   commentSectionOpen = false;
+  backBtnClicked = false;
   @ViewChild("commentInput", { read: ElementRef }) commentInput: ElementRef;
 
   constructor(private postService: PostService, private route: ActivatedRoute, private _location: Location) { }
@@ -70,11 +71,20 @@ export class PostDetailComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem("user"));
   }
 
+  onBackSwiped() {
+    this.backBtnClicked = true;
+    setTimeout(() => {
+      this._location.back();
+    }, 220)
+  }
+
   onBackClicked() {
     this._location.back();
+
   }
 
   openCommentSection() {
+    console.log("swiped");
     this.commentSectionOpen = true;
     setTimeout(() => {
       this.commentInput.nativeElement.placeholder = 'Leave a comment..';

@@ -20,6 +20,26 @@ import { AccountComponent } from './components/account/account.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { CommentSectionComponent } from './components/post-detail/comment-section/comment-section.component';
 import { TimeAgo } from './pipes/timeAgo.pipe';
+import * as Hammer from 'hammerjs';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { HammertimeDirective } from './directives/hammertime.directive';
+
+export class MyHammerConfig extends HammerGestureConfig {
+  buildHammer(element: HTMLElement) {
+    if (element.classList.contains('hammered')) {
+      let mc = new Hammer(element);
+      mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+      return mc;
+    } else {
+      let mc = new Hammer(element, {
+        touchAction: "pan-y",
+      });
+      return mc;
+    }
+
+  }
+}
+
 
 @NgModule({
   declarations: [
@@ -32,7 +52,9 @@ import { TimeAgo } from './pipes/timeAgo.pipe';
     AccountComponent,
     PostDetailComponent,
     CommentSectionComponent,
-    TimeAgo
+    TimeAgo,
+    HammertimeDirective
+
   ],
   imports: [
     BrowserModule,
@@ -45,7 +67,12 @@ import { TimeAgo } from './pipes/timeAgo.pipe';
       enabled: environment.production
     })
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

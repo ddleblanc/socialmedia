@@ -23,6 +23,9 @@ import { TimeAgo } from './pipes/timeAgo.pipe';
 import * as Hammer from 'hammerjs';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { HammertimeDirective } from './directives/hammertime.directive';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { PostListComponent } from './components/post-list/post-list.component';
+import { PostListItemComponent } from './components/post-list/post-list-item/post-list-item.component';
 
 export class MyHammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
@@ -53,7 +56,10 @@ export class MyHammerConfig extends HammerGestureConfig {
     PostDetailComponent,
     CommentSectionComponent,
     TimeAgo,
-    HammertimeDirective
+    HammertimeDirective,
+    UserDetailComponent,
+    PostListComponent,
+    PostListItemComponent
 
   ],
   imports: [

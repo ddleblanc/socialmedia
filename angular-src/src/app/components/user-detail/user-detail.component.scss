@@ -1,0 +1,68 @@
+.profile-header {
+    position: relative;
+    height: 100vh;
+    .wallpaper {
+        filter: brightness(0);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin-bottom: 1px;
+    }
+    .avatar {
+        text-align: center;
+        position: absolute;
+        bottom: calc(80% - 64px);
+        left: calc(50% - 64px);
+      cursor: pointer;
+      width: 128px;
+      height: 128px;
+    //   margin-top: -64px;
+    //   margin-left: calc(50% - 64px);
+
+        img {
+          border-radius: 50%;
+          padding: 3px;
+          background: #f2f2f2;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .title {
+            margin-top: 16px;
+            color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+        .date{
+            font-size: 12px;
+            color: rgba($color: #fff, $alpha: 0.4);
+        }
+      
+    }
+    .username {
+    }
+  }
+
+  .dm-input {
+    padding-left: 16px;
+    padding-right: 16px;
+    border: none;
+    background: black;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 48px;
+    width: 100%;
+    transition: all 320ms ease;
+
+}
+
+.back-btn{
+    z-index: 2;
+    font-size: 24px;
+    color: white;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+}

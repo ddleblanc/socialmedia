@@ -27,28 +27,13 @@ import { Post } from "src/app/models/post.model";
         style({ opacity: 1 }),
         animate("500ms", style({ opacity: 0 }))
       ])
-    ]),
-    trigger("itemEnterAnimation", [
-      transition("* => *", [
-        // each time the binding value changes
-        query(
-          ":enter",
-          [
-            style({ transform: "scale(0.8)", opacity: 0 }),
-            stagger(100, [
-              animate("220ms", style({ transform: "scale(1) ", opacity: 1 }))
-            ])
-          ],
-          { optional: true }
-        )
-      ])
     ])
   ]
 })
 export class HomeComponent implements OnInit {
   posts: Post[];
 
-  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
     this.postService.getPosts().subscribe(posts => {
@@ -58,7 +43,5 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-  onPostSelected(post) {
-    this.router.navigate(['post', post._id]), { relativeTo: this.route }
-  }
+
 }

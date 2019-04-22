@@ -48,29 +48,29 @@ export class CommentSectionComponent implements OnInit {
     let commentId = comment._id;
     let userId = { userId: this.userId };
     console.log()
-    if (!comment.likes.includes(this.userId)) {
-      this.commentService.addLikeToComment(commentId, userId).subscribe(data => {
-        this.data = data;
-        if (this.data.success) {
-          this.refreshPost.emit(null);
-        } else {
-          // this.router.navigate(['/'])
-          console.log("failed");
-        }
-      });
-    } else {
-      this.commentService.removeLikeFromComment(commentId, userId).subscribe(data => {
-        this.data = data;
-        if (this.data.success) {
-          this.refreshPost.emit(null);
-        } else {
-          // this.router.navigate(['/'])
-          console.log("failed");
-        }
-      });
-    }
+    this.commentService.addLikeToComment(commentId, userId).subscribe(data => {
+      this.data = data;
+      if (this.data.success) {
+        this.refreshPost.emit(null);
+      } else {
+        // this.router.navigate(['/'])
+        console.log("failed");
+      }
+    });
+  }
 
-
+  onUnLikeComment(comment, i) {
+    let commentId = comment._id;
+    let userId = { userId: this.userId };
+    this.commentService.removeLikeFromComment(commentId, userId).subscribe(data => {
+      this.data = data;
+      if (this.data.success) {
+        this.refreshPost.emit(null);
+      } else {
+        // this.router.navigate(['/'])
+        console.log("failed");
+      }
+    });
   }
 
   onDeleteComment(data) {

@@ -50,9 +50,9 @@ export class RegisterComponent implements OnInit {
     private validationService: ValidationService,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onFileSelected(event) {
     this.avatar = <File>event.target.files[0];
@@ -115,6 +115,7 @@ export class RegisterComponent implements OnInit {
     if (!this.validationService.validatePassword(this.password)) {
       this.inputPassword.nativeElement.classList.add("invalid");
       this.isPasswordValid = false;
+      window.alert('password must contain: 1 lowercase, 1 uppercase, 1 special character and must be at least 8 characters long')
       console.log("Invalid password");
     } else {
       this.inputPassword.nativeElement.classList.remove("invalid");

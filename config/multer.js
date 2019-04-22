@@ -3,9 +3,9 @@ const path = require("path");
 
 // Set Storage Engine
 const storage = multer.diskStorage({
-  destination: "./angular-src/src/assets", // Development
-  // destination: './public/assets', // Production
-  filename: function(req, file, cb) {
+  // destination: "./angular-src/src/assets", // Development
+  destination: './public/assets', // Production
+  filename: function (req, file, cb) {
     cb(
       null,
       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const imageFilter = function(req, file, cb) {
+const imageFilter = function (req, file, cb) {
   // accept image only
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/)) {
     return cb(new Error("Only image files are allowed!"), false);

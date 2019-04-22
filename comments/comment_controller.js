@@ -19,11 +19,9 @@ async function addLike(commentId, userId) {
 }
 
 async function removeLike(commentId, userId) {
-    const query = { _id: commentId };
     comment = await getCommentById(commentId);
     await comment.likes.pop(userId);
     await comment.save();
-    return await MyComment.findByIdAndRemove(query)
     // if (comment.likes.includes(userId)) {
     //     console.log("it works")
     // }

@@ -9,7 +9,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.d71e42a2b8143b35c4ae.js",
+        "/main.05ba407cd946f1be5760.js",
         "/polyfills.3bfd66addbd0d2814591.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
         "/styles.3be7ea62652703c668b6.css"
@@ -91,7 +91,8 @@
         "/assets/photo-1555959424913.jpg",
         "/assets/photo-1555959509536.jpg",
         "/assets/photo-1555959579416.jpg",
-        "/assets/photo-1555959601541.jpg"
+        "/assets/photo-1555959601541.jpg",
+        "/assets/photo-1555966926542.jpg"
       ],
       "patterns": []
     }
@@ -175,9 +176,10 @@
     "/assets/photo-1555959509536.jpg": "b507e437d9d3b361a007108596bdb2d99026299e",
     "/assets/photo-1555959579416.jpg": "fa3f08b6767ee2973bf85e8c238dee498c96e533",
     "/assets/photo-1555959601541.jpg": "6f428c8b8f584d717c9c4440aa0f46c906fb4d8f",
+    "/assets/photo-1555966926542.jpg": "0d4fbd7ba7bd939730444ebeae1a8519e4bdb8b1",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "79d21aac9e0e8b16dd7bb357d1ae8f87134e6881",
-    "/main.d71e42a2b8143b35c4ae.js": "b0ab298820f4944899fda2541828865d879b9d48",
+    "/index.html": "88354b7a3736e098dea9ffe53028ea566db5745c",
+    "/main.05ba407cd946f1be5760.js": "ded544bd4783cf9090e74cc072fa66e7291fe355",
     "/polyfills.3bfd66addbd0d2814591.js": "6946e10a03311677a01490b8e91741668e64e17e",
     "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "/styles.3be7ea62652703c668b6.css": "0caa8521bb692ca10d91ca911088d9b625f22dc0"

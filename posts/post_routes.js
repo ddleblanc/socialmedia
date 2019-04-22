@@ -81,16 +81,15 @@ async function addComment(req, res) {
   let _id = req.params._id;
   let commentData = req.body.commentData;
   console.log(commentData)
-  let comment = await postCtrl.addComment(_id, commentData).catch(function (err) {
-    if (err.name == "ValidationError") {
-      res.status(422).json(err);
-    } else if (err) {
-      res.status(500).json(err);
-    } else {
-      res.json({ success: true, msg: "Comment added", comment });
-    }
-  });
-
+  let comment = await postCtrl.addComment(_id, commentData)
+  // .catch(function (err) {
+  //   if (err.name == "ValidationError") {
+  //     res.status(422).json(err);
+  //   } else if (err) {
+  //     res.status(500).json(err);
+  //   }
+  // });
+  res.json({ success: true, msg: "Comment added", comment });
 }
 
 module.exports = router;

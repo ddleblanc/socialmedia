@@ -46,11 +46,12 @@ export class AccountComponent implements OnInit {
       this.user = data.user;
       this.avatar = `../../../assets/${data.user.avatar}`;
       // console.log(data)
-      if (data.user.posts.length > 0) {
-        this.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
-      } else {
-        this.wallpaper = `../../../assets/${data.user.avatar}`;
-      }
+      // if (data.user.posts.length > 0) {
+      //   this.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
+      // } else {
+      //   this.wallpaper = `../../../assets/${data.user.avatar}`;
+      // }
+      this.wallpaper = `../../../assets/${data.user.avatar}`;
       this.posts = this.user.posts;
       for (let post of this.posts) {
         post.photo = `../../../assets/${post.photo}`

@@ -84,11 +84,13 @@ async function addComment(req, res) {
   let comment = await postCtrl.addComment(_id, commentData).catch(function (err) {
     if (err.name == "ValidationError") {
       res.status(422).json(err);
-    } else {
+    } else if (err) {
       res.status(500).json(err);
+    } else {
+      res.json({ success: true, msg: "Comment added", comment });
     }
   });
-  res.json({ success: true, msg: "Comment added", comment });
+
 }
 
 module.exports = router;

@@ -7,6 +7,8 @@ export class User {
   email: string;
   password: string;
   posts: Post[];
+  following: string[] = [];
+  followers: string[] = [];
   username: string;
   _id: string;
   id: string;

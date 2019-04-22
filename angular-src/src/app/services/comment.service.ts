@@ -4,6 +4,7 @@ import { map, filter } from "rxjs/operators";
 // import { JwtHelperService } from '@auth0/angular-jwt'
 import { Post } from "../models/post.model";
 import { User } from "../models/user.model";
+import { environment } from '../../environments/environment';
 // import { User } from '../_shared/models/user.model';
 
 // const helper = new JwtHelperService();
@@ -12,11 +13,11 @@ import { User } from "../models/user.model";
 })
 export class CommentService {
   private currentPost_id: string;
-  // private localUrl = "http://localhost:3000/api/v1/comments/";
-  private localUrl = "api/v1/comments/";
+  // private apiUrl = "http://localhost:3000/api/v1/comments/";
+  private apiUrl = environment.apiUrl;
   currentPost: Post;
   currentUser: User;
-  // private localUrl = '';
+  // private apiUrl = '';
   // private user: User;
 
   constructor(private http: HttpClient) { }
@@ -32,7 +33,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.localUrl + commentId, userId, { headers: headers });
+    return this.http.post(this.apiUrl + 'comments/' + commentId, userId, { headers: headers });
   }
 
   removeLikeFromComment(commentId, userId) {
@@ -41,7 +42,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.put(this.localUrl + commentId, userId, { headers: headers });
+    return this.http.put(this.apiUrl + 'comments/' + commentId, userId, { headers: headers });
   }
 
   removeCommentById(_id) {
@@ -49,101 +50,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.localUrl + _id, {
-      headers: headers
-    });
-  }
-  setCurrentPost(post) {
-    this.currentPost = post;
-  }
-  getCurrentPost() {
-    return this.currentPost;
-  }
-  setCurrentUser(user) {
-    this.currentUser = user;
-  }
-  getCurrentUser() {
-    return this.currentUser;
-  }
-  resetCurrents() {
-    this.currentPost = null;
-    this.currentUser = null;
-  }
-
-  async getPost(_id) {
-    let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    headers.append("Accept", "application/json");
-    // let options = new RequestOptions({ headers: headers });
-    return await this.http.get<Post>(`${this.localUrl}posts/${_id}`, {
-      headers: headers
-    })
-      .toPromise();
-  }
-
-  editPost(_id, fd) {
-    let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    headers.append("Accept", "application/json");
-    // let options = new RequestOptions({ headers: headers });
-    return this.http.put(this.localUrl + "posts" + "/" + _id, fd, {
-      headers: headers
-    });
-  }
-
-  getPosts() {
-    let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    headers.append("Accept", "application/json");
-    // let options = new RequestOptions({ headers: headers });
-    return this.http.get<Post[]>(`${this.localUrl}posts`, { headers: headers });
-  }
-
-  getUsers() {
-    let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    headers.append("Accept", "application/json");
-    // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + "users", { headers: headers });
-  }
-
-  getModelByUsername(username) {
-    let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    headers.append("Accept", "application/json");
-    // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + "users/model/" + username, {
-      headers: headers
-    });
-  }
-
-  getPostsBySubject(subject) {
-    let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    headers.append("Accept", "application/json");
-    // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + "posts" + "/subject/" + subject, {
-      headers: headers
-    });
-  }
-
-  // getPostsFromUser(){
-  //   // this.user = JSON.parse(localStorage.getItem('user')) ;
-  //   // console.log(this.user.id)
-  //   let headers = new HttpHeaders();
-  //   // headers.append('Content-Type', 'multipart/form-data');
-  //   headers.append('Accept', 'application/json');
-  //   // let options = new RequestOptions({ headers: headers });
-  //   return this.http.get(this.localUrl + 'posts' + "/photographer/" + this.user.id, {headers: headers})
-  // }
-
-  getPostsByPhotographer(id) {
-    // console.log(this.user.id)
-    let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    headers.append("Accept", "application/json");
-    // let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.localUrl + "posts" + "/photographer/" + id, {
+    return this.http.delete(this.apiUrl + 'comments/' + _id, {
       headers: headers
     });
   }

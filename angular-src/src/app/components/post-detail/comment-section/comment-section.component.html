@@ -7,7 +7,7 @@
   </div>
   <div class="comment-section-body">
     <div *ngFor="let comment of post.comments.slice().reverse(); let i = index" class="comment"
-      (swiperight)="onDeleteComment('comment_' + i)">
+      (swiperight)="onDeleteComment({btnId :'comment_' + i, userId: comment.user._id})">
 
 
       <div [attr.id]="'deleteBtn_' + i" class="deleted-bg-inactive" (swipeleft)="onCancelDeleteComment('comment_' + i)">

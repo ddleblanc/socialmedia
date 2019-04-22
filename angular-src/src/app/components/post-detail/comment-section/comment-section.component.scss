@@ -94,7 +94,7 @@
     z-index: 3;
     overflow: hidden;
     position: absolute;
-    left: 0;
+    left: -16px;
     top: 0;
     background: transparent;
     width: 0%;
@@ -119,11 +119,12 @@
 }
 
 .deleted-bg-active {
+    color: #f2f2f2;
     position: absolute;
-    left: 0;
+    left: -16px;
     top: 0;
     background: rgba($color: #750000, $alpha: 0.4);
-    width: 100%;
+    width: calc(100% + 32px);
     height: 100%;
 }
 

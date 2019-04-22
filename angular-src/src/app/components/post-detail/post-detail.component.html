@@ -1,10 +1,15 @@
-<div class="detail-component-container hammered" (swipedown)="closeCommentSection()" (swipeup)="openCommentSection()">
+<div *ngIf="post && user" class="detail-component-container hammered" (swipedown)="closeCommentSection()"
+  (swipeup)="openCommentSection()">
   <i *ngIf="post && !commentSectionOpen" [@enterAnimation] class="fas fa-arrow-left back-btn"
     (click)="onBackClicked()"></i>
   <div class="button-container">
     <div class="follow-btn side-btn">
-      <img src="{{user.avatar}}" alt="" class="profile-picture">
-      <i class="fas fa-plus-circle"></i>
+      <img src="../../../assets/{{post.user.avatar}}" alt="" class="profile-picture" (click)="onFollow(post.user._id)">
+      <ng-container *ngIf="user._id != post.user._id">
+        <i *ngIf="!user.following.includes(post.user._id)" class="far fa-heart"></i>
+        <i *ngIf="user.following.includes(post.user._id)" class="fas fa-heart"></i>
+      </ng-container>
+
     </div>
     <i *ngIf="post" [@enterAnimation] class="fas fa-comment-dots comments-btn side-btn"
       (click)="openCommentSection()"></i>
@@ -13,16 +18,17 @@
 
   <div class="user-icon"></div>
   <ng-container *ngIf="commentSectionOpen">
-    <div class="title-container">
+    <div class="title-container" [@enterAnimation]>
       <div class="img-container">
         <!-- <img src="../../../../assets/{{post.userId.avatar}}" alt=""> -->
       </div>
 
-      <h4 [@enterAnimation] class="title">{{post.title}}</h4>
+      <h4 class="title">{{post.title}}</h4>
 
       <a class="profile-link" (click)="onUserSelected(post.username)">
-        <h6>{{post.username}}</h6>
+        <h6>by {{post.username}}</h6>
       </a>
+      <h6 class="date">{{post.createdAt | amTimeAgo}}</h6>
     </div>
   </ng-container>
 
@@ -35,7 +41,7 @@
 
     <div [@commentSectionAnimation] class="comment-section-container">
       <i class="fas fa-times close-btn" (click)="closeCommentSection()"></i>
-      <app-comment-section [post]="post" [userId]="user.id" (refreshPost)="getPost()">
+      <app-comment-section [post]="post" [userId]="user._id" (refreshPost)="getPost()">
       </app-comment-section>
     </div>
 

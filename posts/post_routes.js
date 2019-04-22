@@ -11,7 +11,7 @@ const router = express.Router();
 router.route("/").get(asyncHandler(getAllPosts));
 router.route("/:_id").get(asyncHandler(getPostById));
 
-router.route("/:_id/comments").post(asyncHandler(addComment))
+router.route("/:_id/comments").put(asyncHandler(addComment))
 
 // FUNCTIONS
 
@@ -36,7 +36,7 @@ router.post("", (req, res, next) => {
             }
           });
         currentUser = await userCtrl
-          .getUserById(postDataWithPhoto.userId)
+          .getUserById(postDataWithPhoto.user)
           .catch(function (err) {
             if (err) {
               res.status(422).json({

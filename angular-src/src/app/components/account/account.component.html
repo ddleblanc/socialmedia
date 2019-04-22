@@ -12,18 +12,7 @@
       </label>
     </div>
   </div>
-  <form class="account-form" [@enterAnimation]>
-    <div class="form-group">
-      <input type="text" class="form-control input-description" placeholder="name" />
-      <input type="text" class="form-control input-input" [(ngModel)]="username" name="username"
-        placeholder="username" />
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control input-description" placeholder="email" />
-      <input type="email" class="form-control input-input" [(ngModel)]="email" name="email" placeholder="email" />
-    </div>
-    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-  </form>
+  <!-- <app-post-list [posts]="user.posts"></app-post-list> -->
   <button class="btn btn-primary btn-submit" (click)="onLogout()">
     LOG OUT
   </button>

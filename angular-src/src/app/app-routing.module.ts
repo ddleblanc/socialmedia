@@ -9,6 +9,7 @@ import { AccountComponent } from "./components/account/account.component";
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { FollowingComponent } from './components/following/following.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'post/:_id', component: PostDetailComponent, canActivate: [AuthGuard] },
   { path: 'user/:username', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
+  { path: 'following', component: FollowingComponent, canActivate: [AuthGuard] },
 
 ];
 

@@ -25,6 +25,8 @@ router
   );
 
 router.route("/:username").get(asyncHandler(getUserByUsername));
+router.route("/:_id/follow").post(asyncHandler(addUserToFollowing))
+router.route("/:_id/follow").put(asyncHandler(removeUserFromFollowing))
 
 // FUNCTIONS
 
@@ -42,7 +44,7 @@ async function createUser(req, res) {
         let userDataWithPhoto = { ...userData, avatar: req.file.filename };
         createdUser = await userCtrl
           .createUser(userDataWithPhoto)
-          .catch(function(err) {
+          .catch(function (err) {
             if (err.name == "ValidationError") {
               res.status(422).json(err);
             } else {
@@ -89,7 +91,7 @@ async function updateUserById(req, res) {
   const update = req.body;
   let updatedUser = await userCtrl
     .updateUserById(_id, update)
-    .catch(function(err) {
+    .catch(function (err) {
       if (err.name == "ValidationError") {
         res.status(422).json(err);
       } else {
@@ -108,3 +110,34 @@ async function deleteUserByUsername(req, res) {
     res.json({ success: false, msg: "Unauthorized" });
   }
 }
+
+
+
+
+async function addUserToFollowing(req, res) {
+  let _id = req.params._id;
+  let userId = req.body.userId;
+  let follow = await userCtrl.addUserToFollowing(_id, userId)
+  // .catch(function (err) {
+  //     if (err.name == "ValidationError") {
+  //         res.status(422).json(err);
+  //     } else {
+  //         res.status(500).json(err);
+  //     }
+  // });
+  res.json({ success: true, msg: "Followed", follow });
+}
+async function removeUserFromFollowing(req, res) {
+  let _id = req.params._id;
+  let userId = req.body.userId;
+  let follow = await userCtrl.removeUserFromFollowing(_id, userId)
+  // .catch(function (err) {
+  //     if (err.name == "ValidationError") {
+  //         res.status(422).json(err);
+  //     } else {
+  //         res.status(500).json(err);
+  //     }
+  // });
+  res.json({ success: true, msg: "Unfollowed", follow });
+}
+

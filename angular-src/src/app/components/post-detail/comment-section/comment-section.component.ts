@@ -27,6 +27,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class CommentSectionComponent implements OnInit {
   data;
+  user;
   private confirmingCommentDeletion = false;
   private deleted = false;
   @Input() userId;
@@ -40,6 +41,7 @@ export class CommentSectionComponent implements OnInit {
 
   ngOnInit() {
     // this.comments = this.post.comments;
+    this.user = JSON.parse(localStorage.getItem("user"));
   }
 
   onLikeComment(comment, i) {
@@ -71,11 +73,16 @@ export class CommentSectionComponent implements OnInit {
 
   }
 
-  onDeleteComment(id) {
-    let el = document.getElementById(id);
-    el.classList.add('delete-bg-active');
-    this.confirmingCommentDeletion = true;
-    console.log('delete comment')
+  onDeleteComment(data) {
+    let btnId = data.btnId;
+    let userId = data.userId;
+    if (this.user.id == userId) {
+      let el = document.getElementById(btnId);
+      el.classList.add('delete-bg-active');
+      this.confirmingCommentDeletion = true;
+      console.log('delete comment')
+    }
+
   }
 
   onCancelDeleteComment(id) {

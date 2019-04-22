@@ -44,6 +44,24 @@ const UserSchema = new mongoose.Schema(
         ref: "Post"
       }
     ],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "MyComment"
+      }
+    ],
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
+    following: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
     roles: [
       {
         type: String

@@ -1,0 +1,6 @@
+<app-post-list [posts]="sortedPosts"></app-post-list>
+<ng-container *ngIf="sortedPosts">
+  <div [@enterAnimation] *ngIf="sortedPosts.length == 0" class="alert">
+    <h6 class="text">You are not following anyone yet..</h6>
+  </div>
+</ng-container>

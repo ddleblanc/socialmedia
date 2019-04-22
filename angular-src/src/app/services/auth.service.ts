@@ -4,6 +4,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from "../models/user.model";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { Response } from "../models/response.model";
+import { environment } from '../../environments/environment';
 
 const helper = new JwtHelperService();
 
@@ -13,8 +14,8 @@ const helper = new JwtHelperService();
 export class AuthService {
   authToken: any;
   user: User;
-  // private localUrl = "http://localhost:3000/api/v1/";
-  private localUrl = "api/v1/";
+  // private apiUrl = "http://localhost:3000/api/v1/";
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -22,13 +23,13 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers.append("Content-Type", "application/json");
     console.log(headers);
-    return this.http.get<User[]>(this.localUrl + "users", { headers: headers });
+    return this.http.get<User[]>(this.apiUrl + "users", { headers: headers });
   }
 
   getUserByUsername(username) {
     let headers = new HttpHeaders();
     headers.append("Content-Type", "application/json");
-    return this.http.get<Response>(`${this.localUrl}users/${username}`, {
+    return this.http.get<Response>(`${this.apiUrl}users/${username}`, {
       headers: headers
     });
   }
@@ -38,14 +39,14 @@ export class AuthService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.localUrl + "users", user, {
+    return this.http.post(this.apiUrl + "users", user, {
       headers: headers
     });
   }
   authenticateUser(user) {
     let headers = new HttpHeaders();
     headers.append("Content-Type", "application/json");
-    return this.http.post(this.localUrl + "auth", user, {
+    return this.http.post(this.apiUrl + "auth", user, {
       headers: headers
     });
   }
@@ -55,7 +56,7 @@ export class AuthService {
     headers.append("Authorization", this.authToken);
     headers.append("Content-Type", "application/json");
     console.log(headers);
-    return this.http.get(`${this.localUrl}users/${username}`, {
+    return this.http.get(`${this.apiUrl}users/${username}`, {
       headers: headers
     });
   }
@@ -70,19 +71,19 @@ export class AuthService {
     this.loadToken();
     headers.append("Authorization", this.authToken);
     headers.append("Content-Type", "application/json");
-    return this.http.put(this.localUrl + "users", updateProps, {
+    return this.http.put(this.apiUrl + "users", updateProps, {
       headers: headers
     });
   }
   deleteProfile(id) {
-    // console.log(this.localUrl + 'users/profile/delete/' + id)
+    // console.log(this.apiUrl + 'users/profile/delete/' + id)
     let headers = new HttpHeaders();
     this.loadToken();
     // console.log(this.authToken);
     headers.append("Authorization", this.authToken);
     headers.append("Content-Type", "application/json");
     console.log(headers);
-    return this.http.delete(this.localUrl + "users/profile/" + id, {
+    return this.http.delete(this.apiUrl + "users/profile/" + id, {
       headers: headers
     });
   }

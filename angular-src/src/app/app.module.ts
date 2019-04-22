@@ -5,13 +5,14 @@ import { FormsModule } from "@angular/forms";
 import { LottieAnimationViewModule } from "lottie-angular2";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { MomentModule } from 'ngx-moment';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { NavComponent } from "./components/nav/nav.component";
 import { HomeComponent } from "./components/home/home.component";
 import { AuthService } from "./services/auth.service";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { CreateComponent } from "./components/create/create.component";
@@ -28,6 +29,11 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PostListItemComponent } from './components/post-list/post-list-item/post-list-item.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { FollowingComponent } from './components/following/following.component';
+import { CommentService } from './services/comment.service';
+import { FollowService } from './services/follow.service';
+import { PostService } from './services/post.service';
+import { ValidationService } from './services/validation.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
@@ -62,7 +68,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     UserDetailComponent,
     PostListComponent,
     PostListItemComponent,
-    MessagesComponent
+    MessagesComponent,
+    FollowingComponent
 
   ],
   imports: [
@@ -77,7 +84,14 @@ export class MyHammerConfig extends HammerGestureConfig {
       enabled: environment.production
     })
   ],
-  providers: [AuthService, AuthGuard,
+  providers: [
+    AuthService,
+    CommentService,
+    FollowService,
+    PostService,
+    ValidationService,
+    AuthGuard,
+    HttpClientModule,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig,

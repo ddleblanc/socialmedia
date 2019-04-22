@@ -6,6 +6,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { Location } from "@angular/common";
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { FollowService } from 'src/app/services/follow.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -58,30 +59,35 @@ export class PostDetailComponent implements OnInit {
   user: User;
   comment: string;
   postId: string;
+  following = [];
   commentSectionOpen = false;
   backBtnClicked = false;
   @ViewChild("commentInput", { read: ElementRef }) commentInput: ElementRef;
 
-  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private _location: Location, private authService: AuthService) { }
+  constructor(private followService: FollowService, private postService: PostService, private router: Router, private route: ActivatedRoute, private _location: Location, private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => { this.postId = params._id })
     console.log()
     this.getPost()
-    this.commentInput.nativeElement.click();
-    this.user = JSON.parse(localStorage.getItem("user"));
-    if (this.user) {
-      this.authService.getUserByUsername(this.user.name).subscribe(data => {
-        this.user.avatar = `../../../assets/${data.user.avatar}`;
-        // console.log(data)
-        if (data.user.posts.length > 0) {
-          this.user.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
-        } else {
-          this.user.wallpaper = `../../../assets/${data.user.avatar}`;
-        }
-        console.log(`user: ${this.user.email}`);
-      });
-    }
+    let user = JSON.parse(localStorage.getItem("user"));
+    this.authService.getUserByUsername(user.name).subscribe(data => {
+      this.user = data.user;
+      console.log(this.user)
+      this.user.avatar = `../../../assets/${data.user.avatar}`;
+      // console.log(data)
+      if (data.user.posts.length > 0) {
+        this.user.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
+      } else {
+        this.user.wallpaper = `../../../assets/${data.user.avatar}`;
+      }
+      if (this.user.following != undefined) {
+        this.following = this.user.following;
+      }
+
+      console.log(`user: ${this.user.email}`);
+    });
+
   }
 
   onBackSwiped() {
@@ -112,7 +118,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   onSendComment() {
-    let commentObj = { commentData: { comment: this.comment, user: this.user.id } }
+    let commentObj = { commentData: { comment: this.comment, user: this.user._id } }
     this.postService.addCommentToPost(this.post._id, commentObj).subscribe(data => {
       this.data = data;
       if (this.data.success) {
@@ -133,12 +139,45 @@ export class PostDetailComponent implements OnInit {
     if (this.data.success) {
       this.data.post.photo = "../../../assets/" + this.data.post.photo;
       this.post = this.data.post;
+      console.log(this.post)
     }
     else if (!this.data.success) {
       console.log("hierdoor doet ie het niet" + this.data.msg)
       // this.router.navigate(['/'])
     }
     console.log(this.post)
+  }
+
+  onFollow() {
+    let theirId = this.post.user._id;
+    let userId = { userId: this.user._id }
+    console.log(this.user)
+    if (this.post.user._id != this.user._id) {
+      if (!this.following.includes(theirId)) {
+        this.followService.addUserToFollowing(theirId, userId).subscribe(data => {
+          this.data = data;
+          if (this.data.success) {
+            this.ngOnInit();
+          } else {
+            // this.router.navigate(['/'])
+            console.log("failed");
+          }
+        });
+      } else {
+        this.followService.removeUserFromFollowing(theirId, userId).subscribe(data => {
+          this.data = data;
+          if (this.data.success) {
+            this.ngOnInit()
+          } else {
+            // this.router.navigate(['/'])
+            console.log("failed");
+          }
+        });
+      }
+    }
+
+
+
   }
 
   onUserSelected(username) {

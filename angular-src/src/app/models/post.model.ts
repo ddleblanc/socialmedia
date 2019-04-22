@@ -6,6 +6,7 @@ export class Post {
   story: string;
   photo: string;
   username: string;
+  user: any;
   postDate: Date;
   comments: MyComment[];
 }

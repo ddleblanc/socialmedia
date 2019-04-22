@@ -24,7 +24,7 @@ async function getAllUsers() {
 async function getUserByUsername(username) {
   const query = { username: username };
   return await User.findOne(query).select(
-    "username email _id email roles createdAt avatar posts"
+    "username email _id email roles createdAt avatar posts followers following"
   ).populate({
     path: 'posts',
     populate: {
@@ -70,11 +70,33 @@ async function deleteUserByUsername(username) {
   return deletedUser;
 }
 
+
+async function addUserToFollowing(theirId, userId) {
+  user = await getUserById(userId);
+  console.log(await user)
+  await user.following.push(theirId);
+  return await user.save();
+  // if (comment.likes.includes(userId)) {
+  //     console.log("it works")
+  // }
+}
+
+async function removeUserFromFollowing(theirId, userId) {
+  user = await getUserById(userId);
+  await user.following.pop(theirId);
+  return await user.save();
+  // if (comment.likes.includes(userId)) {
+  //     console.log("it works")
+  // }
+}
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserByUsername,
   updateUserById,
   getUserById,
-  deleteUserByUsername
+  deleteUserByUsername,
+  addUserToFollowing,
+  removeUserFromFollowing
 };

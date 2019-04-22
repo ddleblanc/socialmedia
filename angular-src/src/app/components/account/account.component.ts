@@ -3,6 +3,7 @@ import { AuthService } from "src/app/services/auth.service";
 import { Router } from "@angular/router";
 import { User } from "src/app/models/user.model";
 import { trigger, transition, style, animate } from "@angular/animations";
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: "app-account",
@@ -29,30 +30,33 @@ import { trigger, transition, style, animate } from "@angular/animations";
 export class AccountComponent implements OnInit {
   user: User;
   username: string;
-  email: string;
   avatar;
   imagename: string;
   imagedata: string;
   wallpaper: string;
+  posts: Post[];
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    this.username = this.user.name;
-    this.email = this.user.email;
-    if (this.user) {
-      this.authService.getUserByUsername(this.user.name).subscribe(data => {
-        this.avatar = `../../../assets/${data.user.avatar}`;
-        // console.log(data)
-        if (data.user.posts.length > 0) {
-          this.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
-        } else {
-          this.wallpaper = `../../../assets/${data.user.avatar}`;
-        }
-        console.log(`user: ${this.user.email}`);
-      });
-    }
+    let user = JSON.parse(localStorage.getItem("user"));
+    let username = user.name;
+    this.authService.getUserByUsername(username).subscribe(data => {
+      console.log(data.user)
+      this.user = data.user;
+      this.avatar = `../../../assets/${data.user.avatar}`;
+      // console.log(data)
+      if (data.user.posts.length > 0) {
+        this.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
+      } else {
+        this.wallpaper = `../../../assets/${data.user.avatar}`;
+      }
+      this.posts = this.user.posts;
+      for (let post of this.posts) {
+        post.photo = `../../../assets/${post.photo}`
+      }
+    });
+
   }
 
   onLogout() {

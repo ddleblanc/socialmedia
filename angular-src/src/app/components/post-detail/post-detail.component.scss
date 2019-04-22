@@ -10,6 +10,7 @@
         left: 16px;
     }
     .button-container {
+        text-shadow: black 0px 0px 10px;
         z-index: 2;
         font-size: 48px;
         color: white;
@@ -22,7 +23,7 @@
             margin-top: 16px;
         }
         .comments-btn{
- 
+            transform: scale(0.8)
         }
         .follow-btn {
             display: flex;
@@ -48,6 +49,7 @@
         }
     }
     .title-container {
+        text-shadow: black 0px 0px 10px;
         z-index: 3;
         position: absolute;
         left: 0;
@@ -73,6 +75,12 @@
             color: #f2f2f2;
             font-weight: bold;
             text-align: center;
+        }
+        .date{
+            text-decoration: none;
+            font-size: 12px;
+            text-align: center;
+            color: rgba($color: #fff, $alpha: 0.6);
         }
         .profile-link {
             color: #f2f2f2;

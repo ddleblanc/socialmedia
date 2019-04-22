@@ -1,4 +1,13 @@
-<app-nav *ngIf="router.url == '/home' || router.url == '/messages' ||  router.url == '/account'"></app-nav>
+<ng-container *ngIf="screenWidth <= 768">
+  <app-nav
+    *ngIf="router.url == '/home' || router.url == '/messages' ||  router.url == '/account' ||  router.url == '/following'">
+  </app-nav>
 
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</ng-container>
+
+
+<div *ngIf="screenWidth > 768" id="desktop-msg-container">
+  <h6 class="msg">Visit on mobile</h6>
+</div>

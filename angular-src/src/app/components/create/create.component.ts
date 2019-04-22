@@ -82,7 +82,7 @@ export class CreateComponent implements OnInit {
     const fd = new FormData();
     const post = {
       username: this.user.name,
-      userId: this.user.id,
+      user: this.user.id,
       title: this.title,
       age_restriction: this.ageRestriction
     };

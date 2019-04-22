@@ -22,7 +22,7 @@ const PORT = 3000;
 app.use(cors());
 
 // https://expressjs.com/en/advanced/best-practice-performance.html
-app.use(compression());
+// app.use(compression());
 
 // Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: "true" }));

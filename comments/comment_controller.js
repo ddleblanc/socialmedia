@@ -27,7 +27,13 @@ async function removeLike(commentId, userId) {
     // }
 }
 
+async function deleteComment(id) {
+    const query = { _id: id };
+    return await MyComment.findByIdAndRemove(query)
+}
+
 module.exports = {
     addLike,
-    removeLike
+    removeLike,
+    deleteComment
 };

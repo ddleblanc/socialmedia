@@ -1,0 +1,47 @@
+<div class="messages-container">
+  <div *ngIf="postsWithComments" class="message-list">
+    <div class="panel-group message-list-item" [attr.id]="'accordion_' + postIndex"
+      *ngFor="let post of postsWithComments; let postIndex = index;">
+      <div class="panel panel-default">
+        <div class="panel-heading" (click)="scroll('accordion_' + postIndex)">
+          <h4 class="panel-title">
+
+            <a data-toggle="collapse" [attr.data-parent]="'#accordion_' + postIndex"
+              [attr.href]="'#collapseOne_' + postIndex">
+              <h4 class="title">{{ post.title }}</h4>
+              <h4 class="comment-count">{{ post.comments.length }}</h4>
+              <img src="{{post.photo}}" alt="" class="list-item-bg">
+
+            </a>
+          </h4>
+        </div>
+        <div [attr.id]="'collapseOne_' + postIndex" class="panel-collapse collapse in">
+          <div class="message-section-body">
+            <div *ngFor="let comment of post.comments.slice().reverse(); let commentIndex = index" class="comment">
+              <img src="../../../../assets/{{comment.user.avatar}}" alt="" class="comment-avatar"
+                (click)="onUserSelected(comment.user.username)">
+              <div class="comment-body">
+                <h6 class="username" (click)="onUserSelected(comment.user.username)">@{{comment.user.username}}</h6>
+                <h6>{{comment.comment}}</h6>
+                <h6 class="date">{{comment.createdAt | amTimeAgo}}</h6>
+              </div>
+              <div class="like-btn-container">
+                <div class="like-btn">
+                  <i *ngIf="!comment.likes.includes(user._id)" class="far fa-heart"
+                    (click)="onLikeComment(comment, postIndex, commentIndex)"></i>
+                  <i *ngIf="comment.likes.includes(user._id)" class="fas fa-heart"
+                    (click)="onLikeComment(comment, postIndex, commentIndex)"></i>
+                  <h6 class="like-count">{{comment.likes.length}}</h6>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="gradient-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gradient-overlay"></div>
+</div>

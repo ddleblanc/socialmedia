@@ -44,12 +44,12 @@ export class CommentService {
     return this.http.put(this.localUrl + commentId, userId, { headers: headers });
   }
 
-  deletePost(_id) {
+  removeCommentById(_id) {
     let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.localUrl + "posts" + "/" + _id, {
+    return this.http.delete(this.localUrl + _id, {
       headers: headers
     });
   }

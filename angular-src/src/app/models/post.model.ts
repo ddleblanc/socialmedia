@@ -1,3 +1,5 @@
+import { MyComment } from "./comment.model";
+
 export class Post {
   _id: string;
   title: string;
@@ -5,5 +7,5 @@ export class Post {
   photo: string;
   username: string;
   postDate: Date;
-  comments: object[];
+  comments: MyComment[];
 }

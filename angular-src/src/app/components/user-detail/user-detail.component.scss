@@ -1,6 +1,6 @@
 .profile-header {
     position: relative;
-    height: 100vh;
+    height: calc(50vh -48px);
     .wallpaper {
         filter: brightness(0);
       width: 100%;
@@ -11,7 +11,7 @@
     .avatar {
         text-align: center;
         position: absolute;
-        bottom: calc(80% - 64px);
+        bottom: calc(50% - 32px);
         left: calc(50% - 64px);
       cursor: pointer;
       width: 128px;

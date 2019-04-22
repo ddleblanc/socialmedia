@@ -3,6 +3,7 @@ import { Post } from "./post.model";
 export class User {
   name: string;
   avatar: string;
+  wallpaper: string;
   email: string;
   password: string;
   posts: Post[];

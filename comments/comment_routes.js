@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.route("/:_id").post(asyncHandler(addLike))
     .put(asyncHandler(removeLike))
+    .delete(asyncHandler(deleteComment))
 
 
 
@@ -39,6 +40,12 @@ async function removeLike(req, res) {
     //     }
     // });
     res.json({ success: true, msg: "Like removed", like });
+}
+
+async function deleteComment(req, res) {
+    let _id = req.params._id
+    await commentCtrl.deleteComment(_id)
+    res.json({ success: true, msg: "Comment deleted" });
 }
 
 

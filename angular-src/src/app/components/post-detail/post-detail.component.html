@@ -1,7 +1,16 @@
-<div class="detail-component-container hammered" (swipedown)="closeCommentSection()" (swipeup)="openCommentSection()"
-  (swiperight)="onBackClicked()">
-  <i *ngIf="post" [@enterAnimation] class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
-  <i *ngIf="post" [@enterAnimation] class="fas fa-comment-dots comments-btn" (click)="openCommentSection()"></i>
+<div class="detail-component-container hammered" (swipedown)="closeCommentSection()" (swipeup)="openCommentSection()">
+  <i *ngIf="post && !commentSectionOpen" [@enterAnimation] class="fas fa-arrow-left back-btn"
+    (click)="onBackClicked()"></i>
+  <div class="button-container">
+    <div class="follow-btn side-btn">
+      <img src="{{user.avatar}}" alt="" class="profile-picture">
+      <i class="fas fa-plus-circle"></i>
+    </div>
+    <i *ngIf="post" [@enterAnimation] class="fas fa-comment-dots comments-btn side-btn"
+      (click)="openCommentSection()"></i>
+
+  </div>
+
   <div class="user-icon"></div>
   <ng-container *ngIf="commentSectionOpen">
     <div class="title-container">
@@ -10,11 +19,15 @@
       </div>
 
       <h4 [@enterAnimation] class="title">{{post.title}}</h4>
+
+      <a class="profile-link" (click)="onUserSelected(post.username)">
+        <h6>{{post.username}}</h6>
+      </a>
     </div>
   </ng-container>
 
   <img *ngIf="post" [src]="post.photo" alt="" class="post-photo" [ngClass]="{'dim':commentSectionOpen}"
-    (click)="closeCommentSection()">
+    (swiperight)="onBackClicked()">
   <input (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text" class="comment-input"
     placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment" #commentInput
     [ngClass]="{'white-input':commentSectionOpen}">

@@ -8,6 +8,7 @@ import { RegisterComponent } from "./components/auth/register/register.component
 import { AccountComponent } from "./components/account/account.component";
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 const routes: Routes = [
   {
@@ -35,7 +36,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'post/:_id', component: PostDetailComponent, canActivate: [AuthGuard] },
-  { path: 'user/:username', component: UserDetailComponent, canActivate: [AuthGuard] }
+  { path: 'user/:username', component: UserDetailComponent, canActivate: [AuthGuard] },
+  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

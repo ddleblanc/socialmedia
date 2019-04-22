@@ -9,16 +9,45 @@
         top: 16px;
         left: 16px;
     }
-    .comments-btn {
+    .button-container {
         z-index: 2;
-        font-size: 32px;
+        font-size: 48px;
         color: white;
         position: absolute;
         bottom: 70px;
         right: 16px;
+        display: flex;
+        flex-direction: column;
+        .side-btn {
+            margin-top: 16px;
+        }
+        .comments-btn{
+ 
+        }
+        .follow-btn {
+            display: flex;
+            flex-direction: column;
+            height: 48px;
+            width: 48px;
+            position: relative;
+            text-align: center;
+            .profile-picture {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+
+            }
+            i {
+                position: absolute;
+                right: -2px;
+                top: -2px;
+                font-size: 18px;
+                
+            }
+        }
     }
     .title-container {
-        pointer-events: none;
         z-index: 3;
         position: absolute;
         left: 0;
@@ -44,6 +73,11 @@
             color: #f2f2f2;
             font-weight: bold;
             text-align: center;
+        }
+        .profile-link {
+            color: #f2f2f2;
+            text-align: center;
+            text-decoration: underline;
         }
     }
 }

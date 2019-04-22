@@ -1,4 +1,4 @@
-<div *ngIf="post" class="comment-section-container">
+<div *ngIf="post" class="comment-section-container hammered">
   <div class="comment-section-header">
     <p class="comments-count"><span *ngIf="post.comments.length > 0 ">{{post.comments.length}}</span><span
         *ngIf="post.comments.length == 0 ">no</span> comment<span
@@ -6,7 +6,28 @@
 
   </div>
   <div class="comment-section-body">
-    <div *ngFor="let comment of post.comments.slice().reverse(); let i = index" class="comment">
+    <div *ngFor="let comment of post.comments.slice().reverse(); let i = index" class="comment"
+      (swiperight)="onDeleteComment('comment_' + i)">
+
+
+      <div [attr.id]="'deleteBtn_' + i" class="deleted-bg-inactive" (swipeleft)="onCancelDeleteComment('comment_' + i)">
+        <ng-container *ngIf="deleted">
+          <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">GONE
+          </h6>
+        </ng-container>
+
+      </div>
+
+
+
+      <div [attr.id]="'comment_' + i" class="delete-bg-inactive" (swipeleft)="onCancelDeleteComment('comment_' + i)"
+        (swiperight)="onConfirmDeletion({deleteBtn: 'deleteBtn_' + i, commentId: comment._id})">
+        <ng-container *ngIf="confirmingCommentDeletion">
+          <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">REMOVE
+          </h6>
+        </ng-container>
+
+      </div>
       <img src="../../../../assets/{{comment.user.avatar}}" alt="" class="comment-avatar"
         (click)="onUserSelected(comment.user.username)">
       <div class="comment-body">

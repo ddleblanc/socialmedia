@@ -37,6 +37,19 @@ import { Location } from "@angular/common";
         style({ transform: "translateY(0px)", opacity: 1 }),
         animate("420ms", style({ transform: "translateY(70px)", opacity: 0 }))
       ])
+    ]),
+    trigger("postsEnterAnimation", [
+      transition(":enter", [
+        style({ transform: "translateY(70px)", opacity: 0 }),
+        animate(
+          "620ms 420ms ease-in-out",
+          style({ transform: "translateY(0px)", opacity: 1 })
+        )
+      ]),
+      transition(":leave", [
+        style({ transform: "translateY(0px)", opacity: 1 }),
+        animate("420ms", style({ transform: "translateY(70px)", opacity: 0 }))
+      ])
     ])
   ]
 })

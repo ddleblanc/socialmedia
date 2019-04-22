@@ -1,8 +1,6 @@
 <div class="container"></div>
 
-<nav [@bottomNavEnterAnimation]
-  *ngIf="!navOpen && screenWidth <= 768 && router.url == '/home' ||  !navOpen && screenWidth <= 768 && router.url == '/account'"
-  id="bottom-navbar" class="bottom-navbar">
+<nav [@bottomNavEnterAnimation] *ngIf="!navOpen && screenWidth <= 768" id="bottom-navbar" class="bottom-navbar">
   <ul class="navbar-nav mr-auto bottom-navbar-ul">
     <li class="nav-item">
       <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fas fa-home"></i></a>
@@ -14,7 +12,7 @@
       <a class="nav-link" routerLink="/create" routerLinkActive="active"><i class="fas fa-camera-retro"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/create" routerLinkActive="active"><i class="fas fa-envelope"></i></a>
+      <a class="nav-link" routerLink="/messages" routerLinkActive="active"><i class="fas fa-envelope"></i></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/account" routerLinkActive="active"><i class="fas fa-user"></i></a>

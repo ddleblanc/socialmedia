@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
 import { PostService } from 'src/app/services/post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Location } from "@angular/common";
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -61,7 +62,7 @@ export class PostDetailComponent implements OnInit {
   backBtnClicked = false;
   @ViewChild("commentInput", { read: ElementRef }) commentInput: ElementRef;
 
-  constructor(private postService: PostService, private route: ActivatedRoute, private _location: Location) { }
+  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private _location: Location, private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => { this.postId = params._id })
@@ -69,6 +70,18 @@ export class PostDetailComponent implements OnInit {
     this.getPost()
     this.commentInput.nativeElement.click();
     this.user = JSON.parse(localStorage.getItem("user"));
+    if (this.user) {
+      this.authService.getUserByUsername(this.user.name).subscribe(data => {
+        this.user.avatar = `../../../assets/${data.user.avatar}`;
+        // console.log(data)
+        if (data.user.posts.length > 0) {
+          this.user.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
+        } else {
+          this.user.wallpaper = `../../../assets/${data.user.avatar}`;
+        }
+        console.log(`user: ${this.user.email}`);
+      });
+    }
   }
 
   onBackSwiped() {
@@ -126,6 +139,10 @@ export class PostDetailComponent implements OnInit {
       // this.router.navigate(['/'])
     }
     console.log(this.post)
+  }
+
+  onUserSelected(username) {
+    this.router.navigate(['user', username]), { relativeTo: this.route }
   }
 
 }

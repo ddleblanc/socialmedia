@@ -27,6 +27,7 @@ import { HammertimeDirective } from './directives/hammertime.directive';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PostListItemComponent } from './components/post-list/post-list-item/post-list-item.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 export class MyHammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
@@ -60,7 +61,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     HammertimeDirective,
     UserDetailComponent,
     PostListComponent,
-    PostListItemComponent
+    PostListItemComponent,
+    MessagesComponent
 
   ],
   imports: [

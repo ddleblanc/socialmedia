@@ -1,4 +1,4 @@
-<app-nav
-  *ngIf="router.url !== '/login' && router.url !== '/register'"
-></app-nav>
+<app-nav *ngIf="router.url == '/home' || router.url == '/messages' ||  router.url == '/account'"></app-nav>
+
+
 <router-outlet></router-outlet>

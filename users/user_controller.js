@@ -23,9 +23,20 @@ async function getAllUsers() {
  */
 async function getUserByUsername(username) {
   const query = { username: username };
-  return await User.findOne(query).populate("posts").select(
+  return await User.findOne(query).select(
     "username email _id email roles createdAt avatar posts"
-  );
+  ).populate({
+    path: 'posts',
+    populate: {
+      path: 'comments',
+      populate: {
+        path: 'user',
+        model: 'User',
+        select: 'username avatar'
+      }
+    }
+  }
+  )
 }
 /**
  * @param {string} id Somebody's user id

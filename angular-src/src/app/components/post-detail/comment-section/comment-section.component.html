@@ -6,45 +6,56 @@
 
   </div>
   <div class="comment-section-body">
-    <div *ngFor="let comment of post.comments.slice().reverse(); let i = index" class="comment"
-      (swiperight)="onDeleteComment({btnId :'comment_' + i, userId: comment.user._id})">
+    <ng-container *ngIf="post.comments">
+      <div *ngFor="let comment of post.comments.slice().reverse(); let i = index" class="comment"
+        (swiperight)="onDeleteComment({btnId :'comment_' + i, userId: comment.user._id})">
 
 
-      <div [attr.id]="'deleteBtn_' + i" class="deleted-bg-inactive" (swipeleft)="onCancelDeleteComment('comment_' + i)">
-        <ng-container *ngIf="deleted">
-          <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">GONE
-          </h6>
-        </ng-container>
+        <div [attr.id]="'deleteBtn_' + i" class="deleted-bg-inactive"
+          (swipeleft)="onCancelDeleteComment('comment_' + i)">
+          <ng-container *ngIf="deleted">
+            <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">GONE
+            </h6>
+          </ng-container>
 
-      </div>
+        </div>
 
 
 
-      <div [attr.id]="'comment_' + i" class="delete-bg-inactive" (swipeleft)="onCancelDeleteComment('comment_' + i)"
-        (swiperight)="onConfirmDeletion({deleteBtn: 'deleteBtn_' + i, commentId: comment._id})">
-        <ng-container *ngIf="confirmingCommentDeletion">
-          <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">REMOVE?
-          </h6>
-        </ng-container>
+        <div [attr.id]="'comment_' + i" class="delete-bg-inactive" (swipeleft)="onCancelDeleteComment('comment_' + i)"
+          (swiperight)="onConfirmDeletion({deleteBtn: 'deleteBtn_' + i, commentId: comment._id})">
+          <ng-container *ngIf="confirmingCommentDeletion">
+            <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">REMOVE?
+            </h6>
+          </ng-container>
 
-      </div>
-      <img src="../../../../assets/{{comment.user.avatar}}" alt="" class="comment-avatar"
-        (click)="onUserSelected(comment.user.username)">
-      <div class="comment-body">
-        <h6 class="username" (click)="onUserSelected(comment.user.username)">@{{comment.user.username}}</h6>
-        <h6>{{comment.comment}}</h6>
-        <h6 class="date">{{comment.createdAt | amTimeAgo}}</h6>
-      </div>
-      <div class="like-btn-container">
-        <div class="like-btn">
-          <i *ngIf="!comment.likes.includes(userId)" class="far fa-heart" (click)="onLikeComment(comment, i)"></i>
-          <i *ngIf="comment.likes.includes(userId)" class="fas fa-heart" (click)="onUnLikeComment(comment, i)"></i>
-          <h6 class="like-count">{{comment.likes.length}}</h6>
+        </div>
+        <img src="../../../../assets/{{comment.user.avatar}}" alt="" class="comment-avatar"
+          (click)="onUserSelected(comment.user.username)">
+        <div class="comment-body">
+          <h6 class="username" (click)="onUserSelected(comment.user.username)">@{{comment.user.username}}</h6>
+          <h6>{{comment.comment}}</h6>
+          <h6 class="date">{{comment.createdAt | amTimeAgo}}</h6>
+        </div>
+        <div class="like-btn-container">
+          <div class="like-btn">
+            <i *ngIf="!comment.likes.includes(userId)" class="far fa-heart" (click)="onLikeComment(comment, i)"></i>
+            <i *ngIf="comment.likes.includes(userId)" class="fas fa-heart" (click)="onUnLikeComment(comment, i)"></i>
+            <h6 class="like-count">{{comment.likes.length}}</h6>
+          </div>
+
         </div>
 
       </div>
+    </ng-container>
+    <ng-container *ngIf="post.comments.length == 0 && showAnim">
+      <div [@enterAnimation]>
+        <lottie-animation-view [options]="noCommentsConfig" [width]="300" [height]="300"
+          (animCreated)="handleAnimation($event)" class="lottie">
+        </lottie-animation-view>
+      </div>
 
-    </div>
+    </ng-container>
     <div class="gradient-overlay"></div>
   </div>
 

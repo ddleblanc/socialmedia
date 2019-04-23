@@ -23,6 +23,19 @@ import { trigger, transition, style, animate } from '@angular/animations';
         animate("0ms", style({ opacity: 0, transform: 'translateX(0px)' }))
       ])
     ]),
+    trigger("enterAnimation", [
+      transition(":enter", [
+        style({ opacity: 0 }),
+        animate(
+          "320ms ease-in-out",
+          style({ opacity: 1 })
+        )
+      ]),
+      transition(":leave", [
+        style({ opacity: 1 }),
+        animate("420ms", style({ opacity: 0 }))
+      ])
+    ])
   ]
 })
 export class CommentSectionComponent implements OnInit {
@@ -30,6 +43,9 @@ export class CommentSectionComponent implements OnInit {
   user;
   private confirmingCommentDeletion = false;
   private deleted = false;
+  public noCommentsConfig: Object;
+  private anim: any;
+  showAnim = true;
   @Input() userId;
   @Input() post;
   @Output() refreshPost: EventEmitter<any> = new EventEmitter();
@@ -37,11 +53,20 @@ export class CommentSectionComponent implements OnInit {
   // TODO emit event that closed the comment section when swiped down && top reached 
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private commentService: CommentService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private commentService: CommentService) {
+    this.noCommentsConfig = {
+      path: "../../../../assets/empty.json",
+      autoplay: true,
+      loop: false
+    };
+  }
 
   ngOnInit() {
     // this.comments = this.post.comments;
     this.user = JSON.parse(localStorage.getItem("user"));
+    setTimeout(() => {
+      this.showAnim = false;
+    }, 2000)
   }
 
   onLikeComment(comment, i) {
@@ -125,6 +150,10 @@ export class CommentSectionComponent implements OnInit {
       }
     });
 
+  }
+
+  handleAnimation(anim: any) {
+    this.anim = anim;
   }
 
 }

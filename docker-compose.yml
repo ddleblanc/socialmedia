@@ -4,6 +4,8 @@ services:
     container_name: docker-node-mongo
     restart: always
     build: .
+    ports:
+      - '80:3000'
     links:
       - mongo
     networks:
@@ -13,43 +15,8 @@ services:
     image: mongo
     ports:
       - '27017:27017'
-    networks:
-      - app-network
-  webserver:
-    image: nginx:mainline-alpine
-    container_name: webserver
-    restart: unless-stopped
-    ports:
-      - "80:80"
-    volumes:
-      - web-root:/root/socialmedia
-      - ./nginx-conf:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    depends_on:
-      - app
-    networks:
-      - app-network
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/root/socialmedia
-    depends_on:
-      - webserver
-    command: certonly --webroot --webroot-path=/root/socialmedia --email ddleblanc87@gmail.com --agree-tos --no-eff-email --staging -d ddleblanc.com  -d www.ddleblanc.com 
-volumes:
-  certbot-etc:
-  certbot-var:
-  web-root:
-    driver: local
-    driver_opts:
-      type: none
-      device: /root/socialmedia/public
-      o: bind
 
-networks:
-  app-network:
-    driver: bridge
+
+
+
+

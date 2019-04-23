@@ -23,7 +23,7 @@
       <div [attr.id]="'comment_' + i" class="delete-bg-inactive" (swipeleft)="onCancelDeleteComment('comment_' + i)"
         (swiperight)="onConfirmDeletion({deleteBtn: 'deleteBtn_' + i, commentId: comment._id})">
         <ng-container *ngIf="confirmingCommentDeletion">
-          <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">REMOVE
+          <h6 [@removeBtnAnimation] class="remove-btn" (click)="onConfirmDeletion()">REMOVE?
           </h6>
         </ng-container>
 

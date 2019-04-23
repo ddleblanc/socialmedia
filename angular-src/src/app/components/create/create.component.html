@@ -19,14 +19,4 @@
   </label>
   <input (keydown.enter)="onPostSubmit()" [@bottomNavEnterAnimation] type="text" class="title-input"
     placeholder="What do you call this piece.." [(ngModel)]="title" name="title" #titleInput>
-  <!-- <div *ngIf="url" class="create-bg-img" [@enterAnimation]>
-    <img [src]="url" alt="" />
-  </div> -->
-
-  <!--/ col-lg-6 -->
-
-  <!-- <button class="btn btn-submit" [disabled]="!title" (click)="onPostSubmit()">
-    <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
-    UPLOAD
-  </button> -->
 </div>

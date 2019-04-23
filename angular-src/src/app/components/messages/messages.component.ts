@@ -63,6 +63,12 @@ export class MessagesComponent implements OnInit {
     el.scrollIntoView({ behavior: "smooth", block: 'start' });
   }
 
+  closePanel(id) {
+    let el = document.getElementById(id);
+    el.click()
+    document.body.scrollIntoView({ behavior: "smooth", block: 'start' });
+  }
+
   getUser(update) {
     this.authService.getUserByUsername(this.username).subscribe(data => {
       this.user = data.user;

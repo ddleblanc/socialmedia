@@ -1,4 +1,4 @@
-<div class="messages-container">
+<div class="messages-container hammered">
   <div *ngIf="postsWithComments" class="message-list">
     <div class="panel-group message-list-item" [attr.id]="'accordion_' + postIndex"
       *ngFor="let post of postsWithComments; let postIndex = index;">
@@ -6,8 +6,8 @@
         <div class="panel-heading" (click)="scroll('accordion_' + postIndex)">
           <h4 class="panel-title">
 
-            <a data-toggle="collapse" [attr.data-parent]="'#accordion_' + postIndex"
-              [attr.href]="'#collapseOne_' + postIndex">
+            <a [attr.id]="'collapseTrigger_' + postIndex" data-toggle="collapse"
+              [attr.data-parent]="'#accordion_' + postIndex" [attr.href]="'#collapseOne_' + postIndex">
               <h4 class="title">{{ post.title }}</h4>
               <h4 class="comment-count">{{ post.comments.length }}</h4>
               <img src="{{post.photo}}" alt="" class="list-item-bg">
@@ -16,7 +16,7 @@
           </h4>
         </div>
         <div [attr.id]="'collapseOne_' + postIndex" class="panel-collapse collapse in">
-          <div class="message-section-body">
+          <div class="message-section-body" (swiperight)="closePanel('collapseTrigger_' + postIndex)">
             <div *ngFor="let comment of post.comments.slice().reverse(); let commentIndex = index" class="comment">
               <img src="../../../../assets/{{comment.user.avatar}}" alt="" class="comment-avatar"
                 (click)="onUserSelected(comment.user.username)">

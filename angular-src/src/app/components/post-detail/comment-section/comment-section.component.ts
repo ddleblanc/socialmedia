@@ -45,7 +45,7 @@ export class CommentSectionComponent implements OnInit {
   private deleted = false;
   public noCommentsConfig: Object;
   private anim: any;
-  showAnim = true;
+  showAnim = false;
   @Input() userId;
   @Input() post;
   @Output() refreshPost: EventEmitter<any> = new EventEmitter();
@@ -64,6 +64,9 @@ export class CommentSectionComponent implements OnInit {
   ngOnInit() {
     // this.comments = this.post.comments;
     this.user = JSON.parse(localStorage.getItem("user"));
+    setTimeout(() => {
+      this.showAnim = true;
+    }, 420)
     setTimeout(() => {
       this.showAnim = false;
     }, 2000)

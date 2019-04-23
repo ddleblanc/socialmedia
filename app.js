@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
 const db = require("./db/index");
-const compression = require("compression");
 
 process.setMaxListeners(0);
 

@@ -1,6 +1,6 @@
 $light: rgba(255, 255, 255, 0.15);
 .form-container {
-  background-image: linear-gradient(to right, #1a2980, #26d0ce);
+  background: black;
   height: 100vh;
   width: 100%;
   padding-left: 32px;
@@ -9,19 +9,13 @@ $light: rgba(255, 255, 255, 0.15);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  .username-input {
-    text-transform: lowercase;
-  }
-  .btn-submit {
-    background-image: linear-gradient(to right, #1a2980, #26d0ce);
-  }
   .no-such-user {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to right, #1a2980, #26d0ce);
+    background: black;
     display: flex;
     flex-direction: column;
     justify-content: center;

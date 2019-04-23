@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class ValidationService {
-  constructor() {}
+  constructor() { }
 
   validateRegister(user) {
     if (
@@ -32,7 +32,7 @@ export class ValidationService {
   }
 
   validateUsername(username) {
-    const re = /^[a-z0-9_]{6,}$/;
+    const re = /^[a-zA-Z0-9_]{5,}[a-zA-Z]+[0-9]*$/;
     return re.test(String(username));
   }
 

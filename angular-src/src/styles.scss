@@ -13,17 +13,17 @@ body {
 
 .btn-submit {
   font-weight: bold;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   height: 48px;
   border-radius: 0px;
-  border-top: 1px solid $dark;
-  background: transparent;
+  border-top: 1px solid $light;
+  background: black;
   color: rgba($color: #fff, $alpha: 0.9);
   width: 100%;
   &:disabled {
-    color: rgba(0, 0, 0, 0.15);
+    color: rgba(255, 255, 255, 0.15);
   }
 }
 

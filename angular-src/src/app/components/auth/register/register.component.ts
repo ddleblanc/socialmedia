@@ -91,6 +91,7 @@ export class RegisterComponent implements OnInit {
     if (!this.validationService.validateUsername(this.username)) {
       this.inputUsername.nativeElement.classList.add("invalid");
       this.isUsernameValid = false;
+      window.alert('Username must be at least 6 characters long and cannot contain spaces or special characters.')
       console.log("Invalid username");
     } else {
       this.inputUsername.nativeElement.classList.remove("invalid");
@@ -135,30 +136,23 @@ export class RegisterComponent implements OnInit {
 
     // Required fields
     if (!this.validationService.validateRegister(user)) {
-      // this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
       console.log("Fill in all fields");
       return false;
     }
     // Validation email
     if (!this.validationService.validateEmail(user.email)) {
-      // this.flashMessage.show('Please enter a valid email', {cssClass: 'alert-danger', timeout: 3000});
       console.log("Invalid email");
       return false;
     }
     // Validation password
     if (!this.validationService.validatePassword(user.password)) {
-      // this.flashMessage.show('Please enter a valid password', {cssClass: 'alert-danger', timeout: 3000});
       console.log("Invalidpassword");
       return false;
     }
     // Validation avatar
-    // Validate avatar
     if (this.avatar !== null) {
       if (!this.validationService.validateAvatar(this.avatar.name)) {
-        // this.flashMessage.show("Only images allowed", {
-        //   cssClass: "alert-danger",
-        //   timeout: 3000
-        // });
+        window.alert('Profile image must be a valid image')
         console.log("Invalid file");
         return false;
       }
@@ -172,11 +166,9 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(fd).subscribe(data => {
       this.data = data;
       if (this.data.success) {
-        // this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
         this.authService.authenticateUser(user);
         this.router.navigate(["/"]);
       } else {
-        // this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
         this.router.navigate(["/register"]);
       }
     });

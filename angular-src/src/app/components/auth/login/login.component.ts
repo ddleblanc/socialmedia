@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   handleAnimation(anim: any) {
     this.anim = anim;
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
   onLoginSubmit() {
     const user = {
-      username: this.username.toLocaleLowerCase(),
+      username: this.username,
       password: this.password
     };
     console.log(user);

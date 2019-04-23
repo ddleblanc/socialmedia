@@ -41,7 +41,7 @@ import { FollowService } from 'src/app/services/follow.service';
     ]),
     trigger("commentSectionAnimation", [
       transition(":enter", [
-        style({ transform: "translateY(50%)" }),
+        style({ height: "translateY(50%)" }),
         animate(
           "320ms ease-in-out",
           style({ transform: "translateY(0%)" })

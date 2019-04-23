@@ -123,7 +123,7 @@
 .comment-section-container {
     z-index: 3;
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     bottom: 48px;
     left: 0;
     height: calc(50% - 48px);

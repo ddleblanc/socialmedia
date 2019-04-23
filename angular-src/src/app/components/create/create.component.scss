@@ -6,7 +6,7 @@ $border: 1px solid rgba(0, 0, 0, 0.15);
   left: 0;
   top: 0;
   background: #f2f2f2;
-  height: 100vh;
+  height: 100%;
     width: 100%;
     .back-btn{
       z-index: 2;
@@ -95,21 +95,5 @@ textarea {
   &:disabled {
     opacity: 1;
     color: rgba(0, 0, 0, 0.15);
-  }
-}
-.create-bg-img {
-  z-index: -1;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  background: #000;
-
-  img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    filter: opacity(0.5) blur(20px);
   }
 }

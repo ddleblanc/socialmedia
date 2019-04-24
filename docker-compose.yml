@@ -22,7 +22,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - web-root:/root/socialmedia
+      - web-root:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
@@ -36,10 +36,10 @@ services:
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - web-root:/root/socialmedia
+      - web-root:/var/www/html
     depends_on:
       - webserver
-    command: certonly --webroot --webroot-path=/root/socialmedia --email ddleblanc87@gmail.com --agree-tos --no-eff-email --staging -d ddleblanc.com  -d www.ddleblanc.com 
+    command: certonly --webroot --webroot-path=/var/www/html --email ddleblanc87@gmail.com --agree-tos --no-eff-email --staging -d ddleblanc.com  -d www.ddleblanc.com 
 volumes:
   certbot-etc:
   certbot-var:
@@ -47,7 +47,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /root/socialmedia/public
+      device: /var/www/html/socialmedia/public
       o: bind
 
 networks:

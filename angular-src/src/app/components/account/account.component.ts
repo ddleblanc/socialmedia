@@ -35,6 +35,8 @@ export class AccountComponent implements OnInit {
   imagedata: string;
   wallpaper: string;
   posts: Post[];
+  likes = 0;
+  currentPostNumber = -1;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -45,19 +47,24 @@ export class AccountComponent implements OnInit {
       console.log(data.user)
       this.user = data.user;
       this.avatar = `../../../assets/${data.user.avatar}`;
-      // console.log(data)
-      // if (data.user.posts.length > 0) {
-      //   this.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
-      // } else {
-      //   this.wallpaper = `../../../assets/${data.user.avatar}`;
-      // }
       this.wallpaper = `../../../assets/${data.user.avatar}`;
       this.posts = this.user.posts;
       for (let post of this.posts) {
         post.photo = `../../../assets/${post.photo}`
       }
+      this.getSumOfLikes()
     });
 
+  }
+
+  getSumOfLikes() {
+    for (let post of this.user.posts) {
+      for (let comment of post.comments) {
+        for (let like of comment.likes) {
+          this.likes++;
+        }
+      }
+    }
   }
 
   onLogout() {
@@ -80,5 +87,31 @@ export class AccountComponent implements OnInit {
     //       this.user.avatar.data = reader.result as string;
     //     };
     //   }
+  }
+
+  scrollToNextPost() {
+    if (this.currentPostNumber < this.posts.length - 1) {
+      this.currentPostNumber++
+      let el = document.getElementById(`post_${this.currentPostNumber}`)
+      el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+
+    } else {
+      console.log("Bottom reached")
+    }
+  }
+  scrollToPreviousPost() {
+    if (this.currentPostNumber != -1) {
+      console.log(this.currentPostNumber)
+      if (this.currentPostNumber == 0) {
+        this.currentPostNumber--
+        let top = document.getElementById(`account-container`)
+        top.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        console.log("Top reached")
+      } else {
+        this.currentPostNumber--
+        let el = document.getElementById(`post_${this.currentPostNumber}`)
+        el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      }
+    }
   }
 }

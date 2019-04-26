@@ -1,4 +1,6 @@
-<app-post-list [posts]="sortedPosts"></app-post-list>
+<div id="following-container" class="hammered" (swipedown)="scrollToPreviousPost()" (swipeup)="scrollToNextPost()">
+  <app-post-list [posts]="sortedPosts"></app-post-list>
+</div>
 <ng-container *ngIf="sortedPosts">
   <div [@enterAnimation] *ngIf="sortedPosts.length == 0" class="alert">
     <h6 class="text">You are not following anyone yet..</h6>

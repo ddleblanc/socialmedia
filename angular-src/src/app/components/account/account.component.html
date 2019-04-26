@@ -1,7 +1,8 @@
-<div *ngIf="user" class="account-container" [@enterAnimation]>
-  <div class="account-bg-img">
+<div *ngIf="user" id="account-container" class="account-container hammered" [@enterAnimation]
+  (swipedown)="scrollToPreviousPost()" (swipeup)="scrollToNextPost()">
+  <!-- <div class="account-bg-img">
     <img *ngIf="wallpaper" [src]="wallpaper" alt="" [@enterAnimation] />
-  </div>
+  </div> -->
   <div class="profile-header">
     <img *ngIf="wallpaper" [@enterAnimation] [src]="wallpaper" alt="" class="wallpaper" />
     <div *ngIf="avatar" class="avatar" [@profilePicAnimation]>
@@ -11,10 +12,29 @@
           (change)="onFileSelected($event)" style="display: none;" />
       </label>
     </div>
+    <div class="user-records">
+      <div class="user-record">
+        <h6>posts</h6>
+        <h6>{{user.posts.length}}</h6>
+      </div>
+      <div class="user-record">
+        <h6>followers</h6>
+        <h6>{{user.followers.length}}</h6>
+      </div>
+      <div class="user-record">
+        <h6>following</h6>
+        <h6>{{user.following.length}}</h6>
+      </div>
+      <div class="user-record">
+        <h6>likes</h6>
+        <h6>{{likes}}</h6>
+      </div>
+    </div>
+
   </div>
-  <!-- <app-post-list [posts]="user.posts"></app-post-list> -->
+  <app-post-list [posts]="user.posts"></app-post-list>
 
 </div>
-<button class="btn btn-primary btn-submit" (click)="onLogout()">
+<!-- <button class="btn btn-primary btn-submit" (click)="onLogout()">
   LOG OUT
-</button>
+</button> -->

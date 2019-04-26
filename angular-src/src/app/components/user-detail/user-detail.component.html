@@ -1,5 +1,6 @@
 <ng-container *ngIf="user">
-  <div (swiperight)="onBackClicked()">
+  <div id="user-detail-container" class="hammered" (swiperight)="onBackClicked()" (swipedown)="scrollToPreviousPost()"
+    (swipeup)="scrollToNextPost()">
 
 
     <i class="fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>

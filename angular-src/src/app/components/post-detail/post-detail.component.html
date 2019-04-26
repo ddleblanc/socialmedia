@@ -3,8 +3,8 @@
   <i *ngIf="post && !commentSectionOpen" [@enterAnimation] class="fas fa-arrow-left back-btn"
     (click)="onBackClicked()"></i>
   <div class="button-container">
-    <div class="follow-btn side-btn">
-      <img src="../../../assets/{{post.user.avatar}}" alt="" class="profile-picture" (click)="onFollow(post.user._id)">
+    <div class="follow-btn side-btn" (click)="onFollow(post.user._id)">
+      <img src="../../../assets/{{post.user.avatar}}" alt="" class="profile-picture">
       <ng-container *ngIf="user._id != post.user._id">
         <i *ngIf="!user.following.includes(post.user._id)" class="far fa-heart"></i>
         <i *ngIf="user.following.includes(post.user._id)" class="fas fa-heart"></i>

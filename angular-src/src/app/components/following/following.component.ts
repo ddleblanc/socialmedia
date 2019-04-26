@@ -25,6 +25,7 @@ export class FollowingComponent implements OnInit {
   private user: User;
   public postsOfFollowing: Post[] = [];
   public sortedPosts: Post[];
+  currentPostNumber = 0;
 
   constructor(private postService: PostService, private authService: AuthService) { }
 
@@ -48,6 +49,30 @@ export class FollowingComponent implements OnInit {
 
   }
 
+  scrollToNextPost() {
+    if (this.currentPostNumber < this.sortedPosts.length - 1) {
+      this.currentPostNumber++
+      let el = document.getElementById(`post_${this.currentPostNumber}`)
+      el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 
+    } else {
+      console.log("Bottom reached")
+    }
+  }
+  scrollToPreviousPost() {
+    if (this.currentPostNumber != 0) {
+      console.log(this.currentPostNumber)
+      if (this.currentPostNumber == 0) {
+        this.currentPostNumber--
+        let top = document.getElementById(`following-container`)
+        top.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        console.log("Top reached")
+      } else {
+        this.currentPostNumber--
+        let el = document.getElementById(`post_${this.currentPostNumber}`)
+        el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      }
+    }
+  }
 
 }

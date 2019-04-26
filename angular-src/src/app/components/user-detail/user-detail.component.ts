@@ -59,6 +59,7 @@ export class UserDetailComponent implements OnInit {
   private avatar: string;
   private wallpaper: string;
   public user: User;
+  currentPostNumber = -1;
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private _location: Location) { }
 
@@ -83,6 +84,32 @@ export class UserDetailComponent implements OnInit {
   onBackClicked() {
     this._location.back();
 
+  }
+
+  scrollToNextPost() {
+    if (this.currentPostNumber < this.user.posts.length - 1) {
+      this.currentPostNumber++
+      let el = document.getElementById(`post_${this.currentPostNumber}`)
+      el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+
+    } else {
+      console.log("Bottom reached")
+    }
+  }
+  scrollToPreviousPost() {
+    if (this.currentPostNumber != -1) {
+      console.log(this.currentPostNumber)
+      if (this.currentPostNumber == 0) {
+        this.currentPostNumber--
+        let top = document.getElementById(`user-detail-container`)
+        top.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        console.log("Top reached")
+      } else {
+        this.currentPostNumber--
+        let el = document.getElementById(`post_${this.currentPostNumber}`)
+        el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      }
+    }
   }
 
 }

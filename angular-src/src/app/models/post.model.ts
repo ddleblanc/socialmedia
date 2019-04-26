@@ -7,6 +7,7 @@ export class Post {
   photo: string;
   username: string;
   user: any;
+  likes: string[] = [];
   postDate: Date;
   comments: MyComment[];
 }

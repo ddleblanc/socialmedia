@@ -100,8 +100,7 @@ export class CreateComponent implements OnInit {
     this.postService.addPost(fd).subscribe(data => {
       this.data = data;
       if (this.data.success) {
-        this.router.navigate([""]);
-        this.titleInput.nativeElement.value = "";
+        this.router.navigate(['post', this.data._id]), { relativeTo: this.route }
         // this.flashMessage.show('Posted', {cssClass: 'alert-success', timeout: 3000});
         // this.router.navigate(['/'])
       } else {

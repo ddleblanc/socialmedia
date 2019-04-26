@@ -12,40 +12,43 @@
     .button-container {
         text-shadow: black 0px 0px 10px;
         z-index: 2;
-        font-size: 48px;
+        font-size: 38px;
         color: white;
         position: absolute;
         bottom: 70px;
-        right: 16px;
+        right: 8px;
         display: flex;
         flex-direction: column;
+        justify-content: space-evenly;
         .side-btn {
-            margin-top: 16px;
-        }
-        .comments-btn{
-            transform: scale(0.8)
-        }
-        .follow-btn {
-            display: flex;
-            flex-direction: column;
+            transform: scale(0.8);
+            text-align: center;
+            margin-top: 8px;
+            // margin-bottom: 0px;
             height: 48px;
             width: 48px;
-            position: relative;
-            text-align: center;
+            .count {
+                margin-top: -8px;
+             
+            }
             .profile-picture {
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
                 border-radius: 50%;
+                // border: 2px solid white;
+            }
+        }
+        .comments-btn {
+            .count {
+                transform: scale(0.8);
+                margin-top: -12px;
+            }
+        }
+    
+        .follow-btn {
 
-            }
-            i {
-                position: absolute;
-                right: -2px;
-                top: -2px;
-                font-size: 18px;
-                
-            }
+            
         }
     }
     .title-container {
@@ -151,4 +154,46 @@
 }
 .blacked-out {
     width: 100%;
+}
+
+.menu-btn-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+background: red;
+    z-index: 99;
+  
+  
+    color: white;
+    .menu-btn {
+      opacity: 0.7;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      font-size: 6px;
+      position: absolute;
+      top: 24px;
+      right: 16px;
+      width: 32px;
+      height: 30px;
+    }
+  }
+
+.blur {
+    scale: 1.1;
+    filter: blur(20px) brightness(0.4);
+}
+
+.menu{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    button {
+        border: none;
+    }
+}
+.confirm-deletion{
+    height: 100%;
 }

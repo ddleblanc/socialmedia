@@ -1,20 +1,38 @@
-<div *ngIf="post && user" class="detail-component-container hammered" (swipedown)="closeCommentSection()"
-  (swipeup)="openCommentSection()">
-  <i *ngIf="post && !commentSectionOpen" [@enterAnimation] class="fas fa-arrow-left back-btn"
-    (click)="onBackClicked()"></i>
-  <div class="button-container">
-    <div class="follow-btn side-btn" (click)="onFollow(post.user._id)">
-      <img src="../../../assets/{{post.user.avatar}}" alt="" class="profile-picture">
-      <ng-container *ngIf="user._id != post.user._id">
-        <i *ngIf="!user.following.includes(post.user._id)" class="far fa-heart"></i>
-        <i *ngIf="user.following.includes(post.user._id)" class="fas fa-heart"></i>
-      </ng-container>
-
+<div *ngIf="post && user" class="detail-component-container hammered" (swipedown)="swipeDown()" (swipeup)="swipeUp()">
+  <div *ngIf="post.user._id == user._id" class="menu-btn-container" (click)="toggleMenu()">
+    <div class="menu-btn">
+      <i class="fas fa-circle"></i>
+      <i class="fas fa-circle"></i>
+      <i class="fas fa-circle"></i>
     </div>
-    <i *ngIf="post" [@enterAnimation] class="fas fa-comment-dots comments-btn side-btn"
-      (click)="openCommentSection()"></i>
 
   </div>
+  <i *ngIf="post && !commentSectionOpen && !isMenuOpen" [@enterAnimation] class="fas fa-arrow-left back-btn"
+    (click)="onBackClicked()"></i>
+  <ng-container *ngIf="!isMenuOpen">
+    <div [@buttonsAnimation] class="button-container">
+      <div class="side-btn" (click)="onUserSelected(post.username)">
+        <img src="../../../assets/{{post.user.avatar}}" alt="" class="profile-picture">
+        <!-- <ng-container *ngIf="user._id != post.user._id">
+                <i *ngIf="!user.following.includes(post.user._id)" class="far fa-heart"></i>
+                <i *ngIf="user.following.includes(post.user._id)" class="fas fa-heart"></i>
+              </ng-container> -->
+
+      </div>
+      <div class="side-btn" (click)="onLike()">
+        <i *ngIf="!post.likes.includes(user._id)" class="far fa-heart"></i>
+        <i *ngIf="post.likes.includes(user._id)" class="fas fa-heart"></i>
+        <h6 class="count">{{post.likes.length}}</h6>
+      </div>
+      <div class="side-btn">
+        <i *ngIf="post" [@enterAnimation] class="fas fa-comment-dots " (click)="openCommentSection()"></i>
+        <h6 class="count">{{post.comments.length}}</h6>
+      </div>
+
+
+    </div>
+  </ng-container>
+
 
   <div class="user-icon"></div>
   <ng-container *ngIf="commentSectionOpen">
@@ -32,11 +50,11 @@
     </div>
   </ng-container>
 
-  <img *ngIf="post" [src]="post.photo" alt="" class="post-photo" [ngClass]="{'dim':commentSectionOpen}"
-    (swiperight)="onBackClicked()">
-  <input (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text" class="comment-input"
-    placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment" #commentInput
-    [ngClass]="{'white-input':commentSectionOpen}">
+  <img *ngIf="post" [src]="post.photo" alt="" class="post-photo"
+    [ngClass]="{'dim':commentSectionOpen, 'blur': isMenuOpen}" (swiperight)="onBackClicked()">
+  <input *ngIf="!isMenuOpen" (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text"
+    class="comment-input" placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment"
+    #commentInput [ngClass]="{'white-input':commentSectionOpen}">
   <ng-container *ngIf="commentSectionOpen">
 
     <div [@commentSectionAnimation] class="comment-section-container">
@@ -46,6 +64,19 @@
     </div>
 
   </ng-container>
+  <ng-container *ngIf="isMenuOpen">
+    <div [@enterAnimation] class="menu title-container">
+      <!-- <h6 class="title">{{post.title}}</h6>
+      <h6 class="title">{{post.comments.length}} comments</h6>
+      <h6 class="title">{{post.likes.length}} likes</h6> -->
+      <button type="submit" class="btn btn-submit" [ngClass]="{'confirm-deletion': confirmingDeletion}"
+        (click)="onDelete()">
+        <div *ngIf="!confirmingDeletion">DELETE</div>
+        <div *ngIf="confirmingDeletion">ARE YOU SURE?</div>
+      </button>
+    </div>
+  </ng-container>
+
 </div>
 <div [ngClass]="{'blacked-out':backBtnClicked}" class="black-out">
 

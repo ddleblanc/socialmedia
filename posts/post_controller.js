@@ -40,9 +40,29 @@ async function addComment(id, comment) {
 
 }
 
+async function addLike(postId, userId) {
+  post = await getPostById(postId);
+  await post.likes.push(userId);
+  return await post.save();
+  // if (comment.likes.includes(userId)) {
+  //     console.log("it works")
+  // }
+}
+
+async function removeLike(postId, userId) {
+  post = await getPostById(postId);
+  await post.likes.pop(userId);
+  await post.save();
+  // if (comment.likes.includes(userId)) {
+  //     console.log("it works")
+  // }
+}
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
-  addComment
+  addComment,
+  addLike,
+  removeLike
 };

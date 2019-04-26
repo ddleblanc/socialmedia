@@ -23,7 +23,7 @@ export class FollowingComponent implements OnInit {
 
   public posts: Post[];
   private user: User;
-  public postsOfFollowing: Post[] = [];
+  public likedPosts: Post[] = [];
   public sortedPosts: Post[];
   currentPostNumber = 0;
 
@@ -37,12 +37,12 @@ export class FollowingComponent implements OnInit {
       this.postService.getPosts().subscribe(posts => {
         this.posts = posts;
         for (let post of this.posts) {
-          if (this.user.following.includes(post.user)) {
+          if (post.likes.includes(this.user._id)) {
             post.photo = `../../../assets/${post.photo}`
-            this.postsOfFollowing.push(post)
+            this.likedPosts.push(post)
           }
         }
-        this.sortedPosts = _.sortBy(this.postsOfFollowing, 'createdAt');
+        this.sortedPosts = _.sortBy(this.likedPosts, 'createdAt');
         console.log(this.sortedPosts)
       });
     });

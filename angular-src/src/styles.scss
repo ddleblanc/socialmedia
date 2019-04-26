@@ -22,6 +22,7 @@ body {
   background: black;
   color: rgba($color: #fff, $alpha: 0.9);
   width: 100%;
+  transition: all 420ms ease;
   &:disabled {
     color: rgba(255, 255, 255, 0.15);
   }

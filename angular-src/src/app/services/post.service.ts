@@ -79,6 +79,24 @@ export class PostService {
     return this.http.get<Post[]>(`${this.apiUrl}posts`, { headers: headers });
   }
 
+  addLikeToPost(postId, userId) {
+    console.log("dit is de body: " + JSON.stringify(userId))
+    let headers = new HttpHeaders();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append("Accept", "application/json");
+    // let options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.apiUrl}posts/${postId}/likes`, userId, { headers: headers });
+  }
+
+  removeLikeFromPost(postId, userId) {
+    console.log("dit is de body: " + userId)
+    let headers = new HttpHeaders();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append("Accept", "application/json");
+    // let options = new RequestOptions({ headers: headers });
+    return this.http.put(`${this.apiUrl}posts/${postId}/likes`, userId, { headers: headers });
+  }
+
 
 
 }

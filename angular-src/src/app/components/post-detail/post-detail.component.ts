@@ -51,6 +51,19 @@ import { FollowService } from 'src/app/services/follow.service';
         style({ height: "calc(50% - 48px)" }),
         animate("120ms", style({ height: "0%" }))
       ])
+    ]),
+    trigger("buttonsAnimation", [
+      transition(":enter", [
+        style({ opacity: 0 }),
+        animate(
+          "320ms ease-in-out",
+          style({ opacity: 1 })
+        )
+      ]),
+      transition(":leave", [
+        style({ opacity: 1 }),
+        animate("100ms", style({ opacity: 0 }))
+      ])
     ])]
 })
 export class PostDetailComponent implements OnInit {
@@ -59,8 +72,10 @@ export class PostDetailComponent implements OnInit {
   user: User;
   comment: string;
   postId: string;
-  following = [];
+  likes = [];
   commentSectionOpen = false;
+  confirmingDeletion = false;
+  isMenuOpen = false;
   backBtnClicked = false;
   @ViewChild("commentInput", { read: ElementRef }) commentInput: ElementRef;
 
@@ -81,40 +96,62 @@ export class PostDetailComponent implements OnInit {
       } else {
         this.user.wallpaper = `../../../assets/${data.user.avatar}`;
       }
-      if (this.user.following != undefined) {
-        this.following = this.user.following;
+      if (this.post.likes != undefined) {
+        this.likes = this.post.likes;
       }
-
       console.log(`user: ${this.user.email}`);
     });
 
   }
 
-  onBackSwiped() {
-    this.backBtnClicked = true;
-    setTimeout(() => {
-      this._location.back();
-    }, 220)
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen
+    this.confirmingDeletion = false;
   }
 
   onBackClicked() {
-    this._location.back();
+    if (this.isMenuOpen) {
+      this.toggleMenu()
+    } else {
+      this._location.back();
+    }
 
   }
 
+  onDelete() {
+    this.confirmingDeletion = true;
+  }
+
+  swipeUp() {
+    if (!this.isMenuOpen) {
+      this.openCommentSection()
+    } else if (this.isMenuOpen) {
+      this.onDelete()
+    }
+  }
+  swipeDown() {
+    if (!this.isMenuOpen) {
+      this.closeCommentSection()
+    } else if (this.isMenuOpen && this.confirmingDeletion) {
+      this.confirmingDeletion = false;
+
+    } else if (this.isMenuOpen && !this.confirmingDeletion) {
+      this.toggleMenu()
+    }
+  }
   openCommentSection() {
     console.log("swiped");
     this.commentSectionOpen = true;
     setTimeout(() => {
       this.commentInput.nativeElement.placeholder = 'Leave a comment..';
     }, 220)
-
   }
   closeCommentSection() {
     this.commentSectionOpen = false;
     setTimeout(() => {
       this.commentInput.nativeElement.placeholder = 'Say something if you like it..';
     }, 120)
+
   }
 
   onSendComment() {
@@ -148,33 +185,33 @@ export class PostDetailComponent implements OnInit {
     console.log(this.post)
   }
 
-  onFollow() {
-    let theirId = this.post.user._id;
+  onLike() {
+    let postId = this.post._id;
     let userId = { userId: this.user._id }
     console.log(this.user)
-    if (this.post.user._id != this.user._id) {
-      if (!this.following.includes(theirId)) {
-        this.followService.addUserToFollowing(theirId, userId).subscribe(data => {
-          this.data = data;
-          if (this.data.success) {
-            this.ngOnInit();
-          } else {
-            // this.router.navigate(['/'])
-            console.log("failed");
-          }
-        });
-      } else {
-        this.followService.removeUserFromFollowing(theirId, userId).subscribe(data => {
-          this.data = data;
-          if (this.data.success) {
-            this.ngOnInit()
-          } else {
-            // this.router.navigate(['/'])
-            console.log("failed");
-          }
-        });
-      }
+
+    if (!this.likes.includes(this.user._id)) {
+      this.postService.addLikeToPost(postId, userId).subscribe(data => {
+        this.data = data;
+        if (this.data.success) {
+          this.ngOnInit();
+        } else {
+          // this.router.navigate(['/'])
+          console.log("failed");
+        }
+      });
+    } else {
+      this.postService.removeLikeFromPost(postId, userId).subscribe(data => {
+        this.data = data;
+        if (this.data.success) {
+          this.ngOnInit()
+        } else {
+          // this.router.navigate(['/'])
+          console.log("failed");
+        }
+      });
     }
+
 
 
 

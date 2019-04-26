@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
 export class CommentService {
   private currentPost_id: string;
   // private apiUrl = "http://localhost:3000/api/v1/comments/";
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}comments/`;
   currentPost: Post;
   currentUser: User;
   // private apiUrl = '';
@@ -33,7 +33,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl + 'comments/' + commentId, userId, { headers: headers });
+    return this.http.post(`${this.apiUrl}commentId`, userId, { headers: headers });
   }
 
   removeLikeFromComment(commentId, userId) {
@@ -42,7 +42,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.put(this.apiUrl + 'comments/' + commentId, userId, { headers: headers });
+    return this.http.put(`${this.apiUrl}commentId`, userId, { headers: headers });
   }
 
   removeCommentById(_id) {
@@ -50,7 +50,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.apiUrl + 'comments/' + _id, {
+    return this.http.delete(`${this.apiUrl}_id`, {
       headers: headers
     });
   }

@@ -13,6 +13,12 @@ router.route("/:_id").get(asyncHandler(getPostById));
 
 router.route("/:_id/comments").put(asyncHandler(addComment))
 
+router
+  .route("/:_id/likes")
+  .post(asyncHandler(addLike))
+  .put(asyncHandler(removeLike))
+
+
 // FUNCTIONS
 
 const multerUpload = require("../config/multer").upload;
@@ -90,6 +96,36 @@ async function addComment(req, res) {
   //   }
   // });
   res.json({ success: true, msg: "Comment added", comment });
+}
+
+
+async function addLike(req, res) {
+  console.log("yooo" + req.params._id)
+  let _id = req.params._id;
+  let userId = req.body.userId;
+  let like = await postCtrl.addLike(_id, userId)
+  // .catch(function (err) {
+  //     if (err.name == "ValidationError") {
+  //         res.status(422).json(err);
+  //     } else {
+  //         res.status(500).json(err);
+  //     }
+  // });
+  res.json({ success: true, msg: "Like added", like });
+}
+
+async function removeLike(req, res) {
+  let _id = req.params._id;
+  let userId = req.body.userId;
+  let like = await postCtrl.removeLike(_id, userId)
+  // .catch(function (err) {
+  //     if (err.name == "ValidationError") {
+  //         res.status(422).json(err);
+  //     } else {
+  //         res.status(500).json(err);
+  //     }
+  // });
+  res.json({ success: true, msg: "Like removed", like });
 }
 
 module.exports = router;

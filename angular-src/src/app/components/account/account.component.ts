@@ -37,6 +37,7 @@ export class AccountComponent implements OnInit {
   posts: Post[];
   likes = 0;
   currentPostNumber = -1;
+  showingMenu = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -113,5 +114,8 @@ export class AccountComponent implements OnInit {
         el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
       }
     }
+  }
+  showMenu() {
+    this.showingMenu = !this.showMenu;
   }
 }

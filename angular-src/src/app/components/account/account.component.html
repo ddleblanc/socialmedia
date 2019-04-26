@@ -33,7 +33,21 @@
 
   </div>
   <app-post-list [posts]="user.posts"></app-post-list>
+  <div class="menu">
+    <div class="menu-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-circle"></i>
+      <i class="fas fa-circle"></i>
+      <i class="fas fa-circle"></i>
+    </div>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item delete-btn" href="#">delete account</a>
+      <br><br>
 
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" (click)="onLogout()">log out</a>
+    </div>
+  </div>
 </div>
 <!-- <button class="btn btn-primary btn-submit" (click)="onLogout()">
   LOG OUT

@@ -33,7 +33,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.post(`${this.apiUrl}commentId`, userId, { headers: headers });
+    return this.http.post(`${this.apiUrl}${commentId}`, userId, { headers: headers });
   }
 
   removeLikeFromComment(commentId, userId) {
@@ -42,7 +42,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${this.apiUrl}commentId`, userId, { headers: headers });
+    return this.http.put(`${this.apiUrl}${commentId}`, userId, { headers: headers });
   }
 
   removeCommentById(_id) {
@@ -50,7 +50,7 @@ export class CommentService {
     // headers.append('Content-Type', 'multipart/form-data');
     headers.append("Accept", "application/json");
     // let options = new RequestOptions({ headers: headers });
-    return this.http.delete(`${this.apiUrl}_id`, {
+    return this.http.delete(`${this.apiUrl}${_id}`, {
       headers: headers
     });
   }

@@ -5,6 +5,7 @@ import { map, filter } from "rxjs/operators";
 import { Post } from "../models/post.model";
 import { User } from "../models/user.model";
 import { environment } from '../../environments/environment';
+import { Response } from "../models/response.model";
 // import { User } from '../_shared/models/user.model';
 
 // const helper = new JwtHelperService();
@@ -42,5 +43,22 @@ export class FollowService {
     // let options = new RequestOptions({ headers: headers });
     return this.http.put(this.apiUrl + 'users/' + theirId + '/follow', userId, { headers: headers });
   }
+
+  getFollowersOfUser(username) {
+    let headers = new HttpHeaders();
+    headers.append("Content-Type", "application/json");
+    return this.http.get<Response>(`${this.apiUrl}users/${username}/followers`, {
+      headers: headers
+    });
+  }
+
+  getFollowingOfUser(username) {
+    let headers = new HttpHeaders();
+    headers.append("Content-Type", "application/json");
+    return this.http.get<Response>(`${this.apiUrl}users/${username}/following`, {
+      headers: headers
+    });
+  }
+
 
 }

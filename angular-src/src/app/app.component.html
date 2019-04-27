@@ -1,6 +1,6 @@
 <ng-container *ngIf="screenWidth <= 768">
   <app-nav
-    *ngIf="router.url == '/home' || router.url == '/messages' ||  router.url == '/account' ||  router.url == '/following'">
+    *ngIf="isAccountRoute(router.url) || router.url == '/home' || router.url == '/messages' ||  router.url == '/favorites'">
   </app-nav>
 
 

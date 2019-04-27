@@ -24,4 +24,7 @@ export class AppComponent {
     this.screenWidth = window.innerWidth;
 
   }
+  isAccountRoute(value: string): boolean {
+    return /^\/account(\/|$)/.test(value);
+  }
 }

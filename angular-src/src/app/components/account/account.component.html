@@ -13,15 +13,15 @@
       </label>
     </div>
     <div class="user-records">
-      <div class="user-record">
+      <div class="user-record" routerLink="/account" routerLinkActive="active" (click)="showPosts()">
         <h6>posts</h6>
         <h6>{{user.posts.length}}</h6>
       </div>
-      <div class="user-record">
+      <div class="user-record" (click)="showFollowers()">
         <h6>followers</h6>
         <h6>{{user.followers.length}}</h6>
       </div>
-      <div class="user-record">
+      <div class="user-record" (click)="showFollowing()">
         <h6>following</h6>
         <h6>{{user.following.length}}</h6>
       </div>
@@ -29,10 +29,13 @@
         <h6>likes</h6>
         <h6>{{likes}}</h6>
       </div>
+      <!-- <li class="user-record">
+        <a class="nav-link" routerLink="/account/posts" routerLinkActive="active">asfjas</a>
+      </li> -->
     </div>
 
   </div>
-  <app-post-list [posts]="user.posts"></app-post-list>
+  <router-outlet class="account-outlet"></router-outlet>
   <div class="menu">
     <div class="menu-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">

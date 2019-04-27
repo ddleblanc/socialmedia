@@ -1,0 +1,13 @@
+<div class="child-route-container">
+  <ng-container *ngIf="followers">
+    <div class="follow-list">
+      <div [@postsEnterAnimation] class="follow-list-item" *ngFor="let follower of followers"
+        (click)="onUserSelected(follower.username)">
+        <div class="avatar">
+          <img src="{{follower.avatar}}" alt="">
+        </div>
+        <h6 class="username">{{follower.username}}</h6>
+      </div>
+    </div>
+  </ng-container>
+</div>

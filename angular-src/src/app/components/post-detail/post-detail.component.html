@@ -13,11 +13,6 @@
     <div [@buttonsAnimation] class="button-container">
       <div class="side-btn" (click)="onUserSelected(post.username)">
         <img src="../../../assets/{{post.user.avatar}}" alt="" class="profile-picture">
-        <!-- <ng-container *ngIf="user._id != post.user._id">
-                <i *ngIf="!user.following.includes(post.user._id)" class="far fa-heart"></i>
-                <i *ngIf="user.following.includes(post.user._id)" class="fas fa-heart"></i>
-              </ng-container> -->
-
       </div>
       <div class="side-btn" (click)="onLike()">
         <i *ngIf="!post.likes.includes(user._id)" class="far fa-heart"></i>
@@ -28,8 +23,6 @@
         <i *ngIf="post" [@enterAnimation] class="fas fa-comment-dots " (click)="openCommentSection()"></i>
         <h6 class="count">{{post.comments.length}}</h6>
       </div>
-
-
     </div>
   </ng-container>
 

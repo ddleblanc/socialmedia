@@ -25,9 +25,11 @@ router
   );
 
 router.route("/:username").get(asyncHandler(getUserByUsername));
-router.route("/:_id/follow").post(asyncHandler(addUserToFollowing))
-router.route("/:_id/follow").put(asyncHandler(removeUserFromFollowing))
+router.route("/:_id/follow").post(asyncHandler(addUserToFollowing));
+router.route("/:_id/follow").put(asyncHandler(removeUserFromFollowing));
 
+router.route("/:username/followers").get(asyncHandler(getFollowersByUsername));
+router.route("/:username/following").get(asyncHandler(getFollowingByUsername));
 // FUNCTIONS
 
 async function createUser(req, res) {
@@ -111,9 +113,6 @@ async function deleteUserByUsername(req, res) {
   }
 }
 
-
-
-
 async function addUserToFollowing(req, res) {
   let _id = req.params._id;
   let userId = req.body.userId;
@@ -127,9 +126,11 @@ async function addUserToFollowing(req, res) {
   // });
   res.json({ success: true, msg: "Followed", follow });
 }
+
 async function removeUserFromFollowing(req, res) {
   let _id = req.params._id;
   let userId = req.body.userId;
+  console.log(userId);
   let follow = await userCtrl.removeUserFromFollowing(_id, userId)
   // .catch(function (err) {
   //     if (err.name == "ValidationError") {
@@ -139,5 +140,31 @@ async function removeUserFromFollowing(req, res) {
   //     }
   // });
   res.json({ success: true, msg: "Unfollowed", follow });
+}
+
+async function getFollowersByUsername(req, res) {
+  console.log(req.params.username);
+  const username = req.params.username;
+  let followers = await userCtrl.getFollowersByUsername(username);
+  if (followers == null) {
+    console.log("no user found");
+    res.json({ success: false, msg: "Followers not found" });
+  } else {
+    console.log("user found");
+    res.json({ success: true, msg: "Followers found", followers: followers });
+  }
+}
+
+async function getFollowingByUsername(req, res) {
+  console.log(req.params.username);
+  const username = req.params.username;
+  let following = await userCtrl.getFollowingByUsername(username);
+  if (following == null) {
+    console.log("no user found");
+    res.json({ success: false, msg: "Following not found" });
+  } else {
+    console.log("user found");
+    res.json({ success: true, msg: "Following found", following: following });
+  }
 }
 

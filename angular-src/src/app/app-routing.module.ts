@@ -9,7 +9,10 @@ import { AccountComponent } from "./components/account/account.component";
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { FollowingComponent } from './components/following/following.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { FollowingComponent } from './components/account/following/following.component';
+import { MyPostsComponent } from './components/account/my-posts/my-posts.component';
+import { FollowersComponent } from './components/account/followers/followers.component';
 
 const routes: Routes = [
   {
@@ -34,12 +37,17 @@ const routes: Routes = [
   {
     path: "account",
     component: AccountComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'following', component: FollowingComponent },
+      { path: 'followers', component: FollowersComponent },
+      { path: 'posts', component: MyPostsComponent }
+    ]
   },
   { path: 'post/:_id', component: PostDetailComponent, canActivate: [AuthGuard] },
   { path: 'user/:username', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
-  { path: 'following', component: FollowingComponent, canActivate: [AuthGuard] },
+  { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] },
 
 ];
 

@@ -38,6 +38,35 @@ async function getUserByUsername(username) {
   }
   )
 }
+// Get all followers for user
+async function getFollowersByUsername(username) {
+  const query = { username: username };
+
+  user = await User.findOne(query).select(
+    "followers"
+  ).populate({
+    path: 'followers',
+    select: '_id username avatar'
+  }
+  )
+  let followers = await user.followers;
+  return await followers;
+}
+// Get all user the user is following
+async function getFollowingByUsername(username) {
+  const query = { username: username };
+
+  user = await User.findOne(query).select(
+    "following"
+  ).populate({
+    path: 'following',
+    select: '_id username avatar'
+  }
+  )
+  let following = await user.following;
+  return await following;
+}
+
 /**
  * @param {string} id Somebody's user id
  */
@@ -72,8 +101,11 @@ async function deleteUserByUsername(username) {
 
 
 async function addUserToFollowing(theirId, userId) {
+  userToFollow = await getUserById(theirId);
+  await userToFollow.followers.push(userId)
+  await userToFollow.save()
+
   user = await getUserById(userId);
-  console.log(await user)
   await user.following.push(theirId);
   return await user.save();
   // if (comment.likes.includes(userId)) {
@@ -82,6 +114,10 @@ async function addUserToFollowing(theirId, userId) {
 }
 
 async function removeUserFromFollowing(theirId, userId) {
+  userToStopFollowing = await getUserById(theirId);
+  await userToStopFollowing.followers.pop(userId);
+  await userToStopFollowing.save();
+
   user = await getUserById(userId);
   await user.following.pop(theirId);
   return await user.save();
@@ -98,5 +134,7 @@ module.exports = {
   getUserById,
   deleteUserByUsername,
   addUserToFollowing,
-  removeUserFromFollowing
+  removeUserFromFollowing,
+  getFollowersByUsername,
+  getFollowingByUsername
 };

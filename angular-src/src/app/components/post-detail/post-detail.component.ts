@@ -96,9 +96,7 @@ export class PostDetailComponent implements OnInit {
       } else {
         this.user.wallpaper = `../../../assets/${data.user.avatar}`;
       }
-      if (this.post.likes != undefined) {
-        this.likes = this.post.likes;
-      }
+
       console.log(`user: ${this.user.email}`);
     });
 
@@ -177,6 +175,9 @@ export class PostDetailComponent implements OnInit {
       this.data.post.photo = "../../../assets/" + this.data.post.photo;
       this.post = this.data.post;
       console.log(this.post)
+      if (this.post.likes != undefined) {
+        this.likes = this.post.likes;
+      }
     }
     else if (!this.data.success) {
       console.log("hierdoor doet ie het niet" + this.data.msg)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { User } from "src/app/models/user.model";
 import { trigger, transition, style, animate } from "@angular/animations";
 import { Post } from 'src/app/models/post.model';
@@ -39,7 +39,7 @@ export class AccountComponent implements OnInit {
   currentPostNumber = -1;
   showingMenu = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -60,10 +60,8 @@ export class AccountComponent implements OnInit {
 
   getSumOfLikes() {
     for (let post of this.user.posts) {
-      for (let comment of post.comments) {
-        for (let like of comment.likes) {
-          this.likes++;
-        }
+      for (let like of post.likes) {
+        this.likes++;
       }
     }
   }
@@ -89,31 +87,47 @@ export class AccountComponent implements OnInit {
     //     };
     //   }
   }
+  // CHILD ROUTES
+  showFollowing() {
+    this.router.navigate(['following'], { relativeTo: this.route })
+  }
+  showFollowers() {
+    this.router.navigate(['followers'], { relativeTo: this.route })
+  }
+  showPosts() {
+    this.router.navigate(['posts'], { relativeTo: this.route })
+  }
 
   scrollToNextPost() {
-    if (this.currentPostNumber < this.posts.length - 1) {
-      this.currentPostNumber++
-      let el = document.getElementById(`post_${this.currentPostNumber}`)
-      el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
-    } else {
-      console.log("Bottom reached")
-    }
-  }
-  scrollToPreviousPost() {
-    if (this.currentPostNumber != -1) {
-      console.log(this.currentPostNumber)
-      if (this.currentPostNumber == 0) {
-        this.currentPostNumber--
-        let top = document.getElementById(`account-container`)
-        top.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-        console.log("Top reached")
-      } else {
-        this.currentPostNumber--
+    if (this.router.url == '/account/posts') {
+      if (this.currentPostNumber < this.posts.length - 1) {
+        this.currentPostNumber++
         let el = document.getElementById(`post_${this.currentPostNumber}`)
         el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+
+      } else {
+        console.log("Bottom reached")
       }
     }
+
+  }
+  scrollToPreviousPost() {
+    if (this.router.url == '/account/posts') {
+      if (this.currentPostNumber != -1) {
+        console.log(this.currentPostNumber)
+        if (this.currentPostNumber == 0) {
+          this.currentPostNumber--
+          let top = document.getElementById(`account-container`)
+          top.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+          console.log("Top reached")
+        } else {
+          this.currentPostNumber--
+          let el = document.getElementById(`post_${this.currentPostNumber}`)
+          el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        }
+      }
+    }
+
   }
   showMenu() {
     this.showingMenu = !this.showMenu;

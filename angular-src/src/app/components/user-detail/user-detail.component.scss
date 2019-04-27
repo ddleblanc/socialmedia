@@ -37,6 +37,16 @@
             font-size: 12px;
             color: rgba($color: #fff, $alpha: 0.4);
         }
+        .follow-btn {
+          color: white;
+          border: 1px solid white;
+          background: transparent;
+          border-radius: 8px;
+          padding: 2px;
+          padding-left: 6px;
+          padding-right: 6px;
+
+        }
       
     }
     .username {

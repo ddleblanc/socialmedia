@@ -10,14 +10,12 @@
 
         <img [src]="avatar" alt="" />
         <h4 [@enterAnimation] class="title">{{user.username}}</h4>
-        <h6 class="date">Joined {{user.createdAt | amTimeAgo}}</h6>
-
+        <!-- <h6 class="date">Joined {{user.createdAt | amTimeAgo}}</h6> -->
+        <ng-container *ngIf="accountUser">
+          <button *ngIf="user._id != accountUser._id" class="follow-btn" (click)="onFollow()"><span
+              *ngIf="!following">follow</span><span *ngIf="following">unfollow</span></button>
+        </ng-container>
       </div>
-      <!-- TODO :: ADD FOLLOW BUTTON -->
-      <!-- <ng-container *ngIf="user._id != post.user._id">
-          <i *ngIf="!user.following.includes(post.user._id)" class="far fa-heart"></i>
-          <i *ngIf="user.following.includes(post.user._id)" class="fas fa-heart"></i>
-        </ng-container> -->
     </div>
     <div [@postsEnterAnimation]>
       <app-post-list [posts]="user.posts"></app-post-list>

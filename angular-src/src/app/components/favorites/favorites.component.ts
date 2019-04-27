@@ -7,9 +7,9 @@ import * as _ from 'underscore';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-following',
-  templateUrl: './following.component.html',
-  styleUrls: ['./following.component.scss'],
+  selector: 'app-favorites',
+  templateUrl: './favorites.component.html',
+  styleUrls: ['./favorites.component.scss'],
   animations: [
     trigger("enterAnimation", [
       transition(":enter", [
@@ -19,7 +19,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ]),
   ]
 })
-export class FollowingComponent implements OnInit {
+export class FavoritesComponent implements OnInit {
 
   public posts: Post[];
   private user: User;

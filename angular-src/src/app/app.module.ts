@@ -29,11 +29,14 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PostListItemComponent } from './components/post-list/post-list-item/post-list-item.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { FollowingComponent } from './components/following/following.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 import { CommentService } from './services/comment.service';
 import { FollowService } from './services/follow.service';
 import { PostService } from './services/post.service';
 import { ValidationService } from './services/validation.service';
+import { FollowingComponent } from './components/account/following/following.component';
+import { MyPostsComponent } from './components/account/my-posts/my-posts.component';
+import { FollowersComponent } from './components/account/followers/followers.component';
 
 export class MyHammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
@@ -69,7 +72,10 @@ export class MyHammerConfig extends HammerGestureConfig {
     PostListComponent,
     PostListItemComponent,
     MessagesComponent,
-    FollowingComponent
+    FavoritesComponent,
+    FollowingComponent,
+    MyPostsComponent,
+    FollowersComponent
 
   ],
   imports: [

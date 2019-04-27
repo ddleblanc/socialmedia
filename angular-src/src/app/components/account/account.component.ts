@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { User } from "src/app/models/user.model";
 import { trigger, transition, style, animate } from "@angular/animations";
 import { Post } from 'src/app/models/post.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: "app-account",
@@ -47,12 +48,9 @@ export class AccountComponent implements OnInit {
     this.authService.getUserByUsername(username).subscribe(data => {
       console.log(data.user)
       this.user = data.user;
-      this.avatar = `../../../assets/${data.user.avatar}`;
-      this.wallpaper = `../../../assets/${data.user.avatar}`;
+      this.avatar = `${environment.pathToPhotos}${data.user.avatar}`;
+      this.wallpaper = `${environment.pathToPhotos}${data.user.avatar}`;
       this.posts = this.user.posts;
-      for (let post of this.posts) {
-        post.photo = `../../../assets/${post.photo}`
-      }
       this.getSumOfLikes()
     });
 

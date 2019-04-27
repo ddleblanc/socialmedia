@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { User } from "src/app/models/user.model";
 import { Router, ActivatedRoute } from "@angular/router";
+import { environment } from '../../../environments/environment';
 import {
   trigger,
   transition,
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.postService.getPosts().subscribe(posts => {
       this.posts = posts;
       for (var i = 0; i < this.posts.length; i++) {
-        this.posts[i].photo = `../../../assets/${posts[i].photo}`;
+        this.posts[i].photo = `${environment.pathToPhotos}${posts[i].photo}`;
       }
     });
   }

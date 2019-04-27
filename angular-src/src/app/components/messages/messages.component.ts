@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Post } from 'src/app/models/post.model';
 import { CommentService } from 'src/app/services/comment.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-messages',
@@ -83,7 +84,7 @@ export class MessagesComponent implements OnInit {
             }
           }
           for (let post of this.postsWithComments) {
-            post.photo = `../../../assets/${post.photo}`;
+            post.photo = `${environment.pathToPhotos}${post.photo}`;
           }
         }
       } else {
@@ -94,7 +95,7 @@ export class MessagesComponent implements OnInit {
           }
         }
         for (let post of updatedPosts) {
-          post.photo = `../../../assets/${post.photo}`;
+          post.photo = `${environment.pathToPhotos}${post.photo}`;
         }
         this.postsWithComments = updatedPosts;
       }

@@ -3,6 +3,7 @@ import { FollowService } from 'src/app/services/follow.service';
 import { User } from 'src/app/models/user.model';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-followers',
@@ -36,7 +37,7 @@ export class FollowersComponent implements OnInit {
     this.followService.getFollowersOfUser(username).subscribe(data => {
       this.followers = data.followers;
       for (let follower of this.followers) {
-        follower.avatar = `../../../../assets/${follower.avatar}`
+        follower.avatar = `${environment.pathToPhotos}${follower.avatar}`
       }
     })
   }

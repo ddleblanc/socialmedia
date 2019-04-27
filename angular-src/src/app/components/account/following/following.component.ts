@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FollowService } from 'src/app/services/follow.service';
 import { User } from 'src/app/models/user.model';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-following',
@@ -36,7 +37,7 @@ export class FollowingComponent implements OnInit {
       console.log(data)
       this.following = data.following;
       for (let user of this.following) {
-        user.avatar = `../../../../assets/${user.avatar}`
+        user.avatar = `${environment.pathToPhotos}${user.avatar}`
       }
     })
   }

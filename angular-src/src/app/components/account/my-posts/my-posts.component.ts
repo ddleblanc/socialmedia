@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Post } from 'src/app/models/post.model';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-my-posts',
@@ -35,7 +36,7 @@ export class MyPostsComponent implements OnInit {
     this.authService.getUserByUsername(username).subscribe(data => {
       this.posts = data.user.posts;
       for (let post of this.posts) {
-        post.photo = `../../../../assets/${post.photo}`
+        post.photo = `${environment.pathToPhotos}${post.photo}`
       }
     });
   }

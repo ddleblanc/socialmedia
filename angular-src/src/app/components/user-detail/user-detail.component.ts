@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Location } from "@angular/common";
 import { FollowService } from 'src/app/services/follow.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-detail',
@@ -106,15 +107,15 @@ export class UserDetailComponent implements OnInit {
     this.route.params.subscribe(params => { this.username = params.username })
     this.authService.getUserByUsername(this.username).subscribe(data => {
       this.user = data.user;
-      this.avatar = `../../../assets/${data.user.avatar}`;
+      this.avatar = `${environment.pathToPhotos}${data.user.avatar}`;
       // console.log(data)
       if (data.user.posts.length > 0) {
-        this.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
+        this.wallpaper = `${environment.pathToPhotos}${data.user.posts[0].photo}`;
         for (var i = 0; i < this.user.posts.length; i++) {
-          this.user.posts[i].photo = `../../../assets/${data.user.posts[i].photo}`;
+          this.user.posts[i].photo = `${environment.pathToPhotos}${data.user.posts[i].photo}`;
         }
       } else {
-        this.wallpaper = `../../../assets/${data.user.avatar}`;
+        this.wallpaper = `${environment.pathToPhotos}${data.user.avatar}`;
       }
       this.getAccountUser()
       console.log(`user: ${this.user.email}`);

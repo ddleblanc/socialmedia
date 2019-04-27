@@ -7,6 +7,7 @@ import { Location } from "@angular/common";
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FollowService } from 'src/app/services/follow.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-post-detail',
@@ -89,12 +90,12 @@ export class PostDetailComponent implements OnInit {
     this.authService.getUserByUsername(user.name).subscribe(data => {
       this.user = data.user;
       console.log(this.user)
-      this.user.avatar = `../../../assets/${data.user.avatar}`;
+      this.user.avatar = `${environment.pathToPhotos}${data.user.avatar}`;
       // console.log(data)
       if (data.user.posts.length > 0) {
-        this.user.wallpaper = `../../../assets/${data.user.posts[0].photo}`;
+        this.user.wallpaper = `${environment.pathToPhotos}${data.user.posts[0].photo}`;
       } else {
-        this.user.wallpaper = `../../../assets/${data.user.avatar}`;
+        this.user.wallpaper = `${environment.pathToPhotos}${data.user.avatar}`;
       }
 
       console.log(`user: ${this.user.email}`);
@@ -172,7 +173,7 @@ export class PostDetailComponent implements OnInit {
       this.postId
     )
     if (this.data.success) {
-      this.data.post.photo = "../../../assets/" + this.data.post.photo;
+      this.data.post.photo = `${environment.pathToPhotos}${this.data.post.photo}`;
       this.post = this.data.post;
       console.log(this.post)
       if (this.post.likes != undefined) {

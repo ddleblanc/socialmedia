@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import * as _ from 'underscore';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-favorites',
@@ -38,7 +39,7 @@ export class FavoritesComponent implements OnInit {
         this.posts = posts;
         for (let post of this.posts) {
           if (post.likes.includes(this.user._id)) {
-            post.photo = `../../../assets/${post.photo}`
+            post.photo = `${environment.pathToPhotos}${post.photo}`
             this.likedPosts.push(post)
           }
         }

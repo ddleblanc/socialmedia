@@ -34,6 +34,7 @@ export class PostListComponent implements OnInit {
     // for (var i = 0; i < this.posts.length; i++) {
     //   this.posts[i].photo = `../../../assets/${this.posts[i].photo}`;
     // }
+
   }
 
 }

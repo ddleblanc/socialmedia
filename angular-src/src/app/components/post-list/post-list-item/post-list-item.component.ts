@@ -18,6 +18,9 @@ export class PostListItemComponent implements OnInit {
   }
   onPostSelected(post) {
     this.postService.setCurrentPostUrl(post.photo)
-    this.router.navigate(['post', post._id]), { relativeTo: this.route }
+    setTimeout(() => {
+      this.router.navigate(['post', post._id]), { relativeTo: this.route }
+    }, 420)
+
   }
 }

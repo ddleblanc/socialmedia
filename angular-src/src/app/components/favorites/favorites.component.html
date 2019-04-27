@@ -1,5 +1,10 @@
-<div id="following-container" class="hammered" (swipedown)="scrollToPreviousPost()" (swipeup)="scrollToNextPost()">
-  <app-post-list [posts]="sortedPosts"></app-post-list>
+<div id="favorites-container" class="hammered" (swipedown)="scrollToPreviousPost()" (swipeup)="scrollToNextPost()">
+  <ng-container *ngIf="sortedPosts">
+    <div [@enterAnimation]>
+      <app-post-list [posts]="sortedPosts"></app-post-list>
+    </div>
+  </ng-container>
+
 </div>
 <ng-container *ngIf="sortedPosts">
   <div [@enterAnimation] *ngIf="sortedPosts.length == 0" class="alert">

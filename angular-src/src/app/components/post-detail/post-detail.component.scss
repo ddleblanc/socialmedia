@@ -180,8 +180,10 @@ background: red;
   }
 
 .blur {
-    scale: 1.1;
-    filter: blur(20px) brightness(0.4);
+    transform: translateX(-5%) translateY(-5%);
+    width:110%;
+    height: 110%;
+    filter: blur(10px) brightness(0.4);
 }
 
 .menu{

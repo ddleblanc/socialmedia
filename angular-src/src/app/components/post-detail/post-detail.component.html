@@ -1,5 +1,5 @@
 <div *ngIf="post && user" class="detail-component-container hammered" (swipedown)="swipeDown()" (swipeup)="swipeUp()">
-  <div *ngIf="post.user._id == user._id" class="menu-btn-container" (click)="toggleMenu()">
+  <div *ngIf="post.user._id == user._id && !isMenuOpen" class="menu-btn-container" (click)="toggleMenu()">
     <div class="menu-btn">
       <i class="fas fa-circle"></i>
       <i class="fas fa-circle"></i>

@@ -64,7 +64,7 @@ export class FavoritesComponent implements OnInit {
       console.log(this.currentPostNumber)
       if (this.currentPostNumber == 0) {
         this.currentPostNumber--
-        let top = document.getElementById(`following-container`)
+        let top = document.getElementById(`favorites-container`)
         top.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
         console.log("Top reached")
       } else {

@@ -3,6 +3,10 @@
     *ngIf="isAccountRoute(router.url) || router.url == '/home' || router.url == '/messages' ||  router.url == '/favorites'">
   </app-nav>
 
+  <div *ngIf="currentPostUrl && isPostRoute(router.url) || currentPostUrl && router.url == '/favorites'"
+    class="transition-img-container">
+    <img class="transition-img" src="{{currentPostUrl}}" alt="">
+  </div>
 
   <router-outlet></router-outlet>
 </ng-container>

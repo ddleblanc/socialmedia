@@ -6,6 +6,7 @@ import { Post } from "../models/post.model";
 import { User } from "../models/user.model";
 // import { User } from '../_shared/models/user.model';
 import { environment } from '../../environments/environment';
+import { Subject } from 'rxjs';
 
 // const helper = new JwtHelperService();
 @Injectable({
@@ -13,12 +14,18 @@ import { environment } from '../../environments/environment';
 })
 export class PostService {
   private apiUrl = environment.apiUrl;
+
   currentPost: Post;
   currentUser: User;
 
   constructor(private http: HttpClient) { }
 
+  private currentPostUrl = new Subject<string>();
+  currentPostUrlReceived$ = this.currentPostUrl.asObservable();
 
+  setCurrentPostUrl(url: string) {
+    this.currentPostUrl.next(url);
+  }
 
   addPost(fd) {
     let headers = new HttpHeaders();

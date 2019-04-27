@@ -1,10 +1,10 @@
 const multer = require("multer");
 const path = require("path");
+const env = require("./env");
 
 // Set Storage Engine
 const storage = multer.diskStorage({
-  destination: "./angular-src/src/assets", // Development
-  // destination: './public/assets', // Production
+  destination: env.uploadDestination,
   filename: function (req, file, cb) {
     cb(
       null,

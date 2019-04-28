@@ -54,7 +54,11 @@
       <a class="dropdown-item" (click)="onLogout()">log out</a>
     </div>
   </div>
+
 </div>
 <!-- <button class="btn btn-primary btn-submit" (click)="onLogout()">
   LOG OUT
 </button> -->
+<ng-container *ngIf="currentPostNumber == -1">
+  <div class="gradient-overlay" [@enterAnimation]></div>
+</ng-container>

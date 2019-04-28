@@ -35,7 +35,10 @@
     </div>
 
   </div>
-  <router-outlet class="account-outlet"></router-outlet>
+  <div class="account-outlet" [ngClass]="{'minimized': currentPostNumber == -1 && router.url == '/account/posts'}">
+    <router-outlet></router-outlet>
+  </div>
+
   <div class="menu">
     <div class="menu-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">

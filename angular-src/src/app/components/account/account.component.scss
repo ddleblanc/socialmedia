@@ -94,10 +94,7 @@ text-align: center;
     }
   }
 }
-app-post-list {
-  position: absolute;
-  top: calc(35% + 144px);
-}
+
 
 .menu {
 
@@ -123,3 +120,15 @@ app-post-list {
   color: red !important;
 }
 
+.minimized {
+  transform: scale3d(0.8, 0.8, 0.8) translateY(74px) !important;
+  // scale: 0.8;
+  // filter: brightness(0.4)
+}
+
+
+
+.account-outlet {
+  transform: scale3d(1, 1, 1) translateY(32px);
+  transition: all 420ms ease;
+}

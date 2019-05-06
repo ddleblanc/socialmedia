@@ -53,8 +53,8 @@
   <input *ngIf="!isMenuOpen" (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text"
     class="comment-input" placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment"
     #commentInput [ngClass]="{'white-input':commentSectionOpen}">
-  <div class="send-btn" (click)="onSendComment()">
-    <svg class="send-btn-icon" [ngClass]="{'black-icon':commentSectionOpen}" version="1.1" id="Capa_1"
+  <div *ngIf="comment" class="send-btn" (click)="onSendComment()">
+    <svg [@enterAnimation] class="send-btn-icon" [ngClass]="{'black-icon':commentSectionOpen}" version="1.1" id="Capa_1"
       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
       viewBox="0 0 535.5 535.5" xml:space="preserve">
       <g>

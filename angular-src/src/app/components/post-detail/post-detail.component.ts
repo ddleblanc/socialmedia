@@ -71,7 +71,7 @@ export class PostDetailComponent implements OnInit {
   data;
   post: Post;
   user: User;
-  comment: string;
+  comment: string = undefined;
   postId: string;
   likes = [];
   deleted = false;
@@ -107,6 +107,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   toggleMenu() {
+    this.commentSectionOpen = false;
     this.isMenuOpen = !this.isMenuOpen
     this.confirmingDeletion = false;
   }

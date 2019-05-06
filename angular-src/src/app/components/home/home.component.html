@@ -3,5 +3,10 @@
     <button class="posts-btn">POSTS</button>
     <button class="users-btn">USERS</button>
   </div> -->
-  <app-post-list [posts]="posts"></app-post-list>
+  <ng-container *ngIf="posts$ | async as posts">
+    <app-post-list [posts]="posts"></app-post-list>
+  </ng-container>
+
+
+
 </div>

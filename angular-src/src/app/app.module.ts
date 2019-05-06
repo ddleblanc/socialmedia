@@ -37,6 +37,7 @@ import { ValidationService } from './services/validation.service';
 import { FollowingComponent } from './components/account/following/following.component';
 import { MyPostsComponent } from './components/account/my-posts/my-posts.component';
 import { FollowersComponent } from './components/account/followers/followers.component';
+import { LikeService } from './services/like.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
@@ -98,6 +99,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     ValidationService,
     AuthGuard,
     HttpClientModule,
+    LikeService,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig,

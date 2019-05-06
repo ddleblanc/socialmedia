@@ -1,9 +1,15 @@
 <div *ngIf="post && user" class="detail-component-container hammered" (swipedown)="swipeDown()" (swipeup)="swipeUp()">
-  <div *ngIf="post.user._id == user._id && !isMenuOpen" class="menu-btn-container" (click)="toggleMenu()">
+  <div *ngIf="post.user._id == user._id" class="menu-btn-container" (click)="toggleMenu()">
     <div class="menu-btn">
-      <i class="fas fa-circle"></i>
-      <i class="fas fa-circle"></i>
-      <i class="fas fa-circle"></i>
+      <ng-container *ngIf="!isMenuOpen; else closeBtn">
+        <i class="fas fa-circle"></i>
+        <i class="fas fa-circle"></i>
+        <i class="fas fa-circle"></i>
+      </ng-container>
+      <ng-template #closeBtn>
+        <i class="fas fa-times bigger"></i>
+      </ng-template>
+
     </div>
 
   </div>
@@ -25,8 +31,6 @@
       </div>
     </div>
   </ng-container>
-
-
   <div class="user-icon"></div>
   <ng-container *ngIf="commentSectionOpen">
     <div class="title-container" [@enterAnimation]>
@@ -45,9 +49,22 @@
 
   <img *ngIf="post" [src]="post.photo" alt="" class="post-photo"
     [ngClass]="{'dim':commentSectionOpen, 'blur': isMenuOpen}" (swiperight)="onBackClicked()">
+
   <input *ngIf="!isMenuOpen" (keydown.enter)="onSendComment()" [@bottomNavEnterAnimation] type="text"
     class="comment-input" placeholder="Say something if you like it.." [(ngModel)]="comment" name="comment"
     #commentInput [ngClass]="{'white-input':commentSectionOpen}">
+  <div class="send-btn" (click)="onSendComment()">
+    <svg class="send-btn-icon" [ngClass]="{'black-icon':commentSectionOpen}" version="1.1" id="Capa_1"
+      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      viewBox="0 0 535.5 535.5" xml:space="preserve">
+      <g>
+        <g id="send">
+          <polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75 		" />
+        </g>
+      </g>
+    </svg>
+
+  </div>
   <ng-container *ngIf="commentSectionOpen">
 
     <div [@commentSectionAnimation] class="comment-section-container">
@@ -65,7 +82,10 @@
       <button type="submit" class="btn btn-submit" [ngClass]="{'confirm-deletion': confirmingDeletion}"
         (click)="onDelete()">
         <div *ngIf="!confirmingDeletion">DELETE</div>
-        <div *ngIf="confirmingDeletion">ARE YOU SURE?</div>
+        <div *ngIf="confirmingDeletion && deleted">
+
+          GONE
+        </div>
       </button>
     </div>
   </ng-container>

@@ -8,8 +8,11 @@ const router = express.Router();
 
 // ROUTES
 
-router.route("/").get(asyncHandler(getAllPosts));
-router.route("/:_id").get(asyncHandler(getPostById));
+router.route("/")
+  .get(asyncHandler(getAllPosts))
+router.route("/:_id")
+  .get(asyncHandler(getPostById))
+  .delete(asyncHandler(deletePostById))
 
 router.route("/:_id/comments").put(asyncHandler(addComment))
 
@@ -126,6 +129,12 @@ async function removeLike(req, res) {
   //     }
   // });
   res.json({ success: true, msg: "Like removed", like });
+}
+
+async function deletePostById(req, res) {
+  let _id = req.params._id
+  await postCtrl.deletePost(_id)
+  res.json({ success: true, msg: "Comment deleted" });
 }
 
 module.exports = router;

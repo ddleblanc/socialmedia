@@ -58,11 +58,17 @@ async function removeLike(postId, userId) {
   // }
 }
 
+async function deletePost(id) {
+  const query = { _id: id };
+  return await Post.findByIdAndRemove(query)
+}
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   addComment,
   addLike,
-  removeLike
+  removeLike,
+  deletePost
 };

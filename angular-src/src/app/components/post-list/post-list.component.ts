@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger("itemEnterAnimation", [
       transition("* => *", [
@@ -31,9 +32,10 @@ export class PostListComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit() {
-    // for (var i = 0; i < this.posts.length; i++) {
-    //   this.posts[i].photo = `../../../assets/${this.posts[i].photo}`;
-    // }
+    console.log(this.posts)
+    for (let post of this.posts) {
+      post.photo = `../../../assets/${post.photo}`;
+    }
 
   }
 

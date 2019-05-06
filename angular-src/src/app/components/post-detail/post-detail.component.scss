@@ -103,7 +103,7 @@
 }
 .comment-input {
     padding-left: 16px;
-    padding-right: 16px;
+    padding-right: 54px;
     border: none;
     background: black;
     color: white;
@@ -155,12 +155,14 @@
 .blacked-out {
     width: 100%;
 }
-
+.bigger {
+    font-size: 18px;
+}
 .menu-btn-container {
     position: absolute;
     top: 0;
     right: 0;
-background: red;
+    background: red;
     z-index: 99;
   
   
@@ -178,6 +180,27 @@ background: red;
       height: 30px;
     }
   }
+
+.send-btn {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .send-btn-icon {
+        fill: white;
+        margin-left: 16px;
+        height: 24px;
+        width: 32px;
+        transition: fill 420ms ease;
+    }
+}
+.black-icon {
+    fill: rgba($color: #000, $alpha: 0.6) !important;
+}
 
 .blur {
     transform: translateX(-5%) translateY(-5%);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/models/post.model';
 import { User } from 'src/app/models/user.model';
@@ -6,11 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import * as _ from 'underscore';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { environment } from '../../../environments/environment';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger("enterAnimation", [
       transition(":enter", [
@@ -22,36 +24,20 @@ import { environment } from '../../../environments/environment';
 })
 export class FavoritesComponent implements OnInit {
 
-  public posts: Post[];
-  private user: User;
-  public likedPosts: Post[] = [];
+  private user = JSON.parse(localStorage.getItem("user"));
+  public posts$ = this.postService.posts$.pipe(map(posts => posts.filter(post => post.likes.includes(this.user.id))))
+  public likedPosts;
   public sortedPosts: Post[];
   currentPostNumber = 0;
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
-    let user = JSON.parse(localStorage.getItem("user"));
-    let username = user.name;
-    this.authService.getUserByUsername(username).subscribe(data => {
-      this.user = data.user;
-      this.postService.getPosts().subscribe(posts => {
-        this.posts = posts;
-        for (let post of this.posts) {
-          if (post.likes.includes(this.user._id)) {
-            post.photo = `${environment.pathToPhotos}${post.photo}`
-            this.likedPosts.push(post)
-          }
-        }
-        this.sortedPosts = _.sortBy(this.likedPosts, 'createdAt');
-        console.log(this.sortedPosts)
-      });
-    });
-
+    this.posts$.subscribe(posts => this.likedPosts = posts);
   }
 
   scrollToNextPost() {
-    if (this.currentPostNumber < this.sortedPosts.length - 1) {
+    if (this.currentPostNumber < this.likedPosts.length - 1) {
       this.currentPostNumber++
       let el = document.getElementById(`post_${this.currentPostNumber}`)
       el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });

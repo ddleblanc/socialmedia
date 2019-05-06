@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { User } from "src/app/models/user.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { environment } from '../../../environments/environment';
+import { map } from "rxjs/operators";
 import {
   trigger,
   transition,
@@ -13,11 +14,13 @@ import {
 } from "@angular/animations";
 import { PostService } from "src/app/services/post.service";
 import { Post } from "src/app/models/post.model";
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger("enterAnimation", [
       transition(":enter", [
@@ -32,17 +35,28 @@ import { Post } from "src/app/models/post.model";
   ]
 })
 export class HomeComponent implements OnInit {
-  posts: Post[];
+  // posts: Post[];
+  errorMessage;
+
+  posts$ = this.postService.posts$
+  // .pipe(
+  //   map(posts => {
+  //     for (let post of posts) {
+  //       post.photo = `${environment.pathToPhotos}${post.photo}`;
+  //     }
+  //   })
+  // )
 
   constructor(private postService: PostService) { }
 
   ngOnInit() {
-    this.postService.getPosts().subscribe(posts => {
-      this.posts = posts;
-      for (var i = 0; i < this.posts.length; i++) {
-        this.posts[i].photo = `${environment.pathToPhotos}${posts[i].photo}`;
-      }
-    });
+    console.log(this.posts$)
+    // this.postService.getPosts().subscribe(posts => {
+    //   this.posts = posts;
+    //   for (var i = 0; i < this.posts.length; i++) {
+    //     this.posts[i].photo = `${environment.pathToPhotos}${posts[i].photo}`;
+    //   }
+    // });
   }
 
 }

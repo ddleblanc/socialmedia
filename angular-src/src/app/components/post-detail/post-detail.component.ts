@@ -74,13 +74,16 @@ export class PostDetailComponent implements OnInit {
   comment: string;
   postId: string;
   likes = [];
+  deleted = false;
   commentSectionOpen = false;
   confirmingDeletion = false;
   isMenuOpen = false;
   backBtnClicked = false;
   @ViewChild("commentInput", { read: ElementRef }) commentInput: ElementRef;
 
-  constructor(private followService: FollowService, private postService: PostService, private router: Router, private route: ActivatedRoute, private _location: Location, private authService: AuthService) { }
+  constructor(private followService: FollowService, private postService: PostService, private router: Router, private route: ActivatedRoute, private _location: Location, private authService: AuthService) {
+
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => { this.postId = params._id })
@@ -119,6 +122,14 @@ export class PostDetailComponent implements OnInit {
 
   onDelete() {
     this.confirmingDeletion = true;
+    this.postService.deletePost(this.post._id).subscribe(data => {
+      if (data.success) {
+        this.deleted = true;
+        setTimeout(() => {
+          this.router.navigate(['/account/posts'])
+        }, 1200)
+      }
+    })
   }
 
   swipeUp() {
@@ -139,7 +150,6 @@ export class PostDetailComponent implements OnInit {
     }
   }
   openCommentSection() {
-    console.log("swiped");
     this.commentSectionOpen = true;
     setTimeout(() => {
       this.commentInput.nativeElement.placeholder = 'Leave a comment..';
@@ -154,18 +164,19 @@ export class PostDetailComponent implements OnInit {
   }
 
   onSendComment() {
-    let commentObj = { commentData: { comment: this.comment, user: this.user._id } }
-    this.postService.addCommentToPost(this.post._id, commentObj).subscribe(data => {
-      this.data = data;
-      if (this.data.success) {
-        this.commentInput.nativeElement.value = "";
-        console.log("genius");
-        this.ngOnInit()
-      } else {
-        // this.router.navigate(['/'])
-        console.log("failed");
-      }
-    });
+    if (this.commentInput.nativeElement.value != "") {
+      let commentObj = { commentData: { comment: this.comment, user: this.user._id } }
+      this.postService.addCommentToPost(this.post._id, commentObj).subscribe(data => {
+        this.data = data;
+        if (this.data.success) {
+          this.commentInput.nativeElement.value = "";
+          this.ngOnInit()
+        } else {
+          // this.router.navigate(['/'])
+          console.log("failed");
+        }
+      });
+    }
   }
 
   async getPost() {

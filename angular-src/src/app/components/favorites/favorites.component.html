@@ -1,13 +1,13 @@
 <div id="favorites-container" class="hammered" (swipedown)="scrollToPreviousPost()" (swipeup)="scrollToNextPost()">
-  <ng-container *ngIf="sortedPosts">
+  <ng-container *ngIf="posts$ | async as posts">
     <div [@enterAnimation]>
-      <app-post-list [posts]="sortedPosts"></app-post-list>
+      <app-post-list [posts]="posts"></app-post-list>
     </div>
   </ng-container>
 
 </div>
-<ng-container *ngIf="sortedPosts">
-  <div [@enterAnimation] *ngIf="sortedPosts.length == 0" class="alert">
+<ng-container *ngIf="posts$ | async as posts">
+  <div [@enterAnimation] *ngIf="posts.length == 0" class="alert">
     <h6 class="text">You haven't liked any pictures yet..</h6>
   </div>
 </ng-container>

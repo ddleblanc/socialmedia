@@ -6,38 +6,38 @@
 // const app = require("../../../app");
 // const db = require("../../../db/index.js");
 
-// const username = "name";
+// const userId = "5cc47ce320e183202c49d76f";
 
 // describe("PUT /users", () => {
-//   before(done => {
-//     db.connect()
-//       .then(() => done())
-//       .catch(err => done(err));
-//   });
-
-//   after(done => {
-//     db.close()
-//       .then(() => done())
-//       .catch(err => done(err));
-//   });
-
-//   describe("NORMAL BEHAVIOR", () => {
-//     it("UPDATES a user", done => {
-//       request(app)
-//         .put(`/api/v1/users/${username}`)
-//         .send({
-//           username: "updatedName"
-//         })
-//         .then(res => {
-//           const body = res.body;
-//           expect(body).to.contain.property("_id");
-//           expect(body).to.contain.property("username");
-//           expect(body).to.contain.property("email");
-//           expect(body).to.contain.property("createdAt");
-//           expect(body.username).to.equal("updatedName");
-//           done();
-//         })
-//         .catch(err => done(err));
+//     before(done => {
+//         db.connect()
+//             .then(() => done())
+//             .catch(err => done(err));
 //     });
-//   });
+
+//     after(done => {
+//         db.close()
+//             .then(() => done())
+//             .catch(err => done(err));
+//     });
+
+//     describe("NORMAL BEHAVIOR", () => {
+//         it("UPDATES a user", done => {
+//             request(app)
+//                 .put(`/api/v1/users/${userId}`)
+//                 .send({
+//                     username: "updatedName"
+//                 })
+//                 .then(res => {
+//                     const body = res.body;
+//                     expect(body).to.contain.property("_id");
+//                     expect(body).to.contain.property("username");
+//                     expect(body).to.contain.property("email");
+//                     expect(body).to.contain.property("createdAt");
+//                     expect(body.username).to.equal("updatedName");
+//                     done();
+//                 })
+//                 .catch(err => done(err));
+//         });
+//     });
 // });

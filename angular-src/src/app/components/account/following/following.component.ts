@@ -3,6 +3,7 @@ import { FollowService } from 'src/app/services/follow.service';
 import { User } from 'src/app/models/user.model';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-following',
@@ -28,7 +29,7 @@ export class FollowingComponent implements OnInit {
 
   following: User[];
 
-  constructor(private followService: FollowService) { }
+  constructor(private followService: FollowService, private router: Router) { }
 
   ngOnInit() {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -40,5 +41,8 @@ export class FollowingComponent implements OnInit {
         user.avatar = `${environment.pathToPhotos}${user.avatar}`
       }
     })
+  }
+  onUserSelected(username) {
+    this.router.navigate(['user', username])
   }
 }

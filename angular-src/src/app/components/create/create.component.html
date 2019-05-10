@@ -19,4 +19,16 @@
   </label>
   <input (keydown.enter)="onPostSubmit()" [@bottomNavEnterAnimation] type="text" class="title-input"
     placeholder="What do you call this piece.." [(ngModel)]="title" name="title" #titleInput>
+  <div *ngIf="title" class="send-btn" (click)="onPostSubmit()">
+    <svg [@enterAnimation] class="send-btn-icon" [ngClass]="{'black-icon':commentSectionOpen}" version="1.1" id="Capa_1"
+      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      viewBox="0 0 535.5 535.5" xml:space="preserve">
+      <g>
+        <g id="send">
+          <polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75 		" />
+        </g>
+      </g>
+    </svg>
+
+  </div>
 </div>

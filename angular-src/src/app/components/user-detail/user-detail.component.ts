@@ -111,9 +111,6 @@ export class UserDetailComponent implements OnInit {
       // console.log(data)
       if (data.user.posts.length > 0) {
         this.wallpaper = `${environment.pathToPhotos}${data.user.posts[0].photo}`;
-        for (var i = 0; i < this.user.posts.length; i++) {
-          this.user.posts[i].photo = `${environment.pathToPhotos}${data.user.posts[i].photo}`;
-        }
       } else {
         this.wallpaper = `${environment.pathToPhotos}${data.user.avatar}`;
       }

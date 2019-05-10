@@ -6,10 +6,14 @@ var _ = require("lodash/core");
  * @param {object} user New user's full name, email & password
  */
 async function createUser(user) {
+  const query = { username: user.username };
   if (_.has(user, "password")) {
     user.hashedPassword = bcrypt.hashSync(user.password, 10);
     delete user.password;
-    return await new User(user).save();
+    await new User(user).save();
+    return await User.findOne(query).select(
+      "username email _id roles createdAt avatar posts followers following"
+    )
   } else {
     return await new User(user).save();
   }
@@ -24,7 +28,7 @@ async function getAllUsers() {
 async function getUserByUsername(username) {
   const query = { username: username };
   return await User.findOne(query).select(
-    "username email _id email roles createdAt avatar posts followers following"
+    "username email _id roles createdAt avatar posts followers following"
   ).populate({
     path: 'posts',
     populate: {
@@ -80,9 +84,9 @@ async function updateUserById(_id, update) {
   if (_.has(update, "password")) {
     let hashedPassword = bcrypt.hashSync(update.password, 10);
     update = { hashedPassword: hashedPassword };
-    updateUser(query, update);
+    return updateUser(query, update);
   } else {
-    updateUser(query, update);
+    return updateUser(query, update);
   }
 }
 // Helps the previous function

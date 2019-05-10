@@ -72,6 +72,8 @@ export class AccountComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(["/"]);
   }
+
+  // TODO Update user profile picture
   onFileSelected(event) {
     //   console.log("onSelectFile");
     //   if (event.target.files && event.target.files[0]) {
@@ -89,7 +91,7 @@ export class AccountComponent implements OnInit {
     //     };
     //   }
   }
-  // CHILD ROUTES
+  // CHILD ROUTE NAVIGATION
   showFollowing() {
     this.router.navigate(['following'], { relativeTo: this.route })
   }

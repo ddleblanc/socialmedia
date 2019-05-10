@@ -49,13 +49,25 @@ async function createUser(req, res) {
           .catch(function (err) {
             if (err.name == "ValidationError") {
               res.status(422).json(err);
+              return;
             } else {
               res.status(500).json(err);
+              return;
             }
           });
         res.json({ success: true, msg: "Account found", createdUser });
+        return;
       }
-      uploading();
+      uploading()
+        .catch(function (err) {
+          if (err.name == "ValidationError") {
+            res.status(422).json(err);
+            return;
+          } else {
+            res.status(500).json(err);
+            return;
+          }
+        });
     }
   });
 
@@ -91,6 +103,7 @@ async function getUserByUsername(req, res) {
 async function updateUserById(req, res) {
   const _id = req.params._id;
   const update = req.body;
+  console.log(_id);
   let updatedUser = await userCtrl
     .updateUserById(_id, update)
     .catch(function (err) {
@@ -100,7 +113,7 @@ async function updateUserById(req, res) {
         res.status(500).json(err);
       }
     });
-  res.status(200).json(updatedUser);
+  res.status(200).json({ success: true, msg: "User Updated", user: updatedUser });
 }
 
 async function deleteUserByUsername(req, res) {

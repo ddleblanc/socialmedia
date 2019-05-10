@@ -35,9 +35,6 @@ export class MyPostsComponent implements OnInit {
     let username = user.name;
     this.authService.getUserByUsername(username).subscribe(data => {
       this.posts = data.user.posts;
-      for (let post of this.posts) {
-        post.photo = `${environment.pathToPhotos}${post.photo}`
-      }
     });
   }
 

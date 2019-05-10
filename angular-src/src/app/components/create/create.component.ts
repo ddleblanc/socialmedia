@@ -42,6 +42,7 @@ export class CreateComponent implements OnInit {
   user: User;
   ageRestriction: Boolean = false;
   data: any;
+  uploading = false;
 
   @ViewChild("fileInput", { read: ElementRef }) fileInput: ElementRef;
   @ViewChild("titleInput", { read: ElementRef }) titleInput: ElementRef;
@@ -79,6 +80,7 @@ export class CreateComponent implements OnInit {
   }
 
   onPostSubmit() {
+    this.uploading = true;
     const fd = new FormData();
     const post = {
       username: this.user.name,
@@ -106,6 +108,7 @@ export class CreateComponent implements OnInit {
         // this.router.navigate(['/'])
       } else {
         // this.router.navigate(['/'])
+        this.uploading = false;
         console.log("failed");
       }
     });

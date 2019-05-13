@@ -24,7 +24,7 @@ services:
       - "80:80"
     volumes:
       - web-root:/home/lxblvnc/socialmedia
-      - ./nginx-conf:/etc/nginx/conf.d
+      - ./nginx-conf:/home/lxblvnc/socialmedia/ginx-conf/nginx.conf
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
     depends_on:

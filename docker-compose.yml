@@ -22,11 +22,13 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - web-root:/home/lxblvnc/socialmedia
       - ./nginx-conf:/home/lxblvnc/socialmedia/ginx-conf/nginx.conf
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
     depends_on:
       - app
     networks:
@@ -49,6 +51,12 @@ volumes:
     driver_opts:
       type: none
       device: /home/lxblvnc/socialmedia/public
+      o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/lxblvnc/socialmedia/dhparam
       o: bind
 
 networks:

@@ -56,7 +56,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/lxblvnc/socialmedia/dhparam
+      device: /etc/ssl/certs
       o: bind
 
 networks:

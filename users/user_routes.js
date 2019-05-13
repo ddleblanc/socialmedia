@@ -55,6 +55,7 @@ async function createUser(req, res) {
               return;
             }
           });
+        // console.log(createdUser);
         res.json({ success: true, msg: "Account found", createdUser });
         return;
       }

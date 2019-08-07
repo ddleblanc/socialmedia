@@ -39,8 +39,10 @@
         </div>
         <div class="like-btn-container">
           <div class="like-btn">
-            <i *ngIf="!comment.likes.includes(userId)" class="far fa-heart" (click)="onLikeComment(comment, i)"></i>
-            <i *ngIf="comment.likes.includes(userId)" class="fas fa-heart" (click)="onUnLikeComment(comment, i)"></i>
+            <i *ngIf="!comment.likes.includes(userId)" class="far fa-heart"
+              (click)="onLikeComment(comment, $event)"></i>
+            <i *ngIf="comment.likes.includes(userId)" class="fas fa-heart"
+              (click)="onUnLikeComment(comment, $event)"></i>
             <h6 class="like-count">{{comment.likes.length}}</h6>
           </div>
 

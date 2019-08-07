@@ -43,6 +43,7 @@ export class AccountComponent implements OnInit {
   likes = 0;
   currentPostNumber = -1;
   showingMenu = false;
+  ageRestriction: boolean;
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 

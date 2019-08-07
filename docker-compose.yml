@@ -1,64 +1,15 @@
 version: '3'
 services:
   app:
-    container_name: app
+    container_name: docker-node-mongo
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: app
-    networks:
-      - app-network
+    build: .
+    ports:
+      - '80:3000'
+    links:
+      - mongo
   mongo:
     container_name: mongo
     image: mongo
     ports:
       - '27017:27017'
-    networks:
-      - app-network
-  webserver:
-    image: nginx:mainline-alpine
-    container_name: webserver
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - web-root:/home/lxblvnc/socialmedia
-      - ./nginx-conf:/home/lxblvnc/socialmedia/ginx-conf/nginx.conf
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - dhparam:/etc/ssl/certs
-    depends_on:
-      - app
-    networks:
-      - app-network
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/home/lxblvnc/socialmedia
-    depends_on:
-      - webserver
-    command: certonly --webroot --webroot-path=/home/lxblvnc/socialmedia --email ddleblanc87@gmail.com --agree-tos --no-eff-email --staging -d ddleblanc.com -d www.ddleblanc.com
-volumes:
-  certbot-etc:
-  certbot-var:
-  web-root:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/lxblvnc/socialmedia/public
-      o: bind
-  dhparam:
-    driver: local
-    driver_opts:
-      type: none
-      device: /etc/ssl/certs
-      o: bind
-
-networks:
-  app-network:
-    driver: bridge

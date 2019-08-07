@@ -40,16 +40,24 @@
   </div>
 
   <div class="menu">
-    <div class="menu-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+    <div class="menu-btn shadow-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-circle"></i>
       <i class="fas fa-circle"></i>
       <i class="fas fa-circle"></i>
     </div>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item delete-btn" href="#">delete account</a>
+      <a class="dropdown-item delete-btn">delete account</a>
       <br><br>
-
+      <div class="dropdown-divider"></div>
+      <div class="can-toggle can-toggle--size-small my-toggle">
+        <input id="b" type="checkbox" [(ngModel)]="ageRestriction" name="ageRestriction" />
+        <label for="b">
+          <div class="can-toggle__switch" data-checked="NSFW" data-unchecked="SFW"></div>
+          <!-- <div class="can-toggle__label-text">Sensitive content</div> -->
+        </label>
+      </div>
+      <br><br>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" (click)="onLogout()">log out</a>
     </div>

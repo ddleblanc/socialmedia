@@ -39,13 +39,9 @@ export class HomeComponent implements OnInit {
   errorMessage;
 
   posts$ = this.postService.posts$
-  // .pipe(
-  //   map(posts => {
-  //     for (let post of posts) {
-  //       post.photo = `${environment.pathToPhotos}${post.photo}`;
-  //     }
-  //   })
-  // )
+    .pipe(
+      catchError(error => this.errorMessage = (`Problem loading posts: ${error}`))
+    )
 
   constructor(private postService: PostService) { }
 

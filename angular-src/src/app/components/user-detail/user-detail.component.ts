@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -65,7 +65,7 @@ export class UserDetailComponent implements OnInit {
   private accountUser: User;
   currentPostNumber = -1;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private _location: Location, private followService: FollowService) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute, private _location: Location, private followService: FollowService) { }
 
   ngOnInit() {
     this.getUsers()
@@ -106,16 +106,21 @@ export class UserDetailComponent implements OnInit {
   getUsers() {
     this.route.params.subscribe(params => { this.username = params.username })
     this.authService.getUserByUsername(this.username).subscribe(data => {
-      this.user = data.user;
-      this.avatar = `${environment.pathToPhotos}${data.user.avatar}`;
-      // console.log(data)
-      if (data.user.posts.length > 0) {
-        this.wallpaper = `${environment.pathToPhotos}${data.user.posts[0].photo}`;
+      if (data.success) {
+        this.user = data.user;
+        this.avatar = `${environment.pathToPhotos}${data.user.avatar}`;
+        // console.log(data)
+        if (data.user.posts.length > 0) {
+          this.wallpaper = `${environment.pathToPhotos}${data.user.posts[0].photo}`;
+        } else {
+          this.wallpaper = `${environment.pathToPhotos}${data.user.avatar}`;
+        }
+        this.getAccountUser()
+        console.log(`user: ${this.user.email}`);
       } else {
-        this.wallpaper = `${environment.pathToPhotos}${data.user.avatar}`;
+        this.router.navigate(['/'])
       }
-      this.getAccountUser()
-      console.log(`user: ${this.user.email}`);
+
     });
   }
   getAccountUser() {

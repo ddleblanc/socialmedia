@@ -17,14 +17,14 @@ router
   .route("/:_id")
   .put(
     passport.authenticate("jwt", { session: false }),
-    asyncHandler(updateUserById)
+    asyncHandler(userCtrl.updateUserById)
   )
   .delete(
     passport.authenticate("jwt", { session: false }),
     asyncHandler(deleteUserByUsername)
   );
 
-router.route("/:username").get(asyncHandler(getUserByUsername));
+router.route("/:username").get(asyncHandler(userCtrl.getUserByUsername));
 router.route("/:_id/follow").post(asyncHandler(addUserToFollowing));
 router.route("/:_id/follow").put(asyncHandler(removeUserFromFollowing));
 
@@ -46,27 +46,24 @@ async function createUser(req, res) {
         let userDataWithPhoto = { ...userData, avatar: req.file.filename };
         createdUser = await userCtrl
           .createUser(userDataWithPhoto)
-          .catch(function (err) {
-            if (err.name == "ValidationError") {
-              res.status(422).json(err);
-              return;
-            } else {
-              res.status(500).json(err);
-              return;
-            }
-          });
+        // .catch(function (err) {
+        //   if (err.name == "ValidationError") {
+        //     res.status(422).json(err);
+        //     return;
+        //   } else {
+        //     res.status(500).json(err);
+        //     return;
+        //   }
+        // });
         // console.log(createdUser);
         res.json({ success: true, msg: "Account found", createdUser });
-        return;
       }
       uploading()
         .catch(function (err) {
           if (err.name == "ValidationError") {
             res.status(422).json(err);
-            return;
           } else {
             res.status(500).json(err);
-            return;
           }
         });
     }
@@ -86,35 +83,6 @@ async function createUser(req, res) {
 async function getAllUsers(req, res) {
   let users = await userCtrl.getAllUsers();
   res.json(users);
-}
-
-async function getUserByUsername(req, res) {
-  console.log(req.params.username);
-  const username = req.params.username;
-  let user = await userCtrl.getUserByUsername(username);
-  if (user == null) {
-    console.log("no user found");
-    res.json({ success: false, msg: "No such user" });
-  } else {
-    console.log("user found");
-    res.json({ success: true, msg: "Account found", user: user });
-  }
-}
-
-async function updateUserById(req, res) {
-  const _id = req.params._id;
-  const update = req.body;
-  console.log(_id);
-  let updatedUser = await userCtrl
-    .updateUserById(_id, update)
-    .catch(function (err) {
-      if (err.name == "ValidationError") {
-        res.status(422).json(err);
-      } else {
-        res.status(500).json(err);
-      }
-    });
-  res.status(200).json({ success: true, msg: "User Updated", user: updatedUser });
 }
 
 async function deleteUserByUsername(req, res) {

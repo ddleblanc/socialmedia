@@ -151,6 +151,7 @@ export class PostDetailComponent implements OnInit {
     }
   }
   openCommentSection() {
+    document.getElementById('detail-component-container').classList.remove('hammered');
     this.commentSectionOpen = true;
     setTimeout(() => {
       this.commentInput.nativeElement.placeholder = 'Leave a comment..';
@@ -199,26 +200,33 @@ export class PostDetailComponent implements OnInit {
     console.log(this.post)
   }
 
-  onLike() {
+  onLike(event) {
     let postId = this.post._id;
     let userId = { userId: this.user._id }
     console.log(this.user)
 
-    if (!this.likes.includes(this.user._id)) {
+    if (!this.post.likes.includes(this.user._id)) {
+      this.post.likes = [...this.post.likes, this.user._id]
+      event.target.classList.remove('far');
+      event.target.classList.add('fas');
       this.postService.addLikeToPost(postId, userId).subscribe(data => {
         this.data = data;
         if (this.data.success) {
-          this.ngOnInit();
+          // this.ngOnInit();
         } else {
           // this.router.navigate(['/'])
           console.log("failed");
         }
       });
     } else {
+      let index = this.post.likes.indexOf(this.user._id);
+      if (index !== -1) this.post.likes.splice(index, 1);
+      event.target.classList.remove('fas');
+      event.target.classList.add('far');
       this.postService.removeLikeFromPost(postId, userId).subscribe(data => {
         this.data = data;
         if (this.data.success) {
-          this.ngOnInit()
+          // this.ngOnInit()
         } else {
           // this.router.navigate(['/'])
           console.log("failed");

@@ -2,6 +2,7 @@ process.env.NODE_ENV = "test";
 
 const expect = require("chai").expect;
 const request = require("supertest");
+const User = require("../../../users/user_model");
 
 const app = require("../../../app");
 const db = require("../../../db/index.js");
@@ -16,9 +17,14 @@ describe("POST /users", () => {
     });
 
     after(done => {
-        db.close()
-            .then(() => done())
+        User.deleteMany()
+            .then(() => {
+                db.close()
+                    .then(() => done())
+                    .catch(err => done(err));
+            })
             .catch(err => done(err));
+
     });
 
     describe("NORMAL BEHAVIOR", () => {

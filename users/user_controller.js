@@ -25,23 +25,45 @@ async function getAllUsers() {
 /**
  * @param {string} username Somebody's username
  */
-async function getUserByUsername(username) {
-  const query = { username: username };
-  return await User.findOne(query).select(
-    "username email _id roles createdAt avatar posts followers following"
-  ).populate({
-    path: 'posts',
-    populate: {
-      path: 'comments',
+async function getUserByUsername(req, res, next) {
+  try {
+    const query = { username: req.params.username };
+    const user = await User.findOne(query).select(
+      "username email _id roles createdAt avatar posts followers following"
+    ).populate({
+      path: 'posts',
       populate: {
-        path: 'user',
-        model: 'User',
-        select: 'username avatar'
+        path: 'comments',
+        populate: {
+          path: 'user',
+          model: 'User',
+          select: 'username avatar'
+        }
       }
     }
+    )
+    if (user == null) {
+      console.log("no user found");
+      res.json({ success: false, msg: "No such user" });
+    } else {
+      console.log("user found");
+      res.json({ success: true, msg: "Account found", user: user });
+    }
+  } catch (e) {
+    next(e)
   }
-  )
+
 }
+
+
+// console.log(req.params.username);
+// const username = req.params.username;
+// let user = await userCtrl.getUserByUsername(username);
+
+
+
+
+
 // Get all followers for user
 async function getFollowersByUsername(username) {
   const query = { username: username };
@@ -79,16 +101,50 @@ async function getUserById(id) {
   return await User.findOne(query);
 }
 
-async function updateUserById(_id, update) {
-  const query = { _id: _id };
+async function updateUserById(req, res, next) {
+  const update = req.body;
+  const query = { _id: req.params._id };
   if (_.has(update, "password")) {
-    let hashedPassword = bcrypt.hashSync(update.password, 10);
-    update = { hashedPassword: hashedPassword };
-    return updateUser(query, update);
+    try {
+      let hashedPassword = bcrypt.hashSync(update.password, 10);
+      update = { hashedPassword: hashedPassword };
+      const updatedUser = updateUser(query, update);
+      res.status(201).json({ success: true, msg: "User Updated", user: updatedUser });
+    } catch (e) {
+      next(e)
+    }
   } else {
-    return updateUser(query, update);
+    updateUser(query, update).catch(function (err) {
+      if (err.name == "ValidationError") {
+        res.status(422).json(err);
+      } else {
+        res.status(500).json(err);
+      }
+    });
   }
 }
+
+
+// const _id = req.params._id;
+// const update = req.body;
+// console.log(_id);
+// let updatedUser = await userCtrl
+//   .updateUserById(_id, update)
+//   .catch(function (err) {
+//     if (err.name == "ValidationError") {
+//       res.status(422).json(err);
+//     } else {
+//       res.status(500).json(err);
+//     }
+//   });
+// res.status(200).json({ success: true, msg: "User Updated", user: updatedUser });
+
+
+
+
+
+
+
 // Helps the previous function
 async function updateUser(query, update) {
   const updatedUser = await User.findOneAndUpdate(query, update, {

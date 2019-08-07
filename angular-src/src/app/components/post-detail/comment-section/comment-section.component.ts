@@ -72,7 +72,9 @@ export class CommentSectionComponent implements OnInit {
     }, 2000)
   }
 
-  onLikeComment(comment, i) {
+  onLikeComment(comment, event) {
+    event.target.classList.remove('far');
+    event.target.classList.add('fas');
     let commentId = comment._id;
     let userId = { userId: this.userId };
     console.log()
@@ -87,7 +89,9 @@ export class CommentSectionComponent implements OnInit {
     });
   }
 
-  onUnLikeComment(comment, i) {
+  onUnLikeComment(comment, event) {
+    event.target.classList.remove('fas');
+    event.target.classList.add('far');
     let commentId = comment._id;
     let userId = { userId: this.userId };
     this.commentService.removeLikeFromComment(commentId, userId).subscribe(data => {

@@ -27,3 +27,12 @@
   </div>
 </ng-container>
 <app-nav></app-nav>
+<button [@btnEnterAnimation] (click)="onIntercomClicked()" class="intercom-button">
+  <!-- <div class="intercom-badge" style="opacity: 1; transform: translate(-100%, 100%) scale(1);">2</div> -->
+  <img alt="Launcher Icon" class="intercom-icon intercom-icon--launcher"
+    src="https://js.intercomcdn.com/images/launcher-icon@2x.e005daae.png"
+    style="opacity: 1; transform: rotate(0deg) scale(1) translate(-50%, -50%);"><img alt="Close Icon"
+    class="intercom-icon intercom-icon--close"
+    src="https://js.intercomcdn.com/images/launcher-close-icon@2x.d4b89535.png"
+    style="opacity: 0; transform: rotate(-45deg) scale(0) translate(-50%, -50%);">
+</button>

@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { User } from "../../models/user.model";
 import { ValidationService } from "../../services/validation.service";
+import * as nsfwjs from "nsfwjs";
 
 @Component({
   selector: "app-create",
@@ -33,7 +34,8 @@ import { ValidationService } from "../../services/validation.service";
         style({ transform: "translateY(0px)", opacity: 1 }),
         animate("420ms", style({ transform: "translateY(70px)", opacity: 0 }))
       ])
-    ])]
+    ])
+  ]
 })
 export class CreateComponent implements OnInit {
   url: String;
@@ -43,6 +45,7 @@ export class CreateComponent implements OnInit {
   ageRestriction: Boolean = false;
   data: any;
   uploading = false;
+  classifying = false;
 
   @ViewChild("fileInput", { read: ElementRef }) fileInput: ElementRef;
   @ViewChild("titleInput", { read: ElementRef }) titleInput: ElementRef;
@@ -53,7 +56,7 @@ export class CreateComponent implements OnInit {
     private route: ActivatedRoute,
     private validateService: ValidationService,
     private _location: Location
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
@@ -102,8 +105,8 @@ export class CreateComponent implements OnInit {
     this.postService.addPost(fd).subscribe(data => {
       this.data = data;
       if (this.data.success) {
-        this.postService.setCurrentPostUrl(this.data.createdPost.photo)
-        this.router.navigate(['post', this.data.createdPost._id])
+        this.postService.setCurrentPostUrl(this.data.createdPost.photo);
+        this.router.navigate(["post", this.data.createdPost._id]);
         // this.flashMessage.show('Posted', {cssClass: 'alert-success', timeout: 3000});
         // this.router.navigate(['/'])
       } else {
@@ -113,5 +116,32 @@ export class CreateComponent implements OnInit {
       }
     });
     // }
+  }
+  async classifyImg() {
+    this.classifying = true;
+    const img = <HTMLImageElement>document.getElementById("img");
+    // Load model from my S3.
+    // See the section hosting the model files on your site.
+    const model = await nsfwjs.load();
+
+    // Classify the image
+    const predictions = await model.classify(img, 2);
+    console.log("Predictions: ", predictions);
+    let res = Math.max.apply(
+      Math,
+      predictions.map(function(prediction) {
+        return prediction.probability;
+      })
+    );
+    let prediction = predictions.find(p => p.probability === res);
+    if (prediction.className == "Porn") {
+      this.ageRestriction = true;
+    } else {
+      this.ageRestriction = false;
+    }
+    this.classifying = false;
+  }
+  onAppeal() {
+    console.log("appealed");
   }
 }

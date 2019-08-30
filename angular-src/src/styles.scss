@@ -11,11 +11,11 @@ body {
   background: #000;
 }
 
-.child-route-container{
+.child-route-container {
   position: absolute;
   top: calc(35% + 144px);
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .follow-list {
@@ -35,14 +35,15 @@ body {
     .avatar {
       width: 64px;
       height: 64px;
+
       img {
         width: 100%;
         height: 100%;
         border-radius: 50%;
         object-fit: cover;
+      }
     }
-    }
-    
+
   }
 }
 
@@ -60,44 +61,47 @@ body {
   color: rgba($color: #fff, $alpha: 0.9);
   width: 100%;
   transition: all 420ms ease;
+
   &:disabled {
     color: rgba(255, 255, 255, 0.15);
   }
 }
 
-@mixin can-toggle-branding(
-  $can-toggle-off-color: #777,
+@mixin can-toggle-branding($can-toggle-off-color: #777,
   $can-toggle-on-color: #000,
   $can-toggle-inactive-text: rgba(white, 0.5),
-  $can-toggle-transition: cubic-bezier(0, 1, 0.5, 1)
-) {
+  $can-toggle-transition: cubic-bezier(0, 1, 0.5, 1)) {
   input[type="checkbox"] {
     cursor: pointer;
 
-    &[disabled] ~ label {
+    &[disabled]~label {
       color: rgba($can-toggle-off-color, 0.5);
     }
 
-    &:focus ~ label,
-    &:hover ~ label {
+    &:focus~label,
+    &:hover~label {
       .can-toggle__switch {
         background-color: $can-toggle-off-color;
+
         &:after {
           color: darken($can-toggle-off-color, 10%);
         }
       }
     }
-    &:hover ~ label {
+
+    &:hover~label {
       color: darken($can-toggle-off-color, 5%);
     }
+
     &:checked {
-      ~ label {
+      ~label {
         &:hover {
           color: darken($can-toggle-on-color, 3%);
         }
 
         .can-toggle__switch {
           background-color: lighten($can-toggle-on-color, 5%);
+
           &:after {
             color: darken($can-toggle-on-color, 5%);
           }
@@ -106,9 +110,10 @@ body {
 
       &:focus,
       &:hover {
-        ~ label {
+        ~label {
           .can-toggle__switch {
             background-color: $can-toggle-on-color;
+
             &:after {
               color: darken($can-toggle-on-color, 10%);
             }
@@ -126,9 +131,11 @@ body {
     .can-toggle__switch {
       transition: background-color 0.3s $can-toggle-transition;
       background: lighten($can-toggle-off-color, 5%);
+
       &:before {
         color: $can-toggle-inactive-text;
       }
+
       &:after {
         // Autoprefixer choked here, so making the prefixes explicit
         -webkit-transition: -webkit-transform 0.3s $can-toggle-transition;
@@ -139,20 +146,19 @@ body {
   }
 }
 
-@mixin can-toggle-appearance(
-  $can-toggle-width: 134px,
+@mixin can-toggle-appearance($can-toggle-width: 134px,
   $can-toggle-height: 36px,
   $can-toggle-border-radius: 4px,
   $can-toggle-offset: 2px,
   $can-toggle-label-font-size: 14px,
   $can-toggle-switch-font-size: 12px,
-  $can-toggle-shadow: 0 3px 3px rgba(black, 0.4)
-) {
+  $can-toggle-shadow: 0 3px 3px rgba(black, 0.4)) {
   $can-toggle-switch-width: $can-toggle-width/2;
 
   input[type="checkbox"] {
-    &:focus ~ label,
-    &:hover ~ label {
+
+    &:focus~label,
+    &:hover~label {
       .can-toggle__switch {
         &:after {
           box-shadow: $can-toggle-shadow;
@@ -161,21 +167,19 @@ body {
     }
 
     &:checked {
-      ~ label {
+      ~label {
         .can-toggle__switch {
           &:after {
-            transform: translate3d(
-              $can-toggle-width -
-                ($can-toggle-switch-width + $can-toggle-offset),
-              0,
-              0
-            );
+            transform: translate3d($can-toggle-width - ($can-toggle-switch-width + $can-toggle-offset),
+                0,
+                0);
           }
         }
       }
+
       &:focus,
       &:hover {
-        ~ label {
+        ~label {
           .can-toggle__switch {
             &:after {
               box-shadow: $can-toggle-shadow;
@@ -222,11 +226,13 @@ body {
 
 .can-toggle {
   position: relative;
+
   *,
   *:before,
   *:after {
     box-sizing: border-box;
   }
+
   //overflow: hidden;
 
   input[type="checkbox"] {
@@ -235,15 +241,16 @@ body {
     top: 0;
     left: 0;
 
-    &[disabled] ~ label {
+    &[disabled]~label {
       pointer-events: none;
+
       .can-toggle__switch {
         opacity: 0.4;
       }
     }
 
     &:checked {
-      ~ label {
+      ~label {
         .can-toggle__switch {
           &:before {
             content: attr(data-unchecked);
@@ -258,8 +265,7 @@ body {
 
       &:focus,
       &:hover {
-        ~ label {
-        }
+        ~label {}
       }
     }
   }
@@ -304,77 +310,115 @@ body {
 
   // Create toggles of different sizes by overriding the can-toggle-appearance mixin defaults
   &.can-toggle--size-small {
-    @include can-toggle-appearance(
-      90px,
+    @include can-toggle-appearance(90px,
       // Toggle width
-        28px,
+      28px,
       // Toggle height
-        2px,
+      2px,
       // Toggle border radius
-        1px,
+      1px,
       // Offset (distance btw switch and box)
-        13px,
+      13px,
       // Label font size
-        10px,
+      10px,
       // Switch font size
-        0 2px 2px rgba(black, 0.4)
-    );
+      0 2px 2px rgba(black, 0.4));
   }
 
   &.can-toggle--size-large {
-    @include can-toggle-appearance(
-      160px,
+    @include can-toggle-appearance(160px,
       // Toggle width
-        50px,
+      50px,
       // Toggle height
-        4px,
+      4px,
       // Toggle border radius
-        2px,
+      2px,
       // Offset (distance btw switch and box)
-        14px,
+      14px,
       // Label font size
-        14px,
+      14px,
       // Switch font size
-        0 4px 4px rgba(black, 0.4)
-    );
+      0 4px 4px rgba(black, 0.4));
   }
 
   // Or re-brand the toggle for different applications
   &.demo-rebrand-1 {
-    @include can-toggle-branding(
-      #b53e74,
+    @include can-toggle-branding(#b53e74,
       // Off state color
-        #3d9c72,
+      #3d9c72,
       // On state color
-        rgba(white, 0.6),
+      rgba(white, 0.6),
       // Off state text color ease-in-out / / Transition timing function
     );
   }
 
   &.demo-rebrand-2 {
-    @include can-toggle-branding(
-      #444,
+    @include can-toggle-branding(#444,
       // Off state color
-        #69be28,
+      #69be28,
       // On state color
-        rgba(white, 0.7),
+      rgba(white, 0.7),
       // Off state text color cubic-bezier(0.86, 0, 0.07, 1) / / Transition timing
-        function
-    );
-    @include can-toggle-appearance(
-      120px,
+      function);
+    @include can-toggle-appearance(120px,
       // Toggle width
-        60px,
+      60px,
       // Toggle height
-        60px,
+      60px,
       // Toggle border radius
-        2px,
+      2px,
       // Offset (distance btw switch and box)
-        13px,
+      13px,
       // Label font size
-        13px,
+      13px,
       // Switch font size
-        0 4px 4px rgba(black, 0.4)
-    );
+      0 4px 4px rgba(black, 0.4));
+  }
+}
+
+
+.blurred {
+  filter: blur(12px)
+}
+
+.black-bg {
+  background-color: #000000 !important;
+}
+
+.retriction-label-container {
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(0deg,
+      rgba(255, 255, 255, 0.0)40%,
+      rgba(0, 0, 0, 0.4) 40%,
+      rgba(0, 0, 0, 0.4) 60%,
+      rgba(255, 255, 255, 0.0) 60%,
+      rgba(255, 255, 255, 0.0) 100%);
+
+  .retriction-label {
+
+    z-index: 100;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    will-change: transform;
+    transition: 420ms;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
   }
 }

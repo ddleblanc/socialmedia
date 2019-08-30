@@ -1,101 +1,70 @@
 $light: #fff;
-.blurred {
-    filter: blur(12px)
+
+.post-list-item {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  // margin-bottom: 10px;
+  background: #000;
+
+  img {
+    width: calc(100vw / 3);
+    height: calc(100vh / 3);
+    object-fit: cover;
+    padding-bottom: 1px;
+    padding-right: 1px;
   }
-  .retriction-label-container{
-    pointer-events: none;
-    opacity: 0.3;
-    z-index: 5;
-    position: absolute;
-    top: 0;
-    left: 0;
+
+  .fullscreen {
+    width: calc(100vw);
+    height: calc(100vh - 48px);
+  }
+
+  // img:nth-child(3n+0) {
+  //   filter: blur(20px);
+  //   padding-right: 0px;
+  //   padding-left: 1px;
+  // }
+  .post-list-item-header {
     width: 100%;
-    height: 100%;
+    background: $light;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(
-  0deg,
-  rgba(255,255,255,0.0)40%,
-  rgba(0,0,0,0.4) 40%,
-  rgba(0,0,0,0.4) 60%,
-  rgba(255,255,255,0.0) 60%,
-  rgba(255,255,255,0.0) 100%
-  );
-    .retriction-label {
-  
-        z-index: 100;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        padding-left: 16px;
-        padding-right: 16px;
-        color: white;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        will-change: transform;
-        transition: 420ms;
-        &:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
+    flex-direction: row;
+    background: $light;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    .post-list-item-username {
+      font-weight: bold;
+      text-align: left;
+      align-self: flex-end;
+      margin-right: auto;
+    }
+
+    .post-list-item-options-btn {
+      font-size: 4px;
+      margin-left: auto;
+      margin-top: auto;
+      margin-bottom: auto;
+
+      .elipse {
+        margin-left: 2px;
+      }
     }
   }
-    .post-list-item {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      // margin-bottom: 10px;
-      background: #000;
-      img {
-        width: calc(100vw / 3);
-        height: calc(100vh / 3);
-        object-fit: cover;
-        padding-bottom: 1px;
-        padding-right: 1px;
-      }
-      .fullscreen {
-        width: calc(100vw);
-        height: calc(100vh - 48px);
-      }
-      // img:nth-child(3n+0) {
-      //   filter: blur(20px);
-      //   padding-right: 0px;
-      //   padding-left: 1px;
-      // }
-      .post-list-item-header {
-        width: 100%;
-        background: $light;
-        display: flex;
-        flex-direction: row;
-        background: $light;
-        padding-left: 16px;
-        padding-right: 16px;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        .post-list-item-username {
-          font-weight: bold;
-          text-align: left;
-          align-self: flex-end;
-          margin-right: auto;
-        }
-        .post-list-item-options-btn {
-          font-size: 4px;
-          margin-left: auto;
-          margin-top: auto;
-          margin-bottom: auto;
-          .elipse {
-            margin-left: 2px;
-          }
-        }
-      }
-      .post-list-item-body {
-        background: $light;
-        padding-left: 16px;
-        padding-right: 16px;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        .post-list-item-title {
-          text-align: left;
-        }
-      }
+
+  .post-list-item-body {
+    background: $light;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    .post-list-item-title {
+      text-align: left;
     }
+  }
+}

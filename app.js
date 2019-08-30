@@ -24,8 +24,12 @@ app.use(cors());
 // app.use(compression());
 
 // Body Parser Middleware
-app.use(bodyParser.urlencoded({ extended: "true" }));
-app.use(bodyParser.json({ limit: 5 * 1024 * 2014 }));
+app.use(bodyParser.urlencoded({
+  extended: "true"
+}));
+app.use(bodyParser.json({
+  limit: 5 * 1024 * 2014
+}));
 
 //Passport Middleware
 app.use(passport.initialize());

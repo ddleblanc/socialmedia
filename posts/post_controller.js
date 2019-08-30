@@ -16,7 +16,9 @@ async function getAllPosts() {
  * @param {string} id A Post's id
  */
 async function getPostById(id) {
-  const query = { _id: id };
+  const query = {
+    _id: id
+  };
   return await Post.findOne(query).populate({
     path: 'comments',
     populate: {
@@ -24,8 +26,7 @@ async function getPostById(id) {
       model: 'User',
       select: 'username avatar'
     }
-  }
-  ).populate({
+  }).populate({
     path: 'user',
     select: 'username avatar'
   })
@@ -59,7 +60,9 @@ async function removeLike(postId, userId) {
 }
 
 async function deletePost(id) {
-  const query = { _id: id };
+  const query = {
+    _id: id
+  };
   return await Post.findByIdAndRemove(query)
 }
 

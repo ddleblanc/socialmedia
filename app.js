@@ -1,18 +1,16 @@
 const express = require("express");
+const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
 const db = require("./db/index");
-
+const users = require("./server/users/user_routes");
+const auth = require("./server/auth/auth_routes");
+const posts = require("./server/posts/post_routes");
+const comments = require("./server/comments/comment_routes");
+const compression = require('compression');
 process.setMaxListeners(0);
-
-const app = express();
-
-const users = require("./users/user_routes");
-const auth = require("./auth/auth_routes");
-const posts = require("./posts/post_routes");
-const comments = require("./comments/comment_routes");
 
 // Port Number
 const PORT = 3000;
@@ -21,7 +19,7 @@ const PORT = 3000;
 app.use(cors());
 
 // https://expressjs.com/en/advanced/best-practice-performance.html
-// app.use(compression());
+app.use(compression());
 
 // Body Parser Middleware
 app.use(bodyParser.urlencoded({
@@ -44,7 +42,6 @@ app.use("/api/v1/posts", posts);
 app.use("/api/v1/comments", comments)
 app.use(express.static(path.join(__dirname, "public")));
 app.get("*", (req, res) => {
-  console.log("gettingg");
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 

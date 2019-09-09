@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../users/user_model");
-const config = require("../config/database");
+const config = require("../../config/database");
 
 module.exports = {
   authenticate
@@ -11,7 +11,9 @@ module.exports = {
  * @param {object} user Somebody's email and password
  */
 async function authenticate(user) {
-  const query = { username: user.username };
+  const query = {
+    username: user.username
+  };
   const password = user.password;
   const fetchedUser = await User.findOne(query).select(
     "username email _id hashedPassword"

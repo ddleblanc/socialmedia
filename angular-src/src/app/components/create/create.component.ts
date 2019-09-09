@@ -94,20 +94,11 @@ export class CreateComponent implements OnInit {
     fd.append("photo", this.photo, this.photo.name);
     fd.append("post", JSON.stringify(post));
 
-    // console.log(post)
-    // Required fields
-    // if (!this.validateService.validatePost(post)) {
-    //   // this.flashMessage.show('Please fill in all fields', { cssClass: 'alert-danger', timeout: 3000 });
-    //   console.log("Fill in all fields");
-    //   return false;
-    // } else {
-    //Post post
     this.postService.addPost(fd).subscribe(data => {
       this.data = data;
       if (this.data.success) {
         this.postService.setCurrentPostUrl(this.data.createdPost.photo);
         this.router.navigate(["post", this.data.createdPost._id]);
-        // this.flashMessage.show('Posted', {cssClass: 'alert-success', timeout: 3000});
         // this.router.navigate(['/'])
       } else {
         // this.router.navigate(['/'])
@@ -115,7 +106,6 @@ export class CreateComponent implements OnInit {
         console.log("failed");
       }
     });
-    // }
   }
   async classifyImg() {
     this.classifying = true;
@@ -127,13 +117,13 @@ export class CreateComponent implements OnInit {
     // Classify the image
     const predictions = await model.classify(img, 2);
     console.log("Predictions: ", predictions);
-    let res = Math.max.apply(
+    let maxProbability = Math.max.apply(
       Math,
       predictions.map(function(prediction) {
         return prediction.probability;
       })
     );
-    let prediction = predictions.find(p => p.probability === res);
+    let prediction = predictions.find(p => p.probability === maxProbability);
     if (prediction.className == "Porn") {
       this.ageRestriction = true;
     } else {

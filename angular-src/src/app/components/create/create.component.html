@@ -5,13 +5,11 @@
   <i class=" fas fa-arrow-left back-btn" (click)="onBackClicked()"></i>
   <label for="file-input" class="img-input" (swiperight)="onBackClicked()">
     <img class="img-placeholder" *ngIf="!url" src="../../../assets/Placeholder-01.jpg" alt="" />
-    <!-- <img *ngIf="url" [@enterAnimation] [src]="url" alt="" id="img" (load)="classifyImg()" /> -->
     <img *ngIf="url" [@enterAnimation] [src]="url" alt="" id="img" (load)="classifyImg()" alt=""
       class="post-list-item-img" [ngClass]="{'blurred': ageRestriction}" />
     <!-- Could've set input to display:none and used a local reference #img-input in the img's click event like (click)="img-input.click()"-->
     <input id="file-input" type="file" name="avatar" accept="image/x-png,image/gif,image/jpeg"
       (change)="onFileSelected($event)" style="display: none;" #fileInput />
-
   </label>
   <input *ngIf="!ageRestriction" (keydown.enter)="onPostSubmit()" [@bottomNavEnterAnimation]
     [ngClass]="{'appeal': ageRestriction}" type="text" class="title-input" placeholder="Give this shot a title.."
@@ -29,7 +27,6 @@
         </g>
       </g>
     </svg>
-
   </div>
   <div *ngIf="ageRestriction" class="restriction-links">
     <a [@bottomNavEnterAnimation] class="">Read the guidelines</a>

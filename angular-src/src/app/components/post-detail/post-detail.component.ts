@@ -1,26 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Post } from 'src/app/models/post.model';
-import { PostService } from 'src/app/services/post.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Post } from "src/app/models/post.model";
+import { PostService } from "src/app/services/post.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { trigger, transition, style, animate } from "@angular/animations";
 import { Location } from "@angular/common";
-import { User } from 'src/app/models/user.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { FollowService } from 'src/app/services/follow.service';
-import { environment } from '../../../environments/environment';
+import { User } from "src/app/models/user.model";
+import { AuthService } from "src/app/services/auth.service";
+import { FollowService } from "src/app/services/follow.service";
+import { environment } from "../../../environments/environment";
 
 @Component({
-  selector: 'app-post-detail',
-  templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.scss'],
+  selector: "app-post-detail",
+  templateUrl: "./post-detail.component.html",
+  styleUrls: ["./post-detail.component.scss"],
   animations: [
     trigger("enterAnimation", [
       transition(":enter", [
         style({ opacity: 0 }),
-        animate(
-          "320ms ease-in-out",
-          style({ opacity: 1 })
-        )
+        animate("320ms ease-in-out", style({ opacity: 1 }))
       ]),
       transition(":leave", [
         style({ opacity: 1 }),
@@ -43,10 +40,7 @@ import { environment } from '../../../environments/environment';
     trigger("commentSectionAnimation", [
       transition(":enter", [
         style({ height: "0%" }),
-        animate(
-          "320ms ease-in-out",
-          style({ height: "calc(50% - 48px)" })
-        )
+        animate("320ms ease-in-out", style({ height: "calc(50% - 48px)" }))
       ]),
       transition(":leave", [
         style({ height: "calc(50% - 48px)" }),
@@ -56,16 +50,14 @@ import { environment } from '../../../environments/environment';
     trigger("buttonsAnimation", [
       transition(":enter", [
         style({ opacity: 0 }),
-        animate(
-          "320ms ease-in-out",
-          style({ opacity: 1 })
-        )
+        animate("320ms ease-in-out", style({ opacity: 1 }))
       ]),
       transition(":leave", [
         style({ opacity: 1 }),
         animate("100ms", style({ opacity: 0 }))
       ])
-    ])]
+    ])
+  ]
 })
 export class PostDetailComponent implements OnInit {
   data;
@@ -81,18 +73,25 @@ export class PostDetailComponent implements OnInit {
   backBtnClicked = false;
   @ViewChild("commentInput", { read: ElementRef }) commentInput: ElementRef;
 
-  constructor(private followService: FollowService, private postService: PostService, private router: Router, private route: ActivatedRoute, private _location: Location, private authService: AuthService) {
-
-  }
+  constructor(
+    private followService: FollowService,
+    private postService: PostService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private _location: Location,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => { this.postId = params._id })
-    console.log()
-    this.getPost()
+    this.route.params.subscribe(params => {
+      this.postId = params._id;
+    });
+    console.log();
+    this.getPost();
     let user = JSON.parse(localStorage.getItem("user"));
     this.authService.getUserByUsername(user.name).subscribe(data => {
       this.user = data.user;
-      console.log(this.user)
+      console.log(this.user);
       this.user.avatar = `${environment.pathToPhotos}${data.user.avatar}`;
       // console.log(data)
       if (data.user.posts.length > 0) {
@@ -103,22 +102,20 @@ export class PostDetailComponent implements OnInit {
 
       console.log(`user: ${this.user.email}`);
     });
-
   }
 
   toggleMenu() {
     this.commentSectionOpen = false;
-    this.isMenuOpen = !this.isMenuOpen
+    this.isMenuOpen = !this.isMenuOpen;
     this.confirmingDeletion = false;
   }
 
   onBackClicked() {
     if (this.isMenuOpen) {
-      this.toggleMenu()
+      this.toggleMenu();
     } else {
       this._location.back();
     }
-
   }
 
   onDelete() {
@@ -127,88 +124,90 @@ export class PostDetailComponent implements OnInit {
       if (data.success) {
         this.deleted = true;
         setTimeout(() => {
-          this.router.navigate(['/account/posts'])
-        }, 1200)
+          this.router.navigate(["/account/posts"]);
+        }, 1200);
       }
-    })
+    });
   }
 
   swipeUp() {
     if (!this.isMenuOpen) {
-      this.openCommentSection()
+      this.openCommentSection();
     } else if (this.isMenuOpen) {
-      this.onDelete()
+      this.onDelete();
     }
   }
   swipeDown() {
     if (!this.isMenuOpen) {
-      this.closeCommentSection()
+      this.closeCommentSection();
     } else if (this.isMenuOpen && this.confirmingDeletion) {
       this.confirmingDeletion = false;
-
     } else if (this.isMenuOpen && !this.confirmingDeletion) {
-      this.toggleMenu()
+      this.toggleMenu();
     }
   }
   openCommentSection() {
-    document.getElementById('detail-component-container').classList.remove('hammered');
+    document
+      .getElementById("detail-component-container")
+      .classList.remove("hammered");
     this.commentSectionOpen = true;
     setTimeout(() => {
-      this.commentInput.nativeElement.placeholder = 'Leave a comment..';
-    }, 220)
+      this.commentInput.nativeElement.placeholder = "Leave a comment..";
+    }, 220);
   }
   closeCommentSection() {
     this.commentSectionOpen = false;
     setTimeout(() => {
-      this.commentInput.nativeElement.placeholder = 'Say something if you like it..';
-    }, 120)
-
+      this.commentInput.nativeElement.placeholder =
+        "Say something if you like it..";
+    }, 120);
   }
 
   onSendComment() {
     if (this.commentInput.nativeElement.value != "") {
-      let commentObj = { commentData: { comment: this.comment, user: this.user._id } }
-      this.postService.addCommentToPost(this.post._id, commentObj).subscribe(data => {
-        this.data = data;
-        if (this.data.success) {
-          this.commentInput.nativeElement.value = "";
-          this.ngOnInit()
-        } else {
-          // this.router.navigate(['/'])
-          console.log("failed");
-        }
-      });
+      let commentObj = {
+        commentData: { comment: this.comment, user: this.user._id }
+      };
+      this.postService
+        .addCommentToPost(this.post._id, commentObj)
+        .subscribe(data => {
+          this.data = data;
+          if (this.data.success) {
+            this.commentInput.nativeElement.value = "";
+            this.ngOnInit();
+          } else {
+            // this.router.navigate(['/'])
+            console.log("failed");
+          }
+        });
     }
   }
 
   async getPost() {
-    this.data = await this.postService.getPost(
-      this.postId
-    )
+    this.data = await this.postService.getPost(this.postId);
     if (this.data.success) {
       this.data.post.photo = `${environment.pathToPhotos}${this.data.post.photo}`;
       this.post = this.data.post;
-      console.log(this.post)
+      console.log(this.post);
       if (this.post.likes != undefined) {
         this.likes = this.post.likes;
       }
-    }
-    else if (!this.data.success) {
-      console.log("hierdoor doet ie het niet" + this.data.msg)
+    } else if (!this.data.success) {
+      console.log("hierdoor doet ie het niet" + this.data.msg);
       // this.router.navigate(['/'])
     }
-    console.log(this.post)
+    console.log(this.post);
   }
 
   onLike(event) {
     let postId = this.post._id;
-    let userId = { userId: this.user._id }
-    console.log(this.user)
+    let userId = { userId: this.user._id };
+    console.log(this.user);
 
     if (!this.post.likes.includes(this.user._id)) {
-      this.post.likes = [...this.post.likes, this.user._id]
-      event.target.classList.remove('far');
-      event.target.classList.add('fas');
+      this.post.likes = [...this.post.likes, this.user._id];
+      event.target.classList.remove("far");
+      event.target.classList.add("fas");
       this.postService.addLikeToPost(postId, userId).subscribe(data => {
         this.data = data;
         if (this.data.success) {
@@ -221,8 +220,8 @@ export class PostDetailComponent implements OnInit {
     } else {
       let index = this.post.likes.indexOf(this.user._id);
       if (index !== -1) this.post.likes.splice(index, 1);
-      event.target.classList.remove('fas');
-      event.target.classList.add('far');
+      event.target.classList.remove("fas");
+      event.target.classList.add("far");
       this.postService.removeLikeFromPost(postId, userId).subscribe(data => {
         this.data = data;
         if (this.data.success) {
@@ -233,14 +232,9 @@ export class PostDetailComponent implements OnInit {
         }
       });
     }
-
-
-
-
   }
 
   onUserSelected(username) {
-    this.router.navigate(['user', username]), { relativeTo: this.route }
+    this.router.navigate(["user", username]), { relativeTo: this.route };
   }
-
 }

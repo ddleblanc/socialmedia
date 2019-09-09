@@ -1,8 +1,10 @@
 $light: #fff;
+
 p {
   font-weight: bold;
   color: rgb(14, 14, 14);
 }
+
 .home-container {
   position: absolute;
   top: 0;
@@ -11,8 +13,6 @@ p {
   width: 100%;
   overflow: scroll;
   background: #000;
-
-  
 }
 
 .top-buttons-container {
@@ -24,6 +24,7 @@ p {
   height: 48px;
   display: flex;
   flex-direction: row;
+
   button {
     width: 50%;
   }

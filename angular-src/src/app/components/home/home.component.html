@@ -1,8 +1,4 @@
 <div [@enterAnimation] class="home-container">
-  <!-- <div class="top-buttons-container">
-    <button class="posts-btn">POSTS</button>
-    <button class="users-btn">USERS</button>
-  </div> -->
   <ng-container *ngIf="posts$ | async as posts; else error">
     <app-post-list [posts]="posts"></app-post-list>
   </ng-container>

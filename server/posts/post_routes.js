@@ -3,6 +3,7 @@ const passport = require("passport");
 const asyncHandler = require("express-async-handler");
 const userCtrl = require("../users/user_controller");
 const postCtrl = require("./post_controller");
+const multerUpload = require("../../config/multer").upload;
 
 const router = express.Router();
 
@@ -21,11 +22,6 @@ router
   .post(asyncHandler(addLike))
   .put(asyncHandler(removeLike))
 
-
-// FUNCTIONS
-
-const multerUpload = require("../config/multer").upload;
-
 // Add Post to user
 router.post("", (req, res, next) => {
   multerUpload(req, res, err => {
@@ -34,7 +30,10 @@ router.post("", (req, res, next) => {
     } else {
       async function uploading() {
         let postData = JSON.parse(req.body.post);
-        postDataWithPhoto = { ...postData, photo: req.file.filename };
+        postDataWithPhoto = {
+          ...postData,
+          photo: req.file.filename
+        };
         createdPost = await postCtrl
           .createPost(postDataWithPhoto)
           .catch(function (err) {
@@ -74,10 +73,17 @@ async function getPostById(req, res) {
   let post = await postCtrl.getPostById(_id);
   if (post == null) {
     console.log("no post found");
-    res.json({ success: false, msg: "No such post" });
+    res.json({
+      success: false,
+      msg: "No such post"
+    });
   } else {
     console.log("user found");
-    res.json({ success: true, msg: "Post found", post: post });
+    res.json({
+      success: true,
+      msg: "Post found",
+      post: post
+    });
   }
 }
 
@@ -98,7 +104,11 @@ async function addComment(req, res) {
   //     res.status(500).json(err);
   //   }
   // });
-  res.json({ success: true, msg: "Comment added", comment });
+  res.json({
+    success: true,
+    msg: "Comment added",
+    comment
+  });
 }
 
 
@@ -114,7 +124,11 @@ async function addLike(req, res) {
   //         res.status(500).json(err);
   //     }
   // });
-  res.json({ success: true, msg: "Like added", like });
+  res.json({
+    success: true,
+    msg: "Like added",
+    like
+  });
 }
 
 async function removeLike(req, res) {
@@ -128,13 +142,20 @@ async function removeLike(req, res) {
   //         res.status(500).json(err);
   //     }
   // });
-  res.json({ success: true, msg: "Like removed", like });
+  res.json({
+    success: true,
+    msg: "Like removed",
+    like
+  });
 }
 
 async function deletePostById(req, res) {
   let _id = req.params._id
   await postCtrl.deletePost(_id)
-  res.json({ success: true, msg: "Comment deleted" });
+  res.json({
+    success: true,
+    msg: "Comment deleted"
+  });
 }
 
 module.exports = router;
